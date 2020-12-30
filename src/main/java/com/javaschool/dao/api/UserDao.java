@@ -1,4 +1,4 @@
-package com.javaschool.dao;
+package com.javaschool.dao.api;
 
 import com.javaschool.entity.User;
 

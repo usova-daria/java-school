@@ -1,4 +1,4 @@
-package com.javaschool.service;
+package com.javaschool.service.api;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
