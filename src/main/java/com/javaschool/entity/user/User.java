@@ -1,6 +1,13 @@
-package com.javaschool.entity;
+package com.javaschool.entity.user;
+
+import com.javaschool.entity.address.Address;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,33 +17,48 @@ import java.util.List;
         name = "findUserWithEmail",
         query = "SELECT u from User u where u.email = :userEmail"
 )
+@Data
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long id;
+    private Long id;
 
     @Column(name = "first_name")
+    @Size(min = 1, max = 45)
+    @NotNull
     private String firstName;
 
     @Column(name = "last_name")
+    @Size(min = 1, max = 45)
+    @NotNull
     private String lastName;
 
     @Column(name = "email")
+    @NotNull
+    @Email
     private String email;
 
     @Column(name = "password")
+    @Size(max = 80)
+    @NotNull
     private String password;
 
     @Column(name = "birthday")
+    @NotNull
     private LocalDate birthday;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_info_id", referencedColumnName = "customer_info_id")
     private CustomerInfo customerInfo;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE,
+                       CascadeType.PERSIST, CascadeType.REFRESH}
+    )
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -44,7 +66,11 @@ public class User {
     )
     private List<Role> roles;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE,
+                       CascadeType.PERSIST, CascadeType.REFRESH}
+    )
     @JoinTable(
             name = "customer_has_address",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -52,75 +78,19 @@ public class User {
     )
     private List<Address> addresses;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
+    public User(@Size(min = 1, max = 45) @NotNull String firstName,
+                @Size(min = 1, max = 45) @NotNull String lastName,
+                @NotNull @Email String email,
+                @Size(max = 80) @NotNull String password,
+                @NotNull LocalDate birthday,
+                CustomerInfo customerInfo) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
-    }
-
-    public CustomerInfo getCustomerInfo() {
-        return customerInfo;
-    }
-
-    public void setCustomerInfo(CustomerInfo customerInfo) {
         this.customerInfo = customerInfo;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
 }
