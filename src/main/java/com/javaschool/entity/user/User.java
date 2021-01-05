@@ -1,8 +1,7 @@
 package com.javaschool.entity.user;
 
 import com.javaschool.entity.address.Address;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,6 +18,9 @@ import java.util.List;
 )
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class User {
 
     @Id
@@ -66,11 +68,7 @@ public class User {
     )
     private List<Role> roles;
 
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE,
-                       CascadeType.PERSIST, CascadeType.REFRESH}
-    )
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_has_address",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -78,19 +76,13 @@ public class User {
     )
     private List<Address> addresses;
 
-    public User(@Size(min = 1, max = 45) @NotNull String firstName,
-                @Size(min = 1, max = 45) @NotNull String lastName,
-                @NotNull @Email String email,
-                @Size(max = 80) @NotNull String password,
-                @NotNull LocalDate birthday,
-                CustomerInfo customerInfo) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.birthday = birthday;
-        this.customerInfo = customerInfo;
-    }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "customer_has_order",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+    private List<Address> orders;
 
 
 }
