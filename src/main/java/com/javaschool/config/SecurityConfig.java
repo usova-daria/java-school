@@ -1,6 +1,6 @@
 package com.javaschool.config;
 
-import com.javaschool.service.UserService;
+import com.javaschool.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

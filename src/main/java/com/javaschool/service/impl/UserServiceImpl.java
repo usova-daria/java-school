@@ -1,8 +1,9 @@
-package com.javaschool.service;
+package com.javaschool.service.impl;
 
-import com.javaschool.dao.UserDao;
+import com.javaschool.dao.api.UserDao;
 import com.javaschool.entity.Role;
 import com.javaschool.entity.User;
+import com.javaschool.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,5 +1,6 @@
-package com.javaschool.dao;
+package com.javaschool.dao.impl;
 
+import com.javaschool.dao.api.UserDao;
 import com.javaschool.entity.User;
 import org.springframework.stereotype.Repository;
 
