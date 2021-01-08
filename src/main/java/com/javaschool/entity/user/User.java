@@ -12,10 +12,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@NamedQuery(
-        name = "findUserWithEmail",
-        query = "SELECT u from User u where u.email = :userEmail"
-)
+@NamedQueries({
+        @NamedQuery(name = "User.findByEmail",
+                query = "SELECT u from User u where u.email = :userEmail"),
+        @NamedQuery(name = "User.findAndSortByNumberOfOrders",
+                query = "select u from User u left join u.orders o group by u.id order by count(u.id) DESC"
+        )
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

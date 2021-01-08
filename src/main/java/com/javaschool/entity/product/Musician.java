@@ -18,15 +18,10 @@ public class Musician {
     @Column(name = "musician_id")
     private Integer id;
 
-    @Column(name = "first_name")
-    @Size(min = 1, max = 45)
+    @Column(name = "name")
+    @Size(min = 1, max = 80)
     @NotNull
-    private String firstName;
-
-    @Column(name = "last_name")
-    @Size(min = 1, max = 45)
-    @NotNull
-    private String lastName;
+    private String name;
 
     @ManyToMany(
             fetch = FetchType.LAZY,

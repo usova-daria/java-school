@@ -1,6 +1,9 @@
 package com.javaschool.entity.product;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -9,8 +12,19 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "product")
+@NamedQueries({
+        @NamedQuery(name = "Product.findAndSortBySalesVolume",
+                query = "SELECT oi.product from OrderItem oi group by oi.product order by sum(oi.amount) DESC"),
+        @NamedQuery(name = "Product.findByNameContaining",
+                query = "SELECT p from Product p where lower(p.name) like lower(concat('%', :name, '%'))"),
+        @NamedQuery(name = "Product.findByDeletedFalse",
+                    query = "SELECT p from Product p where p.deleted = false")
+})
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Product {
 
     @Id
