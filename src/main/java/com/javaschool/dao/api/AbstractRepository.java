@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface AbstractDao<T, ID> {
+public interface AbstractRepository<T, ID> {
 
     T save(T t);
 

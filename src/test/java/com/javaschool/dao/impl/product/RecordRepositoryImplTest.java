@@ -1,8 +1,8 @@
 package com.javaschool.dao.impl.product;
 
 import com.javaschool.config.JpaConfig;
-import com.javaschool.dao.api.product.GenreDao;
-import com.javaschool.dao.api.product.RecordDao;
+import com.javaschool.dao.api.product.GenreRepository;
+import com.javaschool.dao.api.product.RecordRepository;
 import com.javaschool.entity.product.Genre;
 import com.javaschool.entity.product.Record;
 import org.junit.Before;
@@ -22,13 +22,13 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JpaConfig.class})
 @Transactional
-public class RecordDaoImplTest {
+public class RecordRepositoryImplTest {
 
     @Autowired
-    private RecordDao recordDao;
+    private RecordRepository recordRepository;
 
     @Autowired
-    private GenreDao genreDao;
+    private GenreRepository genreRepository;
 
     private List<Record> records = new ArrayList<>();
     private Genre jazz;
@@ -65,18 +65,18 @@ public class RecordDaoImplTest {
                 .deleted(false)
                 .build();
 
-        genreDao.save(jazz);
-        genreDao.save(rock);
+        genreRepository.save(jazz);
+        genreRepository.save(rock);
 
         records.add(record1);
         records.add(record2);
         records.add(record3);
-        recordDao.saveAll(records);
+        recordRepository.saveAll(records);
     }
 
     @Test
     public void findByGenre() {
-        List<Record> jazzRecords = recordDao.findByGenre(jazz);
+        List<Record> jazzRecords = recordRepository.findByGenre(jazz);
 
         String expectedGenreName = jazz.getName();
         jazzRecords.forEach(r -> assertEquals(expectedGenreName, r.getGenre().getName()));
@@ -84,7 +84,7 @@ public class RecordDaoImplTest {
 
     @Test
     public void findAllByGenreAndDeletedFalse() {
-        List<Record> records = recordDao.findByGenreAndDeletedFalse(jazz);
+        List<Record> records = recordRepository.findByGenreAndDeletedFalse(jazz);
 
         String expectedGenreName = jazz.getName();
         records.forEach(r -> assertFalse(r.isDeleted()));

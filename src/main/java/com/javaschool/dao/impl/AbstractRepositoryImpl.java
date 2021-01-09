@@ -1,6 +1,6 @@
 package com.javaschool.dao.impl;
 
-import com.javaschool.dao.api.AbstractDao;
+import com.javaschool.dao.api.AbstractRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,14 +9,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractDaoImpl<T, ID> implements AbstractDao<T, ID> {
+public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepository<T, ID> {
 
     private Class<T> tClass;
 
     @PersistenceContext
     protected EntityManager entityManager;
 
-    public AbstractDaoImpl(Class<T> tClass) {
+    public AbstractRepositoryImpl(Class<T> tClass) {
         this.tClass = tClass;
     }
 

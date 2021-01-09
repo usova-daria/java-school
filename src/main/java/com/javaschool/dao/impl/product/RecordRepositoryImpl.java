@@ -1,7 +1,7 @@
 package com.javaschool.dao.impl.product;
 
-import com.javaschool.dao.api.product.RecordDao;
-import com.javaschool.dao.impl.AbstractDaoImpl;
+import com.javaschool.dao.api.product.RecordRepository;
+import com.javaschool.dao.impl.AbstractRepositoryImpl;
 import com.javaschool.entity.product.Genre;
 import com.javaschool.entity.product.Record;
 import org.springframework.stereotype.Repository;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RecordDaoImpl extends AbstractDaoImpl<Record, Long> implements RecordDao {
+public class RecordRepositoryImpl extends AbstractRepositoryImpl<Record, Long> implements RecordRepository {
 
-    public RecordDaoImpl() {
+    public RecordRepositoryImpl() {
         super(Record.class);
     }
 

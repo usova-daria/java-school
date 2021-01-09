@@ -1,7 +1,8 @@
 package com.javaschool.dao.impl.user;
 
-import com.javaschool.dao.api.user.UserDao;
-import com.javaschool.dao.impl.AbstractDaoImpl;
+import com.javaschool.dao.api.user.UserRepository;
+import com.javaschool.dao.impl.AbstractRepositoryImpl;
+import com.javaschool.domainlogic.admin.stats.dto.CustomerData;
 import com.javaschool.entity.user.User;
 import org.springframework.stereotype.Repository;
 
@@ -10,9 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserDaoImpl extends AbstractDaoImpl<User, Long> implements UserDao {
+public class UserRepositoryImpl extends AbstractRepositoryImpl<User, Long> implements UserRepository {
 
-    public UserDaoImpl() {
+    public UserRepositoryImpl() {
         super(User.class);
     }
 
@@ -30,9 +31,10 @@ public class UserDaoImpl extends AbstractDaoImpl<User, Long> implements UserDao 
         return Optional.ofNullable(user);
     }
 
+
     @Override
-    public List<User> findTopCustomersByNumberOfOrders(int resultSize) {
-        return entityManager.createNamedQuery("User.findAndSortByNumberOfOrders", User.class)
+    public List<CustomerData> findTopCustomersByNumberOfOrders(int resultSize) {
+        return entityManager.createNamedQuery("User.findAndSortByNumberOfOrders", CustomerData.class)
                 .setMaxResults(resultSize)
                 .getResultList();
     }
