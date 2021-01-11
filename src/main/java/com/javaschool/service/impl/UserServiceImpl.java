@@ -1,8 +1,8 @@
 package com.javaschool.service.impl;
 
-import com.javaschool.dao.api.UserDao;
-import com.javaschool.entity.Role;
-import com.javaschool.entity.User;
+import com.javaschool.dao.api.user.UserDao;
+import com.javaschool.entity.user.Role;
+import com.javaschool.entity.user.User;
 import com.javaschool.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,11 +24,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userDao.findByEmail(email);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
+        User user = userDao.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Invalid username or password."));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles())
