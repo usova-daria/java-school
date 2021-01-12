@@ -16,8 +16,9 @@ import java.util.List;
         @NamedQuery(name = "User.findByEmail",
                 query = "SELECT u from User u where u.email = :userEmail"),
         @NamedQuery(name = "User.findAndSortByNumberOfOrders",
-                query = "select u from User u left join u.orders o group by u.id order by count(u.id) DESC"
-        )
+                    query = "SELECT new " +
+                            "com.javaschool.domainlogic.admin.stats.dto.CustomerData(u.firstName, u.lastName, u.email, count(u.id))" +
+                            "from User u left join u.orders o group by u.id order by count(u.id) DESC")
 })
 @Data
 @NoArgsConstructor
