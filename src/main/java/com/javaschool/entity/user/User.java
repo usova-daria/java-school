@@ -24,6 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
+@EqualsAndHashCode(of = {"id"})
 public class User {
 
     @Id

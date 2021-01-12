@@ -3,6 +3,7 @@ package com.javaschool.entity.order;
 import com.javaschool.entity.order.enumeration.PaymentMethod;
 import com.javaschool.entity.order.enumeration.PaymentStatus;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 )
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class PaymentDetails implements Serializable {
 
     @Id

@@ -1,6 +1,7 @@
 package com.javaschool.entity.user;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "role")
 @Data
+@EqualsAndHashCode(of = {"id"})
 public class Role {
 
     @Id

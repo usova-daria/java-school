@@ -3,6 +3,7 @@ package com.javaschool.entity.order;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.order.enumeration.OrderStatus;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "order")
 @Data
+@EqualsAndHashCode(of = {"id"})
 public class Order {
 
     @Id
