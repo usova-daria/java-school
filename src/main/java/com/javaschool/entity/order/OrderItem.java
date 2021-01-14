@@ -3,6 +3,7 @@ package com.javaschool.entity.order;
 import com.javaschool.entity.product.Product;
 import com.javaschool.entity.order.id.OrderItemId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "order_item")
 @Data
+@EqualsAndHashCode(of = {"id"})
 public class OrderItem {
 
     @EmbeddedId

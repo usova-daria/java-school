@@ -2,6 +2,7 @@ package com.javaschool.entity.product;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "musician")
 @Data
+@EqualsAndHashCode(of = {"id"})
 public class Musician {
 
     @Id

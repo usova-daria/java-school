@@ -1,6 +1,7 @@
 package com.javaschool.entity.address;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "country")
 @Data
+@EqualsAndHashCode(of = {"id"})
 public class Country {
 
     @Id

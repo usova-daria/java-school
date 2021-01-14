@@ -3,6 +3,7 @@ package com.javaschool.entity.order;
 import com.javaschool.entity.order.enumeration.PaymentMethod;
 import com.javaschool.entity.order.enumeration.PaymentStatus;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,11 +13,16 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "payment_details")
-@NamedQuery(name = "PaymentDetails.findTotalAmountByPaymentDateAfter",
-        query = "SELECT sum(pd.amount) from PaymentDetails pd where pd.paymentDate >= :date"
-)
+@NamedQueries({
+        @NamedQuery(name = "PaymentDetails.findTotalAmountByPaymentDateBetween",
+                query = "SELECT coalesce(sum(pd.amount), 0) from PaymentDetails pd " +
+                        "where pd.paymentDate >= :fromDate and pd.paymentDate <= :toDate"),
+        @NamedQuery(name = "PaymentDetails.findTotalAmountByPaymentDateAfter",
+                query = "SELECT coalesce(sum(pd.amount), 0) from PaymentDetails pd where pd.paymentDate >= :date")
+})
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class PaymentDetails implements Serializable {
 
     @Id
