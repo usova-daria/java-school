@@ -1,0 +1,22 @@
+.bootstrap-select .btn {
+    background-color: #FFFFFF;
+    color: #000000;
+    border-color: #cfd4da;
+}
+
+.save-button {
+    width: 120px !important;
+}
+
+#count_message {
+    margin-top: -30px;
+    margin-right: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+.error {
+    color: #741d25;
+}
