@@ -1,0 +1,9 @@
+.row-success {
+    background-color: #b3e7b3 !important;
+    transition: background-color 1s;
+}
+
+.row-error {
+    background-color: #ea9497 !important;
+    transition: background-color 1s;
+}
