@@ -43,6 +43,6 @@ public interface MusicianMapper {
      * @param musicianList musician entity list
      * @return musician dto list
      */
-    List<MusicianDto> toDTOList(List<Musician> musicianList);
+    List<MusicianDto> toDtoList(List<Musician> musicianList);
 
 }
