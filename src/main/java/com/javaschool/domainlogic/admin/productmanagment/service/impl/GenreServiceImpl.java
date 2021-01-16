@@ -23,8 +23,14 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public List<GenreDto> getGenreDtoList() {
         List<Genre> genreList = genreRepository.findAll();
-        List<GenreDto> genreDtoList = genreMapper.toDtoList(genreList);
-        return genreDtoList;
+        return genreMapper.toDtoList(genreList);
+    }
+
+    @Override
+    @Transactional
+    public List<GenreDto> getGenreDtoListOrderById() {
+        List<Genre> genreList = genreRepository.findAllOrderById();
+        return genreMapper.toDtoList(genreList);
     }
 
     @Override

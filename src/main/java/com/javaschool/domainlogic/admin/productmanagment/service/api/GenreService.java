@@ -10,7 +10,7 @@ public interface GenreService {
 
     List<GenreDto> getGenreDtoList();
 
-    void saveGenre(GenreDto genreDto);
+    List<GenreDto> getGenreDtoListOrderById();
 
     void updateGenre(GenreDto genreDto);
 
