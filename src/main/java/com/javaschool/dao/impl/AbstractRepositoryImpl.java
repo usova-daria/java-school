@@ -59,6 +59,8 @@ public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepositor
      */
     @Override
     public Optional<T> findById(ID id) {
+        if (id == null) return Optional.empty();
+
         T t = entityManager.find(tClass, id);
         return Optional.ofNullable(t);
     }
