@@ -2,7 +2,9 @@ package com.javaschool.domainlogic.admin.productmanagment.mapper;
 
 import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
 import com.javaschool.entity.product.Genre;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 
 import java.util.List;
@@ -16,6 +18,7 @@ public interface GenreMapper {
      * @param genre genre entity
      * @return genre dto
      */
+    @InheritInverseConfiguration
     GenreDto toDto(Genre genre);
 
     /**
@@ -24,6 +27,7 @@ public interface GenreMapper {
      * @param genreDto genre dto
      * @return genre entity
      */
+    @Mapping(target = "records", ignore = true)
     Genre toEntity(GenreDto genreDto);
 
     /**

@@ -4,10 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @ToString
-public class MusicianDto {
+public class MusicianDto implements Serializable {
 
     /**
      * Musician id

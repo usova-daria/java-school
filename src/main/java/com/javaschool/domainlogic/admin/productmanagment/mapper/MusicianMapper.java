@@ -18,7 +18,7 @@ public interface MusicianMapper {
      * @return musician dto
      */
     @InheritInverseConfiguration
-    MusicianDto toDTO(Musician musician);
+    MusicianDto toDto(Musician musician);
 
     /**
      * Maps musician dto to musician entity
