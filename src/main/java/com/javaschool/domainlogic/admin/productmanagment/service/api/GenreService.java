@@ -12,8 +12,14 @@ public interface GenreService {
 
     List<GenreDto> getGenreDtoListOrderById();
 
-    void updateGenre(GenreDto genreDto);
+    GenreDto saveGenre(GenreDto genreDto);
+
+    GenreDto updateGenre(GenreDto genreDto);
 
     Genre findById(Integer id);
+
+    GenreDto saveOrUpdate(GenreDto genreDto);
+
+    void deleteById(Integer id);
 
 }

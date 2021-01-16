@@ -2,11 +2,13 @@ package com.javaschool.domainlogic.admin.productmanagment.service.impl;
 
 import com.javaschool.dao.api.product.GenreRepository;
 import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
+import com.javaschool.domainlogic.admin.productmanagment.exception.GenreNotFound;
 import com.javaschool.domainlogic.admin.productmanagment.mapper.GenreMapper;
 import com.javaschool.entity.product.Genre;
 import com.javaschool.domainlogic.admin.productmanagment.service.api.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +23,7 @@ public class GenreServiceImpl implements GenreService {
     private GenreRepository genreRepository;
 
     @Override
+    @Transactional
     public List<GenreDto> getGenreDtoList() {
         List<Genre> genreList = genreRepository.findAll();
         return genreMapper.toDtoList(genreList);
@@ -34,23 +37,41 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public void saveGenre(GenreDto genreDto) {
+    @Transactional
+    public GenreDto saveGenre(GenreDto genreDto) {
         Genre genre = genreMapper.toEntity(genreDto);
-        genreRepository.save(genre);
+        genre = genreRepository.save(genre);
+        return genreMapper.toDto(genre);
     }
 
     @Override
-    public void updateGenre(GenreDto genreDto) {
-        Optional<Genre> genre = genreRepository.findById(genreDto.getId());
+    @Transactional
+    public GenreDto updateGenre(GenreDto genreDto) {
+        Genre genre = findById(genreDto.getId());
 
-        genre.ifPresent(g -> {
-            g.setName(genreDto.getName());
-            genreRepository.update(g);
-        });
+        genre.setName(genreDto.getName());
+        genre = genreRepository.update(genre);
+        return genreMapper.toDto(genre);
     }
 
     @Override
+    @Transactional
     public Genre findById(Integer id) {
-        return genreRepository.findById(id).orElse(null);
+        return genreRepository.findById(id).orElseThrow(GenreNotFound::new);
     }
+
+    @Override
+    @Transactional
+    public GenreDto saveOrUpdate(GenreDto genreDto) {
+        Optional<Genre> genreOptional = genreRepository.findById(genreDto.getId());
+        return genreOptional.map(o -> updateGenre(genreDto))
+                     .orElseGet(() -> saveGenre(genreDto));
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Integer id) {
+        genreRepository.deleteById(id);
+    }
+
 }
