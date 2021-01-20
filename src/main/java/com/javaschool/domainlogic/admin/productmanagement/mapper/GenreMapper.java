@@ -1,6 +1,6 @@
-package com.javaschool.domainlogic.admin.productmanagment.mapper;
+package com.javaschool.domainlogic.admin.productmanagement.mapper;
 
-import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
 import com.javaschool.entity.product.Genre;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.admin.productmanagment.dto;
+package com.javaschool.domainlogic.admin.productmanagement.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

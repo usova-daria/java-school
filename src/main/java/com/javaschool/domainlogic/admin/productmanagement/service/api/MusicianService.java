@@ -1,6 +1,6 @@
-package com.javaschool.domainlogic.admin.productmanagment.service.api;
+package com.javaschool.domainlogic.admin.productmanagement.service.api;
 
-import com.javaschool.domainlogic.admin.productmanagment.dto.MusicianDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
 import com.javaschool.entity.product.Musician;
 
 import java.util.List;

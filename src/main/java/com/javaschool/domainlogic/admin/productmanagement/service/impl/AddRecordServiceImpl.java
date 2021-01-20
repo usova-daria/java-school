@@ -1,21 +1,23 @@
-package com.javaschool.domainlogic.admin.productmanagment.service.impl;
+package com.javaschool.domainlogic.admin.productmanagement.service.impl;
 
 import com.javaschool.dao.api.product.RecordRepository;
-import com.javaschool.domainlogic.admin.productmanagment.dto.AddRecordDto;
-import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
-import com.javaschool.domainlogic.admin.productmanagment.dto.MusicianDto;
-import com.javaschool.domainlogic.admin.productmanagment.mapper.AddRecordMapper;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.AddRecordService;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.GenreService;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.MusicianService;
+import com.javaschool.domainlogic.admin.productmanagement.dto.AddRecordDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
+import com.javaschool.domainlogic.admin.productmanagement.mapper.AddRecordMapper;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.AddRecordService;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.MusicianService;
 import com.javaschool.entity.product.Record;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Log4j
 public class AddRecordServiceImpl implements AddRecordService {
 
     @Autowired

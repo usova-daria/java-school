@@ -1,10 +1,9 @@
-package com.javaschool.domainlogic.admin.productmanagment.service.api;
+package com.javaschool.domainlogic.admin.productmanagement.service.api;
 
-import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
 import com.javaschool.entity.product.Genre;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GenreService {
 

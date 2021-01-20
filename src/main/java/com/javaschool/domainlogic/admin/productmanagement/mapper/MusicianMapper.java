@@ -1,6 +1,6 @@
-package com.javaschool.domainlogic.admin.productmanagment.mapper;
+package com.javaschool.domainlogic.admin.productmanagement.mapper;
 
-import com.javaschool.domainlogic.admin.productmanagment.dto.MusicianDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
 import com.javaschool.entity.product.Musician;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

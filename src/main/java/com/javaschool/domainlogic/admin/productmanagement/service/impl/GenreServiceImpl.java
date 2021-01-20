@@ -1,11 +1,11 @@
-package com.javaschool.domainlogic.admin.productmanagment.service.impl;
+package com.javaschool.domainlogic.admin.productmanagement.service.impl;
 
 import com.javaschool.dao.api.product.GenreRepository;
-import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
-import com.javaschool.domainlogic.admin.productmanagment.exception.GenreNotFound;
-import com.javaschool.domainlogic.admin.productmanagment.mapper.GenreMapper;
+import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
+import com.javaschool.domainlogic.admin.productmanagement.exception.GenreNotFound;
+import com.javaschool.domainlogic.admin.productmanagement.mapper.GenreMapper;
 import com.javaschool.entity.product.Genre;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.GenreService;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,9 +1,9 @@
-package com.javaschool.domainlogic.admin.productmanagment.service.impl;
+package com.javaschool.domainlogic.admin.productmanagement.service.impl;
 
 import com.javaschool.dao.api.product.MusicianRepository;
-import com.javaschool.domainlogic.admin.productmanagment.dto.MusicianDto;
-import com.javaschool.domainlogic.admin.productmanagment.mapper.MusicianMapper;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.MusicianService;
+import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
+import com.javaschool.domainlogic.admin.productmanagement.mapper.MusicianMapper;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.MusicianService;
 import com.javaschool.entity.product.Musician;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,7 @@ public class MusicianServiceImpl implements MusicianService {
     @Override
     public List<MusicianDto> getMusicianDtoList() {
         List<Musician> musicianList = musicianRepository.findAll();
-        List<MusicianDto> musicianDtoList = musicianMapper.toDTOList(musicianList);
-        return musicianDtoList;
+        return musicianMapper.toDtoList(musicianList);
     }
 
     @Override

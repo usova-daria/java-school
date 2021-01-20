@@ -1,7 +1,7 @@
-package com.javaschool.domainlogic.admin.productmanagment.controller;
+package com.javaschool.domainlogic.admin.productmanagement.controller;
 
-import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.GenreService;
+import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

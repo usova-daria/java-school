@@ -1,8 +1,8 @@
-package com.javaschool.domainlogic.admin.productmanagment.mapper;
+package com.javaschool.domainlogic.admin.productmanagement.mapper;
 
-import com.javaschool.domainlogic.admin.productmanagment.dto.AddRecordDto;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.GenreService;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.MusicianService;
+import com.javaschool.domainlogic.admin.productmanagement.dto.AddRecordDto;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.MusicianService;
 import com.javaschool.entity.product.Record;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

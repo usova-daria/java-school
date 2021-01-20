@@ -1,9 +1,9 @@
-package com.javaschool.domainlogic.admin.productmanagment.controller;
+package com.javaschool.domainlogic.admin.productmanagement.controller;
 
-import com.javaschool.domainlogic.admin.productmanagment.dto.AddRecordDto;
-import com.javaschool.domainlogic.admin.productmanagment.dto.GenreDto;
-import com.javaschool.domainlogic.admin.productmanagment.dto.MusicianDto;
-import com.javaschool.domainlogic.admin.productmanagment.service.api.AddRecordService;
+import com.javaschool.domainlogic.admin.productmanagement.dto.AddRecordDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
+import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
+import com.javaschool.domainlogic.admin.productmanagement.service.api.AddRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

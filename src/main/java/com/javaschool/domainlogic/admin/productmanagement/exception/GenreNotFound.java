@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.admin.productmanagment.exception;
+package com.javaschool.domainlogic.admin.productmanagement.exception;
 
 public class GenreNotFound extends RuntimeException {
 
