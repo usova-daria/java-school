@@ -6,6 +6,7 @@ import com.javaschool.domainlogic.admin.stats.dto.CustomerStats;
 import com.javaschool.domainlogic.admin.stats.service.api.CustomerStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class CustomerStatsServiceImpl implements CustomerStatsService {
     private UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public CustomerStats getCustomerStats() {
         List<CustomerData> bestCustomers = getTop10CustomersByNumberOfOrders();
         return new CustomerStats(bestCustomers);

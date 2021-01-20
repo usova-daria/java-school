@@ -23,14 +23,14 @@ public class GenreServiceImpl implements GenreService {
     private GenreRepository genreRepository;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GenreDto> getGenreDtoList() {
         List<Genre> genreList = genreRepository.findAll();
         return genreMapper.toDtoList(genreList);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GenreDto> getGenreDtoListOrderById() {
         List<Genre> genreList = genreRepository.findAllOrderById();
         return genreMapper.toDtoList(genreList);
@@ -55,7 +55,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Genre findById(Integer id) {
         return genreRepository.findById(id).orElseThrow(GenreNotFound::new);
     }

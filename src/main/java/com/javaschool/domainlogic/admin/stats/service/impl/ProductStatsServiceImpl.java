@@ -6,6 +6,7 @@ import com.javaschool.domainlogic.admin.stats.dto.ProductStats;
 import com.javaschool.domainlogic.admin.stats.service.api.ProductStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class ProductStatsServiceImpl implements ProductStatsService {
     private ProductRepository productRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public ProductStats getProductStats() {
         List<ProductData> bestProducts = getTop10ProductsBySalesVolume();
         return new ProductStats(bestProducts);

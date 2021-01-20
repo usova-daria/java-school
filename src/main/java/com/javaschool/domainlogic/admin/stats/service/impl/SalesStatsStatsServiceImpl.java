@@ -20,12 +20,14 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
     private PaymentDetailsRepository paymentDetailsRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public SalesStats getSalesStats() {
         int year = LocalDate.now().getYear();
         return getSalesStats(year);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public SalesStats getSalesStats(int year) {
         Map<Month, Double> yearProfit = getYearProfit(year);
         double lastWeekProfit = getWeekProfit(LocalDate.now());
