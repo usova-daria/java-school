@@ -1,11 +1,13 @@
 package com.javaschool.entity.product;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "product")
@@ -61,5 +63,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "product_category_id")
     private ProductCategory category;
+
+    @Column(name = "created")
+    @CreationTimestamp
+    private LocalDate created;
 
 }
