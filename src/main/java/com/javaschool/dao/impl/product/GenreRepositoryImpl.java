@@ -5,11 +5,20 @@ import com.javaschool.dao.impl.AbstractRepositoryImpl;
 import com.javaschool.entity.product.Genre;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
+import java.util.List;
+
 @Repository
 public class GenreRepositoryImpl extends AbstractRepositoryImpl<Genre, Integer> implements GenreRepository {
 
     public GenreRepositoryImpl() {
         super(Genre.class);
+    }
+
+    @Override
+    public List<Genre> findAllOrderById() {
+        TypedQuery<Genre> findQuery = entityManager.createNamedQuery("Genre.findAllOrderById", Genre.class);
+        return findQuery.getResultList();
     }
 
 }

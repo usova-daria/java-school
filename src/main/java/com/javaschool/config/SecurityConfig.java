@@ -42,7 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http.csrf()
+                .ignoringAntMatchers("/admin/genre/**")
+                .and()
+                .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/doggo").hasAuthority("CUSTOMER")
                 .antMatchers("/admin/admin-page").hasAuthority("ADMIN")

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepository<T, ID> {
 
-    private Class<T> tClass;
+    private final Class<T> tClass;
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -47,7 +47,7 @@ public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepositor
      */
     @Override
     public List<T> findAll() {
-        String findQueryStr = "SELECT from " + tClass.getSimpleName();
+        String findQueryStr = "FROM " + tClass.getSimpleName();
         TypedQuery<T> findQuery = entityManager.createQuery(findQueryStr, tClass);
         return findQuery.getResultList();
     }
@@ -59,6 +59,8 @@ public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepositor
      */
     @Override
     public Optional<T> findById(ID id) {
+        if (id == null) return Optional.empty();
+
         T t = entityManager.find(tClass, id);
         return Optional.ofNullable(t);
     }

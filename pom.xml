@@ -17,7 +17,6 @@
         <mysql.connector>5.1.31</mysql.connector>
         <c3p0.verson>0.9.5.5</c3p0.verson>
         <hibernate.version>5.4.10.Final</hibernate.version>
-        <validator.version>2.0.1.Final</validator.version>
         <jstl.version>1.2</jstl.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.18.16</lombok.version>
@@ -25,6 +24,12 @@
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <thymeleaf.spring.version>3.0.12.RELEASE</thymeleaf.spring.version>
         <thymeleaf.java8time.version>3.0.1.RELEASE</thymeleaf.java8time.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
+        <hibernate.validator.version>5.1.3.Final</hibernate.validator.version>
+        <javax.el.version>3.0.0</javax.el.version>
+        <annotation.processor>6.0.11.Final</annotation.processor>
+        <font-awesome.version>5.15.1</font-awesome.version>
+        <jackson.version>2.11.2</jackson.version>
     </properties>
 
     <dependencies>
@@ -116,9 +121,21 @@
 
         <!-- Bean validation -->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>${validator.version}</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${javax.el.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-annotation-processor</artifactId>
+            <version>${annotation.processor}</version>
         </dependency>
 
         <!-- Test -->
@@ -169,6 +186,32 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-java8time</artifactId>
             <version>${thymeleaf.java8time.version}</version>
+        </dependency>
+
+        <!-- Font awesome -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${font-awesome.version}</version>
+        </dependency>
+
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
     </dependencies>

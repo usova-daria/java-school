@@ -9,6 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "genre")
+@NamedQuery(name = "Genre.findAllOrderById",
+        query = "SELECT g FROM Genre g order by g.id"
+)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

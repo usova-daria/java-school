@@ -3,9 +3,13 @@ package com.javaschool.config;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -15,6 +19,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import org.springframework.validation.Validator;
 
 @Configuration
 @EnableWebMvc
@@ -32,6 +37,7 @@ public class WebMvcConfig implements WebMvcConfigurer, ApplicationContextAware  
         registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
         registry.addResourceHandler("/img/**").addResourceLocations("/resources/img/");
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
     }
 
     @Bean
@@ -60,6 +66,26 @@ public class WebMvcConfig implements WebMvcConfigurer, ApplicationContextAware  
         templateResolver.setCacheable(false);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         return templateResolver;
+    }
+
+    @Bean(name="multipartResolver")
+    public StandardServletMultipartResolver resolver(){
+        return new StandardServletMultipartResolver();
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
     }
 
 }

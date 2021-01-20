@@ -1,10 +1,12 @@
 package com.javaschool.entity.product;
 
+import com.javaschool.entity.converter.YearConverter;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.Year;
 import java.util.List;
 
 @Entity
@@ -18,6 +20,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
+@ToString
 public class Record extends Product {
 
     @Column(name = "album")
@@ -25,9 +28,9 @@ public class Record extends Product {
     @NotNull
     private String albumName;
 
-    @Column(name = "year")
-    @NotNull
-    private int year;
+    @Column(name = "year", columnDefinition = "YEAR")
+    @Convert(converter = YearConverter.class)
+    private Year year;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -39,20 +42,11 @@ public class Record extends Product {
             joinColumns = @JoinColumn(name = "record_id"),
             inverseJoinColumns = @JoinColumn(name = "musician_id")
     )
-    private List<Musician> musician;
+    @ToString.Exclude
+    private List<Musician> musicians;
 
     @ManyToOne
     @JoinColumn(name = "genre_id", referencedColumnName = "genre_id")
     private Genre genre;
 
-    @Builder(builderMethodName = "rBuilder")
-    public Record(Long id, float price, int unitsInStore, String name,
-                  boolean deleted, byte[] picture, String description, ProductCategory category,
-                  String albumName, int year, List<Musician> musician, Genre genre) {
-        super(id, price, unitsInStore, name, deleted, picture, description, category);
-        this.albumName = albumName;
-        this.year = year;
-        this.musician = musician;
-        this.genre = genre;
-    }
 }

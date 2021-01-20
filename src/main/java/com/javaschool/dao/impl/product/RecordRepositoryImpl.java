@@ -1,5 +1,6 @@
 package com.javaschool.dao.impl.product;
 
+import com.javaschool.util.ImageCompress;
 import com.javaschool.dao.api.product.RecordRepository;
 import com.javaschool.dao.impl.AbstractRepositoryImpl;
 import com.javaschool.entity.product.Genre;
@@ -27,6 +28,16 @@ public class RecordRepositoryImpl extends AbstractRepositoryImpl<Record, Long> i
         return entityManager.createNamedQuery("Record.findByGenreAndDeletedFalse", Record.class)
                 .setParameter("genre", genre)
                 .getResultList();
+    }
+
+    @Override
+    public Record save(Record record) {
+        byte[] picture = record.getPicture();
+        byte[] compressedPicture = ImageCompress.compressBytes(picture);
+
+        record.setPicture(compressedPicture);
+
+        return super.save(record);
     }
 
 }
