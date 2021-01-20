@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin/genre.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <title>Orders</title>
+</head>
+
+<body>
+<div th:replace="fragments/header :: #header"></div>
+
+<br>
+
+<div class="container-fluid wrapper">
+    <div class="row">
+        <div class="col-sm-11 mx-auto">
+            <h1> Orders </h1>
+            <table class="table table-striped" id="order-table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Created</th>
+                    <th>Address</th>
+                    <th>Recipient</th>
+                    <th>Delivery</th>
+                    <th>Payment method</th>
+                    <th>Payment status</th>
+                    <th>Order status</th>
+                </tr>
+                </thead>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"> NA</td>
+                    <td th:text="${order.created}">NA</td>
+                    <td class="parse-new-line" th:text="${order.address}">NA</td>
+                    <td class="parse-new-line" th:text="${order.recipientContacts}">NA</td>
+                    <td th:text="${order.shippingCompany}">NA</td>
+                    <td th:text="${order.paymentMethod}">NA</td>
+                    <td th:text="${order.paymentStatus}">NA</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle"
+                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    th:text="${order.orderStatus}"></button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" th:each="status : ${orderStatusList}"
+                                   th:text="${status}"></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: #footer"></div>
+
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/admin/orders.js}"></script>
+
+
+</body>
+</html>
