@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "role")
+@NamedQuery(name = "Role.findByName",
+            query = "SELECT r from Role r where r.name = :name")
 @Data
 @EqualsAndHashCode(of = {"id"})
 public class Role {
