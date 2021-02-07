@@ -34,4 +34,13 @@ public class OrderRepositoryImpl extends AbstractRepositoryImpl<Order, Long> imp
                 .setHint("javax.persistence.fetchgraph", entityGraph)
                 .getResultList();
     }
+
+    @Override
+    public List<Order> findAllSortedByIdDesc() {
+        EntityGraph entityGraph = entityManager.getEntityGraph("order-graph");
+
+        return entityManager.createQuery("SELECT o from Order o order by o.id DESC", Order.class)
+                .setHint("javax.persistence.fetchgraph", entityGraph)
+                .getResultList();
+    }
 }
