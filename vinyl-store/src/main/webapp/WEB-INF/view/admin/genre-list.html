@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <title>Genre list</title>
+</head>
+
+<body>
+<div th:replace="fragments/header :: #header"></div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/admin-navbar :: #adminMenu"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Genres</h1>
+            </div>
+            <table class="table table-striped col-11" id="genre-table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tr th:each="genre, iter : ${genres}">
+                    <td th:text="${genre.id}" hidden="true"> NA</td>
+                    <td th:text="${iter.index + 1}"> NA</td>
+                    <td th:text="${genre.name}">NA</td>
+                </tr>
+            </table>
+
+            <div class="col-11">
+                <button id="new-row-button" class="btn save-button float-right">
+                    New Genre
+                </button>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: #footer"></div>
+
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bstable.js}"></script>
+<script th:src="@{/js/admin/genre.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

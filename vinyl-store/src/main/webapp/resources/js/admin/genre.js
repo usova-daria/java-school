@@ -1,9 +1,9 @@
 var editableTable = new BSTable("genre-table",{
-    editableColumns:"1",
+    editableColumns:"2",
     $addButton: $("#new-row-button"),
     onEdit: function(row) {
         var id = $(row).find('td')[0].innerText;
-        var name = $(row).find('td')[1].innerText;
+        var name = $(row).find('td')[2].innerText;
 
         editGenre(id, name, row);
     },
@@ -28,15 +28,16 @@ function editGenre(id, name, row) {
         data : JSON.stringify(genre),
         dataType : 'json',
         success : function() {
-            changeRowStyle('row-success', row);
+            changeElementStyle('element-success', row);
         },
         error : function() {
-            changeRowStyle('row-error', row);
+            changeElementStyle('element-error', row);
         },
         complete: function(updatedGenre) {
             var genre = JSON.parse(updatedGenre.responseText);
             $(row).find('td')[0].innerText = genre.id;
-            $(row).find('td')[1].innerText = genre.name;
+            $(row).find('td')[1].innerText = $(row).index() + 1;
+            $(row).find('td')[2].innerText = genre.name;
         }
     });
 }
@@ -47,7 +48,7 @@ function deleteGenre(id, row) {
         url : 'genre/delete/' + id,
         success : function() { },
         error : function() {
-            changeRowStyle('row-error', row);
+            changeElementStyle('element-error', row);
             process.exit(0); // unresolved on purpose
         }
     });
