@@ -12,9 +12,27 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "`order`")
 @Data
 @EqualsAndHashCode(of = {"id"})
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "order-graph",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "address", subgraph = "address-subgraph"),
+                        @NamedAttributeNode("shippingMethod"),
+                        @NamedAttributeNode("paymentDetails"),
+                        @NamedAttributeNode("recipient")
+                },
+                subgraphs = @NamedSubgraph(
+                        name = "address-subgraph",
+                        attributeNodes = {
+                                @NamedAttributeNode("town"),
+                                @NamedAttributeNode("country")
+                        }
+                )
+        )
+})
 public class Order {
 
     @Id

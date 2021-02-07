@@ -2,9 +2,9 @@ package com.javaschool.entity.user;
 
 import com.javaschool.entity.address.Address;
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -59,6 +59,7 @@ public class User {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_info_id", referencedColumnName = "customer_info_id")
+    @ToString.Exclude
     private CustomerInfo customerInfo;
 
     @ManyToMany(
@@ -71,6 +72,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @ToString.Exclude
     private List<Role> roles;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -79,6 +81,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id")
     )
+    @ToString.Exclude
     private List<Address> addresses;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -87,6 +90,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "order_id")
     )
+    @ToString.Exclude
     private List<Address> orders;
 
 

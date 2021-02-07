@@ -3,6 +3,7 @@ package com.javaschool.dao.impl.product;
 import com.javaschool.dao.api.product.ProductRepository;
 import com.javaschool.dao.impl.AbstractRepositoryImpl;
 import com.javaschool.domainlogic.admin.stats.dto.ProductData;
+import com.javaschool.domainlogic.products.dto.ProductProjection;
 import com.javaschool.entity.product.Product;
 import org.springframework.stereotype.Repository;
 
@@ -35,4 +36,10 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
                 .getResultList();
     }
 
+    @Override
+    public List<ProductProjection> findProductAndSortByCreated(int resultSize) {
+        return entityManager.createNamedQuery("Product.findByDeletedFalseAndSortByCreated", ProductProjection.class)
+                .setMaxResults(resultSize)
+                .getResultList();
+    }
 }

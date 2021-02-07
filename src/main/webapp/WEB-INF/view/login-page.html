@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: #header"></div>
+<br>
+
+<div class="container-fluid col-8">
+
+    <h2><i class="fas fa-sign-in-alt"></i> Sign in</h2>
+    <hr>
+
+    <form th:action="@{/authenticate-user}" method="post">
+        <div th:if="${param.error}">
+            <p class="text-danger">Invalid email or password.</p>
+        </div>
+
+        <div th:if="${param.logout}">
+            <p class="text-warning">You have been logged out.</p>
+        </div>
+
+        <div class="row mb-3">
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-5">
+                <input id="inputEmail" type="email" name="email" class="form-control" required autofocus/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-5">
+                <input id="inputPassword" type="password" name="password" class="form-control" required/>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Sign in</button>
+
+    </form>
+</div>
+
+<div th:replace="fragments/footer :: #footer"></div>
+
+</body>
+</html>
