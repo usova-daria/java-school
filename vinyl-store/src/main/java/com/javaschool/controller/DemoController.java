@@ -11,16 +11,6 @@ public class DemoController {
         return "index";
     }
 
-    @GetMapping("/doggo")
-    public String showDoggoPage() {
-        return "doggo";
-    }
-
-    @GetMapping("/admin/admin-page")
-    public String showAdminPage() {
-        return "admin-page";
-    }
-
     @GetMapping("/login-page")
     public String showLoginPage() {
         return "login-page";
@@ -29,6 +19,11 @@ public class DemoController {
     @GetMapping("/access-denied")
     public String showAccessDenied() {
         return "access-denied";
+    }
+
+    @GetMapping("/exception-check")
+    public void exceptionCheck() {
+        throw new NullPointerException();
     }
 
 }
