@@ -2,6 +2,7 @@ package com.javaschool.entity.address;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "country")
 @Data
 @EqualsAndHashCode(of = {"id"})
+@ToString
 public class Country {
 
     @Id
@@ -29,6 +31,7 @@ public class Country {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @ToString.Exclude
     private List<Town> towns;
 
 }
