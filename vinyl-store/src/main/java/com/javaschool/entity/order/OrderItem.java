@@ -10,12 +10,21 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "order_item")
+@NamedQueries(
+        @NamedQuery(name = "OrderItem.getGenreUnitsSold",
+                    query = "SELECT new com.javaschool.domainlogic.salesdisplay.dto.GenreUnitsSold" +
+                            "(coalesce(sum(oi.amount), 0), g.name) " +
+                            "from OrderItem oi " +
+                            "inner join Record r on oi.product.id = r.id " +
+                            "inner join Genre g on r.genre.id = g.id " +
+                            "group by r.genre.id")
+)
 @Data
 @EqualsAndHashCode(of = {"id"})
 public class OrderItem {
 
     @EmbeddedId
-    private OrderItemId id;
+    private OrderItemId id = new OrderItemId();
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
@@ -29,10 +38,10 @@ public class OrderItem {
 
     @Column(name = "amount")
     @NotNull
-    private int amount;
+    private Integer amount;
 
     @Column(name = "price")
     @NotNull
-    private float price;
+    private Float price;
 
 }
