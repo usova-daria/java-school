@@ -8,4 +8,8 @@ public interface ProductService {
 
     List<ProductDto> getNotDeletedProductsSortedByCreated(int resultSize);
 
+    ProductDto getProductById(Long id);
+
+    int getUnitsInStoreById(Long id);
+
 }

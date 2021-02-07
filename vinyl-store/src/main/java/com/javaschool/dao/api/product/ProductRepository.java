@@ -6,6 +6,7 @@ import com.javaschool.domainlogic.products.dto.ProductProjection;
 import com.javaschool.entity.product.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends AbstractRepository<Product, Long> {
 
@@ -16,5 +17,9 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
     List<Product> findProductByDeletedFalse();
 
     List<ProductProjection> findProductAndSortByCreated(int resultSize);
+
+    Optional<ProductProjection> findProductProjectionById(Long id);
+
+    int findProductUnitsInStoreById(Long id);
 
 }

@@ -21,8 +21,13 @@ import java.time.LocalDate;
         @NamedQuery(name = "Product.findByDeletedFalse",
                     query = "SELECT p from Product p where p.deleted = false"),
         @NamedQuery(name = "Product.findByDeletedFalseAndSortByCreated",
-                    query = "SELECT new com.javaschool.domainlogic.products.dto.ProductProjection(p.id, p.price, p.name, p.picture)" +
-                            " from Product p where p.deleted = false order by p.created DESC")
+                    query = "SELECT new com.javaschool.domainlogic.products.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
+                            " from Product p where p.deleted = false order by p.created DESC"),
+        @NamedQuery(name = "Product.findById",
+                    query = "SELECT new com.javaschool.domainlogic.products.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore) " +
+                            " from Product p where p.id = :id"),
+        @NamedQuery(name = "Product.findUnitsInStoreById",
+                    query = "SELECT coalesce(p.unitsInStore, 0) from Product p where p.id = :id")
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
@@ -31,6 +36,9 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode(of = {"id"})
 public class Product {
+
+    @Version
+    private Long version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
