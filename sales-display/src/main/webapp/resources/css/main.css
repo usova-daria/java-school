@@ -1,0 +1,34 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin-bottom: 100px;
+}
+
+.navbar-custom .navbar-text {
+    color: wheat;
+}
+
+.collapse.navbar-collapse a {
+    color: wheat;
+}
+
+#footer {
+    color: wheat;
+    height: 65px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.navbar-custom, #footer {
+    background-color: #242323;
+}
+
+#header {
+    z-index: 1;
+}
+
