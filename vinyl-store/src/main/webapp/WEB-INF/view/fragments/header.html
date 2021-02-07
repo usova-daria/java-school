@@ -1,0 +1,60 @@
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+
+<nav id="header" class="navbar navbar-expand-md navbar-custom">
+    <a class="navbar-brand" th:href="@{/home}">
+        <img th:src="@{/img/logo.png}" width="200" alt="logo">
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto"></ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/cart}">
+                    <i class="fas fa-shopping-cart fa-1x"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/login-page}">
+                    <i class="fas fa-sign-in-alt fa-1x"></i> Sign in
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/register}">
+                    <i class="fas fa-user-plus fa-1x"></i> Sign up
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav" sec:authorize="hasAuthority('CUSTOMER')">
+            <li>
+                <a class="nav-link" th:href="@{/profile/edit}">
+                    <i class="far fa-user-circle fa-1x"></i>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav" sec:authorize="hasAuthority('ADMIN')">
+            <li>
+                <a class="nav-link" th:href="@{/admin/stats}">
+                    Admin
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript: document.logoutForm.submit()">
+                    <i class="fas fa-sign-in-alt fa-1x"></i> Sign out
+                </a>
+
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Sign Out"/>
+                </form>
+            </li>
+        </ul>
+
+    </div>
+</nav>
