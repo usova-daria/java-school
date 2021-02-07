@@ -3,17 +3,19 @@ package com.javaschool.domainlogic.admin.stats.service.impl;
 import com.javaschool.dao.api.order.PaymentDetailsRepository;
 import com.javaschool.domainlogic.admin.stats.dto.SalesStats;
 import com.javaschool.domainlogic.admin.stats.service.api.SalesStatsService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import javax.persistence.PersistenceException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
-@Transactional
+@Log4j
 public class SalesStatsStatsServiceImpl implements SalesStatsService {
 
     @Autowired
@@ -52,7 +54,16 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
         int lastDayOfMonth = date.lengthOfMonth();
         LocalDate to = date.withDayOfMonth(lastDayOfMonth);
 
-        return paymentDetailsRepository.getTotalAmountBetween(from, to);
+        double monthProfit;
+        try {
+           monthProfit = paymentDetailsRepository.getTotalAmountBetween(from, to);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while finding month profit between " +
+                    from + "to " + to, e);
+            monthProfit = 0;
+        }
+
+        return monthProfit;
     }
 
     private double getWeekProfit(LocalDate date) {
@@ -60,7 +71,16 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
         LocalDate from = date.withDayOfMonth(startOfWeek);
         LocalDate to = from.plusDays(6);
 
-        return paymentDetailsRepository.getTotalAmountBetween(from, to);
+        double weekProfit;
+        try {
+            weekProfit = paymentDetailsRepository.getTotalAmountBetween(from, to);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while finding week profit between " +
+                    from + "to " + to, e);
+            weekProfit = 0;
+        }
+
+        return weekProfit;
     }
 
 }

@@ -3,6 +3,7 @@ package com.javaschool.entity.product;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "musician")
 @Data
 @EqualsAndHashCode(of = {"id"})
+@ToString
 public class Musician {
 
     @Id
@@ -35,6 +37,7 @@ public class Musician {
             joinColumns = @JoinColumn(name = "musician_id"),
             inverseJoinColumns = @JoinColumn(name = "record_id")
     )
+    @ToString.Exclude
     private List<Record> records;
 
 }

@@ -30,6 +30,7 @@
         <annotation.processor>6.0.11.Final</annotation.processor>
         <font-awesome.version>5.15.1</font-awesome.version>
         <jackson.version>2.11.2</jackson.version>
+        <passay.version>1.6.0</passay.version>
     </properties>
 
     <dependencies>
@@ -212,6 +213,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- Password validation -->
+        <dependency>
+            <groupId>org.passay</groupId>
+            <artifactId>passay</artifactId>
+            <version>${passay.version}</version>
         </dependency>
 
     </dependencies>

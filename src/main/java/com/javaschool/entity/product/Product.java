@@ -1,11 +1,13 @@
 package com.javaschool.entity.product;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "product")
@@ -17,7 +19,10 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "Product.findByNameContaining",
                 query = "SELECT p from Product p where lower(p.name) like lower(concat('%', :name, '%'))"),
         @NamedQuery(name = "Product.findByDeletedFalse",
-                    query = "SELECT p from Product p where p.deleted = false")
+                    query = "SELECT p from Product p where p.deleted = false"),
+        @NamedQuery(name = "Product.findByDeletedFalseAndSortByCreated",
+                    query = "SELECT new com.javaschool.domainlogic.products.dto.ProductProjection(p.id, p.price, p.name, p.picture)" +
+                            " from Product p where p.deleted = false order by p.created DESC")
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
@@ -33,11 +38,9 @@ public class Product {
     private Long id;
 
     @Column(name = "price")
-    @NotNull
     private float price;
 
     @Column(name = "units_in_store")
-    @NotNull
     private int unitsInStore;
 
     @Column(name = "name")
@@ -61,5 +64,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "product_category_id")
     private ProductCategory category;
+
+    @Column(name = "created")
+    @CreationTimestamp
+    private LocalDate created;
 
 }
