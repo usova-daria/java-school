@@ -18,76 +18,79 @@
 <br>
 
 <div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/profile-navbar :: #profileMenu"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 mr-5">
+            <div class="col-9">
+                <h2>Edit information </h2>
+                <hr>
+                <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
 
-    <div th:replace="fragments/profile-navbar :: #profileMenu"></div>
+                <form th:object="${user}" th:action="@{/profile/edit}" method="post" lang="en">
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <h2>Edit information </h2>
-        <hr>
-        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
-        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                    <input type="text" class="form-control" id="email" th:field="*{email}" th:hidden="true">
 
-        <form th:object="${user}" th:action="@{/profile/edit}" method="post" lang="en">
+                    <div class="row mb-3">
+                        <label for="firstName" class="col-sm-2 col-form-label">First name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="firstName" placeholder="First name"
+                                   th:field="*{firstName}"
+                                   required maxlength="45">
+                        </div>
+                        <p class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name
+                            Error</p>
+                    </div>
 
-            <input type="text" class="form-control" id="email" th:field="*{email}" th:hidden="true">
+                    <div class="row mb-3">
+                        <label for="LastName" class="col-sm-2 col-form-label">Last name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="LastName" placeholder="Last name"
+                                   th:field="*{lastName}"
+                                   required maxlength="45">
+                        </div>
+                        <p class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name
+                            Error</p>
+                    </div>
 
-            <div class="row mb-3">
-                <label for="firstName" class="col-sm-2 col-form-label">First name</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="firstName" placeholder="First name"
-                           th:field="*{firstName}"
-                           required maxlength="45">
-                </div>
-                <p class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</p>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Birthday</label>
+                        <div class="col-2">
+                            <select id="month" class="selectpicker form-control" data-size="6"
+                                    th:field="*{birthday.month}">
+                                <option th:each="n : ${months}"
+                                        th:value="${n}" th:text="${n}">Month
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="day" class="selectpicker form-control" data-size="10"
+                                    th:field="*{birthday.day}">
+                                <option th:each="d : ${#numbers.sequence(1, 31)}"
+                                        th:value="${d}" th:text="${d}">Day
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select id="year" class="selectpicker form-control" data-size="10"
+                                    th:field="*{birthday.year}">
+                                <option th:each="y : ${#numbers.sequence(#dates.year(#dates.createNow()), 1900)}"
+                                        th:value="${y}" th:text="${y}">Year
+                                </option>
+                            </select>
+                        </div>
+
+                        <span class="error mt-1" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday
+                    Error</span>
+
+
+                    </div>
+
+                    <button type="submit" class="btn btn-dark save-button">Save</button>
+                </form>
             </div>
-
-            <div class="row mb-3">
-                <label for="LastName" class="col-sm-2 col-form-label">Last name</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="LastName" placeholder="Last name" th:field="*{lastName}"
-                           required maxlength="45">
-                </div>
-                <p class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</p>
-            </div>
-
-            <div class="form-row mb-3">
-                <label class="col-sm-2 col-form-label">Birthday</label>
-                <div class="col-sm-2">
-                    <select id="month" class="selectpicker form-control" data-size="6"
-                            th:field="*{birthday.month}">
-                        <option th:each="n : ${months}"
-                                th:value="${n}" th:text="${n}">Month
-                        </option>
-                    </select>
-                </div>
-                <div class="col-sm-1">
-                    <select id="day" class="selectpicker form-control" data-size="10"
-                            th:field="*{birthday.day}">
-                        <option th:each="d : ${#numbers.sequence(1, 31)}"
-                                th:value="${d}" th:text="${d}">Day
-                        </option>
-                    </select>
-                </div>
-                <div class="col-sm-1">
-                    <select id="year" class="selectpicker form-control" data-size="10"
-                            th:field="*{birthday.year}">
-                        <option th:each="y : ${#numbers.sequence(#dates.year(#dates.createNow()), 1900)}"
-                                th:value="${y}" th:text="${y}">Year
-                        </option>
-                    </select>
-                </div>
-
-                <div class="col-sm-1">
-                </div>
-                <p class="error" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday
-                    Error</p>
-
-            </div>
-
-            <button type="submit" class="btn btn-dark save-button">Save</button>
-
-        </form>
-    </main>
+        </main>
+    </div>
 </div>
 
 <div th:replace="fragments/footer :: #footer"></div>
