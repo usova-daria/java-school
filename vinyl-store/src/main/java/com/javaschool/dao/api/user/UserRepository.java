@@ -13,4 +13,6 @@ public interface UserRepository extends AbstractRepository<User, Long> {
 
     List<CustomerData> findTopCustomersByNumberOfOrders(int resultSize);
 
+    boolean userHasOrder(Long userId, Long orderId);
+
 }

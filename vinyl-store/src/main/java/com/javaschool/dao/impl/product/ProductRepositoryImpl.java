@@ -2,8 +2,10 @@ package com.javaschool.dao.impl.product;
 
 import com.javaschool.dao.api.product.ProductRepository;
 import com.javaschool.dao.impl.AbstractRepositoryImpl;
+import com.javaschool.dao.impl.product.projection.OrderItemProjection;
 import com.javaschool.domainlogic.admin.stats.dto.ProductData;
 import com.javaschool.domainlogic.products.dto.ProductProjection;
+import com.javaschool.domainlogic.user.profile.dto.order.UserOrderItem;
 import com.javaschool.entity.product.Product;
 import org.springframework.stereotype.Repository;
 
@@ -64,6 +66,13 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
         return entityManager.createNamedQuery("Product.findUnitsInStoreById", Integer.class)
                 .setParameter("id", id)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<OrderItemProjection> findOrderItemProjectionByOrderId(Long id) {
+        return entityManager.createNamedQuery("Product.findOrderItemProjectionByOrderId", OrderItemProjection.class)
+                .setParameter("order_id", id)
+                .getResultList();
     }
 
 }

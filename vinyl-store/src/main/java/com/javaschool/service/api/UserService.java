@@ -13,4 +13,6 @@ public interface UserService extends UserDetailsService {
 
     User getCurrentUser();
 
+    boolean currentUserHasOrder(Long orderId);
+
 }

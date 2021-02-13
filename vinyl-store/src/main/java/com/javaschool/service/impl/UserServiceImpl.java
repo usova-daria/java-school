@@ -65,4 +65,15 @@ public class UserServiceImpl implements UserService {
         return findUserByEmail(email);
     }
 
+    @Override
+    public boolean currentUserHasOrder(Long orderId) {
+        User user;
+        try {
+            user = getCurrentUser();
+        } catch (UserNotFoundException e) {
+            return false;
+        }
+
+        return userRepository.userHasOrder(user.getId(), orderId);
+    }
 }

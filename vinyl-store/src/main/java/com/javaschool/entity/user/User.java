@@ -1,5 +1,6 @@
 package com.javaschool.entity.user;
 
+import com.javaschool.domainlogic.user.profile.dto.orderpreview.UserOrderPreviewInfo;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.order.Order;
 import lombok.*;

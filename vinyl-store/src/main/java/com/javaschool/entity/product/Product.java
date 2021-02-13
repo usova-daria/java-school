@@ -27,7 +27,12 @@ import java.time.LocalDate;
                     query = "SELECT new com.javaschool.domainlogic.products.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore) " +
                             " from Product p where p.id = :id"),
         @NamedQuery(name = "Product.findUnitsInStoreById",
-                    query = "SELECT coalesce(p.unitsInStore, 0) from Product p where p.id = :id")
+                    query = "SELECT coalesce(p.unitsInStore, 0) from Product p where p.id = :id"),
+        @NamedQuery(name = "Product.findOrderItemProjectionByOrderId",
+                    query = "SELECT new com.javaschool.dao.impl.product.projection.OrderItemProjection" +
+                            "(oi.product.id, oi.product.name, oi.product.picture, oi.price, oi.amount) " +
+                            "from OrderItem oi " +
+                            "where oi.order.id = :order_id")
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data

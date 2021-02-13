@@ -1,6 +1,7 @@
 package com.javaschool.dao.api.product;
 
 import com.javaschool.dao.api.AbstractRepository;
+import com.javaschool.dao.impl.product.projection.OrderItemProjection;
 import com.javaschool.domainlogic.admin.stats.dto.ProductData;
 import com.javaschool.domainlogic.products.dto.ProductProjection;
 import com.javaschool.entity.product.Product;
@@ -21,5 +22,7 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
     Optional<ProductProjection> findProductProjectionById(Long id);
 
     int findProductUnitsInStoreById(Long id);
+
+    List<OrderItemProjection> findOrderItemProjectionByOrderId(Long id);
 
 }
