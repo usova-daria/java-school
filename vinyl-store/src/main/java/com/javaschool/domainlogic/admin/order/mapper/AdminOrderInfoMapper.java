@@ -5,6 +5,7 @@ import com.javaschool.util.AddressUtil;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.order.Order;
 import com.javaschool.entity.order.Recipient;
+import com.javaschool.util.RecipientUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -43,9 +44,7 @@ public interface AdminOrderInfoMapper {
      * @return a string representation of a recipient
      */
     default String recipientToString(Recipient recipient) {
-        if (recipient == null) return null;
-        return String.format("%s\n(%s)", recipient.getName(),
-                recipient.getPhoneNumber());
+        return RecipientUtil.recipientToString(recipient);
     }
 
     /**
