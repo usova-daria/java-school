@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.dto;
+package com.javaschool.domainlogic.user.profile.dto.edit;
 
 import com.javaschool.domainlogic.user.registration.dto.Birthday;
 import com.javaschool.domainlogic.user.registration.validation.annotation.ValidBirthday;

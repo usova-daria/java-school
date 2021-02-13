@@ -1,6 +1,6 @@
 package com.javaschool.domainlogic.user.profile.service.api;
 
-import com.javaschool.domainlogic.user.profile.dto.UserEditInfoDto;
+import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
 
 public interface UserEditInfoService {
 

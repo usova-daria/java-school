@@ -1,6 +1,6 @@
 package com.javaschool.domainlogic.user.profile.mapper;
 
-import com.javaschool.domainlogic.user.profile.dto.UserEditInfoDto;
+import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
 import com.javaschool.domainlogic.user.registration.mapper.api.BirthdayMapper;
 import com.javaschool.entity.user.User;
 import org.mapstruct.Mapper;

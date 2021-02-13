@@ -1,6 +1,6 @@
 package com.javaschool.domainlogic.user.profile.controller;
 
-import com.javaschool.domainlogic.user.profile.dto.UserEditInfoDto;
+import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
 import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
 import com.javaschool.domainlogic.user.profile.service.api.UserEditInfoService;
 import lombok.extern.log4j.Log4j;
@@ -39,7 +39,7 @@ public class UserEditInfoController {
     public String updateUserInfo(@Valid @ModelAttribute("user") UserEditInfoDto userEditInfoDto,
                                  BindingResult result, RedirectAttributes ra) {
         if (result.hasErrors()) {
-            return "user/register";
+            return "user/profile/edit";
         }
 
         userEditInfoService.updateUserInfo(userEditInfoDto);

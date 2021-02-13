@@ -1,14 +1,12 @@
 package com.javaschool.domainlogic.user.profile.service.impl;
 
-import com.javaschool.domainlogic.user.profile.dto.UserEditInfoDto;
+import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
 import com.javaschool.domainlogic.user.profile.mapper.UserEditInfoMapper;
 import com.javaschool.domainlogic.user.profile.service.api.UserEditInfoService;
 import com.javaschool.domainlogic.user.registration.mapper.api.BirthdayMapper;
 import com.javaschool.entity.user.User;
 import com.javaschool.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
