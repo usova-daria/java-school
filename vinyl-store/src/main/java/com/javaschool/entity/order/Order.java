@@ -1,5 +1,6 @@
 package com.javaschool.entity.order;
 
+import com.javaschool.domainlogic.user.profile.dto.orderpreview.UserOrderPreviewInfo;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.order.enumeration.OrderStatus;
 import lombok.Data;
@@ -34,6 +35,34 @@ import java.util.List;
                 )
         )
 })
+@NamedQueries(
+        @NamedQuery(name = "Order.findOrderItemPicturesByOrderId",
+                    query = "SELECT p.picture from Product p " +
+                            "inner join OrderItem oi on p.id = oi.product.id " +
+                            "where oi.order.id = :order_id")
+)
+@NamedNativeQuery(
+        name = "Order.findUserOrderPreviewInfoByUserId",
+        query = "SELECT o.order_id as id, o.status as status, o.created as created, pd.amount as total " +
+                "FROM `order` o " +
+                "inner join customer_has_order cho on o.order_id = cho.order_id " +
+                "inner join payment_details pd on o.payment_details_id = pd.payment_details_id " +
+                "WHERE cho.user_id = :user_id " +
+                "order by created desc",
+        resultSetMapping = "OrderInfoPreviewInfo"
+)
+@SqlResultSetMapping(
+        name = "OrderInfoPreviewInfo",
+        classes = @ConstructorResult(
+                targetClass = UserOrderPreviewInfo.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "status", type = String.class),
+                        @ColumnResult(name = "created", type = LocalDate.class),
+                        @ColumnResult(name = "total", type = Double.class)
+                }
+        )
+)
 @ToString
 public class Order {
 

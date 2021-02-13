@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My orders</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/user/profile.css}"/>
+    <style>
+        .view-order-link {
+            color: black;
+        }
+
+        .view-order-link:hover {
+            color: #8c7e77;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/header :: #header"></div>
+<br/>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/profile-navbar :: #profileMenu"></div>
+
+        <!--        <main role="main" class="col-md-9 mr-md-auto col-lg-10 ml-5">-->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 mr-4">
+            <h2 class="mb-3"> My orders </h2>
+
+            <table class="table col-9">
+                <thead>
+                <tr>
+                    <th> #</th>
+                    <th> Order date</th>
+                    <th> Items</th>
+                    <th> Total</th>
+                    <th> Status</th>
+                    <th> Actions</th>
+                </tr>
+                </thead>
+
+                <tr th:each="order, iter : ${orders}">
+                    <td th:text="${iter.index + 1}">NA</td>
+                    <td th:text="${order.orderInfo.createdDate}">NA</td>
+
+                    <td>
+                        <div th:id="${'carousel' + iter.index}" class="carousel slide"
+                             data-interval="false" style="width: 110px">
+                            <div class="carousel-inner">
+                                <div class="carousel-item" th:each="picture, iter : ${order.orderItemsPictures}"
+                                     th:classappend="${iter.index == 0 ? 'active' : 'mx-0'}">
+                                    <img th:src="${'data:image/jpeg;charset=utf-8;base64,'+ picture}"
+                                         th:onerror="'this.src=\'' + @{/img/image-not-found.jpg} + '\';'"
+                                         alt="product picture"
+                                         style="width: 100px; height: 100px;"
+                                         class="rounded mx-1"/>
+                                </div>
+                            </div>
+
+                            <div th:hidden="${order.orderItemsPictures.size() == 1}">
+                                <a class="carousel-control-prev" th:href="${'#carousel' + iter.index}" role="button"
+                                   data-slide="prev" style="margin-left: -25px;">
+                                    <i class="fas fa-chevron-left" aria-hidden="true" style="color: black"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" th:href="${'#carousel' + iter.index}" role="button"
+                                   data-slide="next" style="margin-right: -25px;">
+                                    <i class="fas fa-chevron-right" aria-hidden="true" style="color: black"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td th:text="${order.orderInfo.total}">NA</td>
+                    <!--                    <td th:text="${order.orderInfo.orderStatus}">NA</td>-->
+                    <td>
+                        <div th:switch="${order.orderInfo.orderStatus}">
+                            <i th:case="${T(com.javaschool.entity.order.enumeration.OrderStatus).AWAITING_SHIPMENT}"
+                               class="fas fa-circle fa-xs order-status-icon awaiting"></i>
+                            <i th:case="${T(com.javaschool.entity.order.enumeration.OrderStatus).SHIPPED}"
+                               class="fas fa-circle fa-xs order-status-icon shipped"></i>
+                            <i th:case="${T(com.javaschool.entity.order.enumeration.OrderStatus).DELIVERED}"
+                               class="fas fa-circle fa-xs order-status-icon delivered"></i>
+                            <span class="ml-1" th:text="${order.orderInfo.orderStatus}"
+                                  style="line-height: 30px;"></span>
+                        </div>
+
+                    </td>
+                    <td>
+                        <a class="view-order-link" th:href="@{/profile/orders/{id}(id=${order.orderInfo.orderId})}">
+                            <i class="far fa-eye"> View order </i>
+                        </a>
+                    </td>
+                </tr>
+
+            </table>
+
+        </main>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: #footer"></div>
+
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
