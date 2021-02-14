@@ -49,7 +49,7 @@ public class UserEditInfoController {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public String handleUserRegistrationException(UserNotFoundException e, RedirectAttributes ra) {
+    public String handleUserNotFoundException(UserNotFoundException e, RedirectAttributes ra) {
         log.error("An error occurred while editing user info", e);
         ra.addFlashAttribute("error", "An error occurred, but it's not your fault. Please, try again later");
 
