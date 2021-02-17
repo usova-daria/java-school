@@ -23,7 +23,6 @@ public class ImageCompress {
                 outputStream.write(buffer, 0, count);
             }
 
-            log.info("Compressed Image Byte Size -" + outputStream.toByteArray().length);
             return outputStream.toByteArray();
         } catch (IOException e) {
             log.error("An error occurred while compressing a byte array", e);
@@ -43,7 +42,6 @@ public class ImageCompress {
                 outputStream.write(buffer, 0, count);
             }
 
-            log.info("Decompress Image Byte Size - " + outputStream.toByteArray().length);
             return outputStream.toByteArray();
         } catch (IOException | DataFormatException e) {
             log.error("An error occurred while decompressing a byte array", e);
