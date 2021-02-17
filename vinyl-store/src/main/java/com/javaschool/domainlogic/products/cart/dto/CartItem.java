@@ -1,6 +1,6 @@
 package com.javaschool.domainlogic.products.cart.dto;
 
-import com.javaschool.domainlogic.products.dto.ProductDto;
+import com.javaschool.domainlogic.products.common.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

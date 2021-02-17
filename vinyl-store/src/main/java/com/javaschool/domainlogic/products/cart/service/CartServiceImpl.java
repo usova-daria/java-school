@@ -3,7 +3,7 @@ package com.javaschool.domainlogic.products.cart.service;
 import com.javaschool.domainlogic.products.cart.exception.AddItemToCartException;
 import com.javaschool.domainlogic.products.cart.dto.Cart;
 import com.javaschool.domainlogic.products.cart.dto.CartItem;
-import com.javaschool.domainlogic.products.dto.ProductDto;
+import com.javaschool.domainlogic.products.common.dto.ProductDto;
 import com.javaschool.domainlogic.products.home.service.ProductService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;

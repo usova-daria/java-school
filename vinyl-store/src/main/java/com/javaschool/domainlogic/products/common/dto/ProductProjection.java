@@ -1,7 +1,8 @@
-package com.javaschool.domainlogic.products.dto;
+package com.javaschool.domainlogic.products.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +26,7 @@ public class ProductProjection {
     /**
      * Product picture
      */
+    @ToString.Exclude
     private byte[] picture;
 
     /**

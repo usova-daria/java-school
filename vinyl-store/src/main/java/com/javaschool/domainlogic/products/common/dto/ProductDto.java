@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.products.dto;
+package com.javaschool.domainlogic.products.common.dto;
 
 import lombok.*;
 

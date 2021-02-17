@@ -1,6 +1,6 @@
 package com.javaschool.domainlogic.products.home.service;
 
-import com.javaschool.domainlogic.products.dto.ProductDto;
+import com.javaschool.domainlogic.products.common.dto.ProductDto;
 
 import java.util.List;
 
