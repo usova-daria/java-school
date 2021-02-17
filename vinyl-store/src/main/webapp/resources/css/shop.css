@@ -1,0 +1,113 @@
+.genre {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2em;
+    padding: 2px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.genre:hover, .genre:active {
+    background-color: rgba(245, 222, 179, 0.4);
+    color: black;
+}
+
+.active {
+    background-color: rgba(245, 222, 179, 0.4);
+    box-shadow: 0 0 0 3px rgba(231, 165, 0, 0.4) !important;
+}
+
+a {
+    color: black;
+}
+
+.slider-active {
+    box-shadow: 0 0 0 3px rgba(59, 56, 56, 0.4) !important;
+}
+
+.middle {
+    position: relative;
+    width: 100%;
+}
+
+.slider {
+    position: relative;
+    z-index: 1;
+    height: 5px;
+    margin: 0 5px;
+}
+.slider > .track {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
+    background-color: #8c8686;
+}
+.slider > .range {
+    position: absolute;
+    z-index: 2;
+    left: 25%;
+    right: 25%;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
+    background-color: #242323;
+}
+.slider > .thumb {
+    position: absolute;
+    z-index: 3;
+    width: 15px;
+    height: 15px;
+    background-color: #242323;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(86, 83, 83, 0.1);
+    transition: box-shadow .3s ease-in-out;
+}
+.slider > .thumb.left {
+    left: 25%;
+    transform: translate(-7px, -6px);
+}
+.slider > .thumb.right {
+    right: 25%;
+    transform: translate(5px, -6px);
+}
+.slider > .thumb.hover {
+    box-shadow: 0 0 0 20px rgba(84, 79, 79, 0.1);
+}
+.slider > .thumb.active {
+    box-shadow: 0 0 0 40px rgba(84, 79, 79, 0.1);
+}
+
+input[type=range] {
+    position: absolute;
+    pointer-events: none;
+    -webkit-appearance: none;
+    z-index: 2;
+    height: 10px;
+    width: 100%;
+    opacity: 0;
+}
+input[type=range]::-webkit-slider-thumb {
+    pointer-events: all;
+    width: 10px;
+    height: 10px;
+    border-radius: 0;
+    border: 0 none;
+    background-color: red;
+    -webkit-appearance: none;
+}
+
+.sort-not-selected {
+    border: 2px dashed #FFfFFf;
+    border-radius: 10px
+}
+
+.sort-selected {
+    border: 2px dashed #f3d9a0;
+    border-radius: 10px
+}
