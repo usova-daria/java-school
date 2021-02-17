@@ -19,15 +19,23 @@ import java.time.LocalDate;
         @NamedQuery(name = "Product.findByNameContaining",
                 query = "SELECT p from Product p where lower(p.name) like lower(concat('%', :name, '%'))"),
         @NamedQuery(name = "Product.findByDeletedFalse",
-                    query = "SELECT p from Product p where p.deleted = false"),
+                    query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
+                            " from Product p where p.deleted = false"),
+        @NamedQuery(name = "Product.findByDeletedFalseAndSortByPrice",
+                query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
+                        " from Product p where p.deleted = false order by p.price ASC"),
         @NamedQuery(name = "Product.findByDeletedFalseAndSortByCreated",
-                    query = "SELECT new com.javaschool.domainlogic.products.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
+                    query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
                             " from Product p where p.deleted = false order by p.created DESC"),
         @NamedQuery(name = "Product.findById",
-                    query = "SELECT new com.javaschool.domainlogic.products.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore) " +
+                    query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore) " +
                             " from Product p where p.id = :id"),
         @NamedQuery(name = "Product.findUnitsInStoreById",
                     query = "SELECT coalesce(p.unitsInStore, 0) from Product p where p.id = :id"),
+        @NamedQuery(name = "Product.findMaxPrice",
+                query = "SELECT max(p.price) from Product p where p.deleted = false"),
+        @NamedQuery(name = "Product.findMinPrice",
+                query = "SELECT min(p.price) from Product p where p.deleted = false"),
         @NamedQuery(name = "Product.findOrderItemProjectionByOrderId",
                     query = "SELECT new com.javaschool.dao.impl.product.projection.OrderItemProjection" +
                             "(oi.product.id, oi.product.name, oi.product.picture, oi.price, oi.amount) " +

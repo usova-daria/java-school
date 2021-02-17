@@ -4,12 +4,14 @@ import com.javaschool.dao.api.product.ProductRepository;
 import com.javaschool.dao.impl.AbstractRepositoryImpl;
 import com.javaschool.dao.impl.product.projection.OrderItemProjection;
 import com.javaschool.domainlogic.admin.stats.dto.ProductData;
-import com.javaschool.domainlogic.products.dto.ProductProjection;
-import com.javaschool.domainlogic.user.profile.dto.order.UserOrderItem;
+import com.javaschool.domainlogic.products.common.dto.ProductProjection;
+import com.javaschool.dao.impl.product.search.ProductSearchQueryCriteriaConsumer;
 import com.javaschool.entity.product.Product;
+import com.javaschool.dao.impl.product.search.SearchCriteria;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
+import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +37,14 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     }
 
     @Override
-    public List<Product> findProductByDeletedFalse() {
-        return entityManager.createNamedQuery("Product.findByDeletedFalse", Product.class)
+    public List<ProductProjection> findProductProjectionByDeletedFalse() {
+        return entityManager.createNamedQuery("Product.findByDeletedFalse", ProductProjection.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<ProductProjection> findProductProjectionByDeletedFalseAndSortByPrice() {
+        return entityManager.createNamedQuery("Product.findByDeletedFalseAndSortByPrice", ProductProjection.class)
                 .getResultList();
     }
 
@@ -75,4 +83,39 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
                 .getResultList();
     }
 
+    public List<ProductProjection> findProductByParams(List<SearchCriteria> params, Class category,
+                                                       String orderBy, boolean desc) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductProjection> query = builder.createQuery(ProductProjection.class);
+        Root root = query.from(category);
+        query.select(builder.construct(ProductProjection.class,
+                root.get("id"), root.get("price"),
+                root.get("name"), root.get("picture"),
+                root.get("unitsInStore")));
+
+        Predicate predicate = builder.conjunction();
+        ProductSearchQueryCriteriaConsumer searchConsumer =
+                new ProductSearchQueryCriteriaConsumer(predicate, builder, root);
+
+        params.forEach(searchConsumer);
+        predicate = searchConsumer.getPredicate();
+
+        query.where(predicate);
+        query.orderBy(desc ? builder.desc(root.get(orderBy)) : builder.asc(root.get(orderBy)));
+
+        return entityManager.createQuery(query)
+                .getResultList();
+    }
+
+    @Override
+    public float findMaxPrice() {
+        return entityManager.createNamedQuery("Product.findMaxPrice", Float.class)
+                .getSingleResult();
+    }
+
+    @Override
+    public float findMinPrice() {
+        return entityManager.createNamedQuery("Product.findMinPrice", Float.class)
+                .getSingleResult();
+    }
 }
