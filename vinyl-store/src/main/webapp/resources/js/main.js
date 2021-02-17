@@ -5,11 +5,11 @@ function changeElementStyle(cssClass, element) {
     }, 1000);
 }
 
-$("a.add-to-cart").on('click', function(event) {
+$(document).on('click', 'a.add-to-cart', function (event) {
     var a = $(this)
     addItemToCart($(this).attr('href'), a);
     return false;
-});
+} );
 
 function addItemToCart(href, a)  {
     $.ajax({
