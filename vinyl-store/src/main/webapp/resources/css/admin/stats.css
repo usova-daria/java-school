@@ -1,0 +1,51 @@
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    text-align: center;
+    width: 100%;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+.dropdown-item.active, .dropdown-item:focus, .bootstrap-select .btn {
+    background-color: rgb(159, 32, 66);
+    color: whitesmoke;
+}
+
+.bootstrap-select .btn {
+    font-weight: 200;
+    font-size: 16px;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.bootstrap-select .dropdown-menu {
+    margin: 15px 0 0;
+}
+
+select::-ms-expand {
+    /* for IE 11 */
+    display: none;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgba(159, 32, 66, 0.05);
+}

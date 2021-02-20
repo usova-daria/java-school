@@ -17,16 +17,22 @@ public class PaymentDetailsRepositoryImpl extends AbstractRepositoryImpl<Payment
 
     @Override
     public double getTotalAmountAfter(LocalDate date) {
-        return (double) entityManager.createNamedQuery("PaymentDetails.findTotalAmountByPaymentDateAfter")
+        return entityManager.createNamedQuery("PaymentDetails.findTotalAmountByPaymentDateAfter", Double.class)
                 .setParameter("date", date)
                 .getSingleResult();
     }
 
     @Override
     public double getTotalAmountBetween(LocalDate from, LocalDate to) {
-        return (double) entityManager.createNamedQuery("PaymentDetails.findTotalAmountByPaymentDateBetween")
+        return entityManager.createNamedQuery("PaymentDetails.findTotalAmountByPaymentDateBetween", Double.class)
                 .setParameter("fromDate", from)
                 .setParameter("toDate", to)
+                .getSingleResult();
+    }
+
+    @Override
+    public LocalDate getMinPaymentDate() {
+        return entityManager.createNamedQuery("PaymentDetails.findMinPaymentDate", LocalDate.class)
                 .getSingleResult();
     }
 

@@ -17,8 +17,12 @@ import java.time.LocalDate;
         @NamedQuery(name = "PaymentDetails.findTotalAmountByPaymentDateBetween",
                 query = "SELECT coalesce(sum(pd.amount), 0) from PaymentDetails pd " +
                         "where pd.paymentDate >= :fromDate and pd.paymentDate <= :toDate"),
+
         @NamedQuery(name = "PaymentDetails.findTotalAmountByPaymentDateAfter",
-                query = "SELECT coalesce(sum(pd.amount), 0) from PaymentDetails pd where pd.paymentDate >= :date")
+                query = "SELECT coalesce(sum(pd.amount), 0) from PaymentDetails pd where pd.paymentDate >= :date"),
+
+        @NamedQuery(name = "PaymentDetails.findMinPaymentDate",
+                    query = "SELECT min(pd.paymentDate) from PaymentDetails pd")
 })
 @Data
 @NoArgsConstructor

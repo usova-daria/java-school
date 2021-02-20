@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.Month;
+import java.time.Year;
 import java.util.Map;
 
 @Data
@@ -18,8 +19,8 @@ public class SalesStats implements Serializable {
     private Map<Month, Double> yearProfit;
 
     /**
-     *  Last week profit
+     *  Year
      */
-    private double lastWeekProfit;
+    private int year;
 
 }
