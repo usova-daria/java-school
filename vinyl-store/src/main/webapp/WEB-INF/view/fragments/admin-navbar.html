@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<nav id="adminMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse"
+     style="background-color: rgba(167, 157, 83, 0.1)">
+    <div class="sidebar-sticky">
+
+        <h5 class="sidebar-heading mt-4 mb-1">
+            <span>Statistics</span>
+        </h5>
+
+        <div class="sub">
+            <a th:href="@{/admin/stats/sales}">
+                <i class="fas fa-chart-bar"></i> Sales
+            </a>
+            <a th:href="@{/admin/stats/customers}">
+                <i class="fas fa-users"></i> Customers
+            </a>
+            <a th:href="@{/admin/stats/products}">
+                <i class="fas fa-tags"></i> Products
+            </a>
+        </div>
+
+        <hr>
+
+        <div>
+            <a th:href="@{/admin/orders}">
+                <i class="fas fa-shopping-bag"></i> Orders
+            </a>
+        </div>
+
+        <hr>
+
+        <h5 class="sidebar-heading d-flex mr-auto mt-1 mb-1">
+            <span>Records</span>
+        </h5>
+
+
+        <div class="sub">
+            <a th:href="@{/admin/add/record}">
+                <i class="fas fa-plus"></i> Add
+            </a>
+
+            <a th:href="@{/admin/genre}">
+                <i class="fas fa-music"></i> Genres
+            </a>
+        </div>
+
+    </div>
+</nav>
+</html>

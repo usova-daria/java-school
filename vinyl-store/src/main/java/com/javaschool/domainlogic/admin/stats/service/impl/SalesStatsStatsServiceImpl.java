@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 
 import javax.persistence.PersistenceException;
 import java.time.LocalDate;
@@ -14,8 +15,8 @@ import java.time.Month;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Service
 @Log4j
+@Service
 public class SalesStatsStatsServiceImpl implements SalesStatsService {
 
     @Autowired
@@ -32,8 +33,7 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
     @Transactional(readOnly = true)
     public SalesStats getSalesStats(int year) {
         Map<Month, Double> yearProfit = getYearProfit(year);
-        double lastWeekProfit = getWeekProfit(LocalDate.now());
-        return new SalesStats(yearProfit, lastWeekProfit);
+        return new SalesStats(yearProfit, year);
     }
 
     private Map<Month, Double> getYearProfit(int year) {
@@ -66,6 +66,18 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
         return monthProfit;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public int getFirstPaymentYear() {
+        try {
+            LocalDate firstPaymentDate = paymentDetailsRepository.getMinPaymentDate();
+            return firstPaymentDate.getYear();
+        } catch (PersistenceException e) {
+            log.error("An error occurred while getting the year of first payment date", e);
+            return LocalDate.now().getYear() - 5;
+        }
+    }
+
     private double getWeekProfit(LocalDate date) {
         int startOfWeek = date.getDayOfMonth() - (date.getDayOfWeek().getValue() - 1);
         LocalDate from = date.withDayOfMonth(startOfWeek);
@@ -83,4 +95,18 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
         return weekProfit;
     }
 
+    @Override
+    public void fillModelMap(int year, ModelMap modelMap) {
+        SalesStats salesStats = getSalesStats(year);
+        modelMap.addAttribute("salesStats", salesStats);
+    }
+
+    @Override
+    public void fillModelMap(ModelMap modelMap) {
+        SalesStats salesStats = getSalesStats();
+        int firstPaymentYear = getFirstPaymentYear();
+
+        modelMap.addAttribute("salesStats", salesStats);
+        modelMap.addAttribute("firstPaymentYear", firstPaymentYear);
+    }
 }

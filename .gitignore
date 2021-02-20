@@ -1,4 +1,12 @@
 # Project exclude paths
-/target/
-/.idea
+**/target/
+.idea/
 *.iml
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log

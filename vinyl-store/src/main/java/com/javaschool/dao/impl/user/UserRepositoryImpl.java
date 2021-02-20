@@ -7,6 +7,7 @@ import com.javaschool.entity.user.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +38,19 @@ public class UserRepositoryImpl extends AbstractRepositoryImpl<User, Long> imple
         return entityManager.createNamedQuery("User.findAndSortByNumberOfOrders", CustomerData.class)
                 .setMaxResults(resultSize)
                 .getResultList();
+    }
+
+    @Override
+    public boolean userHasOrder(Long userId, Long orderId) {
+        String countQuery = "SELECT count(*) from customer_has_order cho " +
+                "where cho.order_id = :order_id and cho.user_id = :user_id";
+
+        int numberOfRows = ((Number) entityManager.createNativeQuery(countQuery)
+                .setParameter("user_id", userId)
+                .setParameter("order_id", orderId)
+                .getSingleResult())
+                .intValue();
+
+        return numberOfRows == 1;
     }
 }

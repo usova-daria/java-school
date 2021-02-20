@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <meta charset="UTF-8">
+    <title>Access denied</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: #header"></div>
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="jumbotron bg-transparent">
+            <h1 class="display-4">Access denied</h1>
+            <hr class="my-4">
+            <p>
+                You do not have permission to access this page. <br> Please contact an administrator to get permissions or
+                go to the home page and browse other pages.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: #footer"></div>
+
+</body>
+</html>

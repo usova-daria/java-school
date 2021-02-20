@@ -1,0 +1,21 @@
+.order-status-icon {
+    vertical-align: middle;
+    font-size: 10px;
+}
+
+.awaiting {
+    color: #81b7d2;
+}
+
+.shipped {
+    color: #f89ee3;
+}
+
+.delivered {
+    color: #8dcd92;
+}
+
+b, .order-info-icon {
+    color: #585656;
+    margin-bottom: 7px;
+}

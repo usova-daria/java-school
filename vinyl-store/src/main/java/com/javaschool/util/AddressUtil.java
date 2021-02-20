@@ -5,7 +5,7 @@ import com.javaschool.entity.address.Address;
 public class AddressUtil {
 
     public static String addressToString(Address address) {
-        if (address == null) return null;
+        if (address == null) return "NA";
 
         String country = address.getCountry().getName();
         String town = address.getTown().getName();

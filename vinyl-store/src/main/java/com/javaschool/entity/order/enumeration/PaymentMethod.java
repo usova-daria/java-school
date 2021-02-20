@@ -11,6 +11,11 @@ public enum PaymentMethod {
         this.methodName = method;
     }
 
+    @Override
+    public String toString() {
+        return this.methodName;
+    }
+
     public String getMethodName() {
         return methodName;
     }

@@ -17,20 +17,6 @@ public class RecordRepositoryImpl extends AbstractRepositoryImpl<Record, Long> i
     }
 
     @Override
-    public List<Record> findByGenre(Genre genre) {
-        return entityManager.createNamedQuery("Record.findByGenre", Record.class)
-                .setParameter("genre", genre)
-                .getResultList();
-    }
-
-    @Override
-    public List<Record> findByGenreAndDeletedFalse(Genre genre) {
-        return entityManager.createNamedQuery("Record.findByGenreAndDeletedFalse", Record.class)
-                .setParameter("genre", genre)
-                .getResultList();
-    }
-
-    @Override
     public Record save(Record record) {
         byte[] picture = record.getPicture();
         byte[] compressedPicture = ImageCompress.compressBytes(picture);

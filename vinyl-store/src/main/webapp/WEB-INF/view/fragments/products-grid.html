@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--/*@thymesVar id="products" type="java.util.List<com.javaschool.domainlogic.products.common.dto.ProductDto>"*/-->
+<div class="row mt-2 ml-1 mr-3" id="products-grid">
+    <input id="max-price" type="number" value="${maxPrice}" hidden="hidden">
+    <input id="min-price" type="number" value="${minPrice}" hidden="hidden">
+
+    <div class="col-md-3" th:each="product, iter : ${products}">
+        <div class="product-grid mb-2">
+            <div class="product-image">
+                <a href="#">
+                    <img class="pic-1" th:src="${'data:image/jpeg;charset=utf-8;base64,'+product.picture}"
+                         th:onerror="'this.src=\'' + @{/img/image-not-found.jpg} + '\';'" alt="#"/>
+                    <img class="pic-2" th:src="${'data:image/jpeg;charset=utf-8;base64,'+product.picture}"
+                         th:onerror="'this.src=\'' + @{/img/image-not-found.jpg} + '\';'" alt="#"/>
+                </a>
+            </div>
+            <div class="product-content">
+                <h3 class="title"><p th:text="${product.name}">Name</p></h3>
+                <div class="price"><p th:text="${#numbers.formatDecimal(product.price, 1, 2, 'POINT')}">
+                    Price</p></div>
+                <a th:if="${product.available}" class="add-to-cart"
+                   th:href="@{/cart/add/{id}(id=${product.id})}">
+                    ADD TO CART
+                </a>
+                <a th:if="${not product.available}" class="disabled"
+                   th:href="@{/cart/add/{id}(id=${product.id})}">
+                    NOT AVAILABLE
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

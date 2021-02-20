@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div id="year-profit" class="col-11">
+    <div>
+        <figure class="highcharts-figure w-100">
+            <div id="container"></div>
+        </figure>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>MONTH</th>
+            <th>PROFIT</th>
+        </tr>
+        </thead>
+        <tr th:each="profit : ${salesStats.yearProfit}">
+            <td th:text="${profit.key}">NA</td>
+            <td th:text="${profit.value}">NA</td>
+        </tr>
+    </table>
+
+    <script th:inline="javascript" id="chart-script">
+        /*<![CDATA[*/
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                width: 1050,
+                height: 400
+            },
+            title: {
+                text: 'Monthly Profit'
+            },
+            xAxis: {
+                categories: /*[[${salesStats.yearProfit.keySet()}]]*/ [
+                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
+                    'Sep', 'Oct', 'Nov', 'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Profit'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
+                    '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: /*[[${salesStats.year + ''}]]*/ 'NA',
+                data: /*[[${salesStats.yearProfit.values()}]]*/[49.9, 71.5, 106.4, 129.2,
+                    144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+                color: '#9F2042'
+            }]
+            /*]]>*/
+        });
+    </script>
+</div>
+
+</html>

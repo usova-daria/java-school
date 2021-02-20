@@ -17,7 +17,7 @@
 
 <div th:replace="fragments/header :: #header"></div>
 
-<div class="no-padding ">
+<div class="no-padding">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -63,9 +63,9 @@
         <div class="container">
             <h3 class="h3"> New Arrivals </h3>
             <div class="row">
-                <div class="col-md-3 col-sm-6" th:each="product : ${products}">
-                    <div class="product-grid4">
-                        <div class="product-image4">
+                <div class="col-md-3 col-sm-6" th:each="product, iter : ${products}">
+                    <div class="product-grid mb-2">
+                        <div class="product-image">
                             <a href="#">
                                 <img class="pic-1" th:src="${'data:image/jpeg;charset=utf-8;base64,'+product.picture}"
                                      th:onerror="'this.src=\'' + @{/img/image-not-found.jpg} + '\';'" alt="#"/>
@@ -76,14 +76,16 @@
                         </div>
                         <div class="product-content">
                             <h3 class="title"><p th:text="${product.name}">Name</p></h3>
-                            <div class="price"><p th:text="${#numbers.formatDecimal(product.price, 1, 2, 'POINT')}">Price</p></div>
-                            <a th:if="${product.available}" class="add-to-cart" th:href="@{/cart/add/{id}(id=${product.id})}">
+                            <div class="price"><p th:text="${#numbers.formatDecimal(product.price, 1, 2, 'POINT')}">
+                                Price</p></div>
+                            <a th:if="${product.available}" class="add-to-cart"
+                               th:href="@{/cart/add/{id}(id=${product.id})}">
                                 ADD TO CART
                             </a>
-                            <a th:if="${not product.available}" class="disabled" th:href="@{/cart/add/{id}(id=${product.id})}">
+                            <a th:if="${not product.available}" class="disabled"
+                               th:href="@{/cart/add/{id}(id=${product.id})}">
                                 NOT AVAILABLE
                             </a>
-<!--                            <a class="add-to-cart" href="#">ADD TO CART</a>-->
                         </div>
                     </div>
                 </div>
@@ -91,10 +93,7 @@
         </div>
     </div>
     <hr>
-
 </div>
-
-
 
 <div th:replace="fragments/footer :: #footer"></div>
 

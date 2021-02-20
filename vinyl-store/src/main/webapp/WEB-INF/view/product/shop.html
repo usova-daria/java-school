@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/shop.css}"/>
+    <link rel="stylesheet" th:href="@{/css/product-grid.css}"/>
+
+    <title>Shop vinyl records</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: #header"></div>
+
+<div class="no-padding mb-3">
+    <img th:src="@{/img/shop1.jpg}" class="w-100" alt="why :(">
+</div>
+
+<div class="container-fluid">
+    <div class="row mx-auto">
+
+        <div class="col-md-3 col-lg-2 d-md-block sidebar">
+            <h3 class="font-weight-light mb-1 mt-1">
+                Filter by
+                <span id="reset" style="cursor: pointer;">
+                    <i class="fas fa-sync fa-lg float-right"
+                       style="font-size: 1rem; color: #706d6d; margin-top: 14px;"></i>
+                </span>
+            </h3>
+
+            <hr class="border-dark">
+
+            <div class="accordion" id="genreAccordion">
+                <div class="header py-0" role="group" id="genreHeading">
+                    <a type="button" class="btn btn-link w-100 p-0" data-toggle="collapse" data-target="#genreCollapse">
+                        <span class="font-weight-bold float-left">Genre </span>
+                        <i class="fa fa-angle-down float-right mt-1"></i>
+                    </a>
+                </div>
+
+                <div id="genreCollapse" class="collapse" aria-labelledby="genreHeading" data-parent="#genreAccordion">
+                    <div id="genres" class="btn-group-toggle py-2 bg-white collapse-inner rounded"
+                         data-toggle="buttons">
+                        <label th:each="genre : ${genres}" class="btn genre mb-2 mx-1 genre-button"
+                               th:classappend="${selectedGenresId != null and selectedGenresId.contains(genre.id)} ? 'active' : ''"
+                               th:for="${genre.name}">
+                            <input type="checkbox" th:text="${genre.name}" th:id="${genre.name}"
+                                   name="genre" th:value="${genre.id}" class="checkbox-param"
+                                   th:checked="${selectedGenresId != null and selectedGenresId.contains(genre.id)}">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="accordion" id="priceAccordion">
+                <div class="header py-0" role="group" id="priceHeading">
+                    <a type="button" class="btn btn-link w-100 p-0" data-toggle="collapse" data-target="#priceCollapse">
+                        <span class="font-weight-bold float-left">Price </span>
+                        <i class="fa fa-angle-down float-right mt-1"></i>
+                    </a>
+                </div>
+
+                <div id="priceCollapse" class="collapse" aria-labelledby="priceHeading" data-parent="#priceAccordion">
+                    <div class="middle mt-2">
+                        <div class="pb-2">
+                            <span class="float-left" id="min_value"></span>
+                            <span class="float-right" id="max_value"></span>
+                        </div>
+
+                        <br>
+
+                        <div class="multi-range-slider">
+                            <input type="range" id="input-left" th:min="${minPrice}" th:max="${maxPrice}"
+                                   th:value="${minPrice}">
+                            <input type="range" id="input-right" th:min="${minPrice}" th:max="${maxPrice}"
+                                   th:value="${maxPrice}">
+
+                            <div class="slider">
+                                <div class="track"></div>
+                                <div class="range"></div>
+                                <div class="thumb left"></div>
+                                <div class="thumb right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="form-check" id="available">
+                    <input class="form-check-input checkbox-param" type="checkbox"
+                           value="" id="available-check"
+                           th:checked="${available}">
+                    <label class="form-check-label" for="available-check">
+                        Available
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div id="shop-fragment" th:replace="fragments/shop-fragment :: #shop-fragment"></div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: #footer"></div>
+
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/product/shop.js}"></script>
+
+</body>
+</html>

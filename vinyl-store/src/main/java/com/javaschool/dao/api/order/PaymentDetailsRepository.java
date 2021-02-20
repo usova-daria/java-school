@@ -11,4 +11,6 @@ public interface PaymentDetailsRepository extends AbstractRepository<PaymentDeta
 
     double getTotalAmountBetween(LocalDate from, LocalDate to);
 
+    LocalDate getMinPaymentDate();
+
 }
