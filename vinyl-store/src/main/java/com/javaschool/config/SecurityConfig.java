@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -42,13 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf()
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+            .and()
+                .csrf()
                 .ignoringAntMatchers("/admin/genre/**")
                 .ignoringAntMatchers("/admin/orders/**")
             .and()
             .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/profile/**").hasAuthority("CUSTOMER")
+                .antMatchers("/checkout/**").hasAuthority("CUSTOMER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
             .and()
             .formLogin()
