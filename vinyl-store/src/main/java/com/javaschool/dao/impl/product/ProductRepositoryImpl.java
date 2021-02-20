@@ -23,13 +23,6 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     }
 
     @Override
-    public List<Product> findByNameContainingIgnoreCase(String name) {
-        return entityManager.createNamedQuery("Product.findByNameContaining", Product.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
-
-    @Override
     public List<ProductData> findTopProductsBySalesVolume(int resultSize) {
         return entityManager.createNamedQuery("Product.findAndSortBySalesVolume", ProductData.class)
                 .setMaxResults(resultSize)

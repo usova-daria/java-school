@@ -1,7 +1,7 @@
 package com.javaschool.domainlogic.products.common.mapper;
 
 import com.javaschool.domainlogic.products.common.dto.ProductDto;
-import com.javaschool.domainlogic.products.common.dto.ProductProjection;
+import com.javaschool.dao.impl.product.projection.ProductProjection;
 import com.javaschool.util.ImageCompress;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

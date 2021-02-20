@@ -12,8 +12,6 @@ import java.util.Optional;
 
 public interface ProductRepository extends AbstractRepository<Product, Long> {
 
-    List<Product> findByNameContainingIgnoreCase(String name);
-
     List<ProductData> findTopProductsBySalesVolume(int resultSize);
 
     List<ProductProjection> findProductProjectionByDeletedFalse();

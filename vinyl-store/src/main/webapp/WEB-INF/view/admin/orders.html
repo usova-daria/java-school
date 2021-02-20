@@ -19,44 +19,46 @@
         <div th:replace="fragments/admin-navbar :: #adminMenu"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Orders</h1>
-            </div>
-            <table class="table table-striped col-11" id="order-table">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Created</th>
-                    <th>Address</th>
-                    <th>Recipient</th>
-                    <th>Delivery</th>
-<!--                    <th>Payment method</th>-->
-                    <th>Payment status</th>
-                    <th>Order status</th>
-                </tr>
-                </thead>
-                <tr th:each="order, iter : ${orders}">
-                    <td th:text="${order.id}" hidden="true"> NA</td>
-                    <td th:text="${iter.index + 1}"> NA</td>
-                    <td th:text="${order.created}">NA</td>
-                    <td class="parse-new-line" th:text="${order.address}">NA</td>
-                    <td class="parse-new-line" th:text="${order.recipientContacts}">NA</td>
-                    <td th:text="${order.shippingCompany}">NA</td>
-<!--                    <td th:text="${order.paymentMethod}">NA</td>-->
-                    <td th:text="${order.paymentStatus}">NA</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle"
-                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    th:text="${order.orderStatus}"></button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" th:each="status : ${orderStatusList}"
-                                   th:text="${status}"></a>
+            <div class="col-11">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Orders</h1>
+                </div>
+                <table class="table table-striped" id="order-table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Created</th>
+                        <th>Address</th>
+                        <th>Recipient</th>
+                        <th>Delivery</th>
+                                            <th>Payment method</th>
+                        <!--<th>Payment status</th>-->
+                        <th>Order status</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="order, iter : ${orders}">
+                        <td th:text="${order.id}" hidden="true"> NA</td>
+                        <td th:text="${iter.index + 1}"> NA</td>
+                        <td th:text="${order.createdDate}">NA</td>
+                        <td class="parse-new-line" th:text="${order.address}">NA</td>
+                        <td class="parse-new-line" th:text="${order.recipientContacts}">NA</td>
+                        <td th:text="${order.shippingCompany}">NA</td>
+                        <td th:text="${order.paymentMethod}">NA</td>
+                        <!--<td th:text="${order.paymentStatus}">NA</td>-->
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle"
+                                        type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        th:text="${order.orderStatus}"></button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" th:each="status : ${orderStatusList}"
+                                       th:text="${status}"></a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </main>
     </div>
 </div>

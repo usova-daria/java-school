@@ -4,7 +4,7 @@ import com.javaschool.dao.api.product.ProductRepository;
 import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
 import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
 import com.javaschool.domainlogic.products.common.dto.ProductDto;
-import com.javaschool.domainlogic.products.common.dto.ProductProjection;
+import com.javaschool.dao.impl.product.projection.ProductProjection;
 import com.javaschool.domainlogic.products.common.mapper.ProductDtoMapper;
 import com.javaschool.domainlogic.products.shop.mapper.api.ProductCriteriaMapper;
 import com.javaschool.domainlogic.products.shop.service.api.ShopService;

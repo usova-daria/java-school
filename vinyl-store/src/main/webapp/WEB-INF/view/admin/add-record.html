@@ -19,125 +19,130 @@
 
 <div class="container">
     <div class="row">
-    <div th:replace="fragments/admin-navbar :: #adminMenu"></div>
+        <div th:replace="fragments/admin-navbar :: #adminMenu"></div>
+        <main role="main" class="col-md-9 col-lg-10 ml-auto">
+            <div class="col-11">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Add new records</h1>
+                </div>
+                <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Add new records</h1>
-        </div>
-        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
-
-        <form class="row g-3" th:object="${record}" th:action="@{/admin/add/record/save}"
-              method="post" enctype="multipart/form-data">
-            <div class="col-md-6">
-                <label for="album" class="form-label">Album</label>
-                <input type="text" class="form-control" id="album" maxlength="45" th:field="*{albumName}">
-                <p class="error" th:if="${#fields.hasErrors('albumName')}" th:errors="*{albumName}">Album name Error</p>
-            </div>
-
-            <div class="col-md-4">
-                <label for="musician" class="form-label">Musician</label>
-                <select id="musician" class="btn selectpicker form-control"
-                        data-live-search="true" data-style="btn-primary" multiple
-                        th:field="*{musicianIdList}">
-                    <option th:each="musician : ${allMusicians}"
-                            th:value="${musician.id}"
-                            th:text="${musician.name}"></option>
-                </select>
-                <p class="error" th:if="${#fields.hasErrors('musicianIdList')}" th:errors="*{musicianIdList}">Name
-                    Error</p>
-            </div>
-
-            <div class="col-md-2">
-                <label for="genre" class="form-label">Genre</label>
-                <select id="genre" class="selectpicker form-control" th:field="*{genreId}">
-                    <option th:each="genre : ${genres}"
-                            th:value="${genre.id}"
-                            th:text="${genre.name}"></option>
-                </select>
-            </div>
-
-            <div class="col-md-12">
-                <br>
-            </div>
-
-            <div class="col-10">
-                <label for="name" class="form-label">Name</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="name" maxlength="70" th:field="*{name}">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="generate_name">Generate name
-                        </button>
+                <form class="row" th:object="${record}" th:action="@{/admin/add/record/save}"
+                      method="post" enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        <label for="album" class="form-label">Album</label>
+                        <input type="text" class="form-control" id="album" maxlength="45" th:field="*{albumName}">
+                        <p class="error" th:if="${#fields.hasErrors('albumName')}" th:errors="*{albumName}">Album name
+                            Error</p>
                     </div>
-                </div>
-                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
-            </div>
 
-            <div class="col-md-2">
-                <label for="year" class="form-label">Year</label>
-                <select id="year" class="selectpicker form-control" data-size="10"
-                        th:field="*{year}">
-                    <option th:each="n : ${#numbers.sequence(#dates.year(#dates.createNow()), 1930)}"
-                            th:value="${n}" th:text="${n}">Year
-                    </option>
-                </select>
-            </div>
+                    <div class="col-md-4">
+                        <label for="musician" class="form-label">Musician</label>
+                        <select id="musician" class="btn selectpicker form-control"
+                                data-live-search="true" data-style="btn-primary" multiple
+                                th:field="*{musicianIdList}">
+                            <option th:each="musician : ${allMusicians}"
+                                    th:value="${musician.id}"
+                                    th:text="${musician.name}"></option>
+                        </select>
+                        <p class="error" th:if="${#fields.hasErrors('musicianIdList')}" th:errors="*{musicianIdList}">
+                            Name
+                            Error</p>
+                    </div>
 
-            <div class="col-md-12">
-                <br>
-            </div>
+                    <div class="col-md-2">
+                        <label for="genre" class="form-label">Genre</label>
+                        <select id="genre" class="selectpicker form-control" th:field="*{genreId}">
+                            <option th:each="genre : ${genres}"
+                                    th:value="${genre.id}"
+                                    th:text="${genre.name}"></option>
+                        </select>
+                    </div>
 
-            <div class="form-group col-12">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="6"
-                          th:field="*{description}" maxlength="2000"></textarea>
-                <span class="float-right label label-default" id="count_message"></span>
-                <p class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description
-                    Error</p>
-            </div>
+                    <div class="col-md-12">
+                        <br>
+                    </div>
 
-            <div class="col-md-12">
-                <br>
-            </div>
+                    <div class="col-10">
+                        <label for="name" class="form-label">Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="name" maxlength="70" th:field="*{name}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="generate_name">Generate name
+                                </button>
+                            </div>
+                        </div>
+                        <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+                    </div>
 
-            <div class="col-md-6">
-                <label for="price" class="form-label"> Price </label>
-                <input type="number" class="form-control" id="price" step="0.01" min="0" th:field="*{price}">
-                <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Incorrect price</p>
-            </div>
+                    <div class="col-md-2">
+                        <label for="year" class="form-label">Year</label>
+                        <select id="year" class="selectpicker form-control" data-size="10"
+                                th:field="*{year}">
+                            <option th:each="n : ${#numbers.sequence(#dates.year(#dates.createNow()), 1930)}"
+                                    th:value="${n}" th:text="${n}">Year
+                            </option>
+                        </select>
+                    </div>
 
-            <div class="col-md-6">
-                <label for="units" class="form-label"> Units in store </label>
-                <input type="number" class="form-control" id="units" min="0" th:field="*{unitsInStore}">
-                <p class="error" th:if="${#fields.hasErrors('unitsInStore')}" th:errors="*{unitsInStore}">Incorrect
-                    number of units in store</p>
-            </div>
+                    <div class="col-md-12">
+                        <br>
+                    </div>
 
-            <div class="col-md-12">
-                <br>
-            </div>
+                    <div class="form-group col-12">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="6"
+                                  th:field="*{description}" maxlength="2000"></textarea>
+                        <span class="float-right label label-default" id="count_message"></span>
+                        <p class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                            Description
+                            Error</p>
+                    </div>
 
-            <div class="col-md-12">
-                <label for="image" class="form-label"> Image </label>
-            </div>
+                    <div class="col-md-12">
+                        <br>
+                    </div>
 
-            <div class="input-group mb-3 col-12">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="image" th:field="*{picture}"
-                           accept="image/png, image/jpeg"/>
-                    <label class="custom-file-label" for="image">Choose file</label>
-                </div>
-            </div>
+                    <div class="col-md-6">
+                        <label for="price" class="form-label"> Price </label>
+                        <input type="number" class="form-control" id="price" step="0.01" min="0" th:field="*{price}">
+                        <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Incorrect price</p>
+                    </div>
 
-            <div class="col-md-12">
-                <br>
-            </div>
+                    <div class="col-md-6">
+                        <label for="units" class="form-label"> Units in store </label>
+                        <input type="number" class="form-control" id="units" min="0" th:field="*{unitsInStore}">
+                        <p class="error" th:if="${#fields.hasErrors('unitsInStore')}" th:errors="*{unitsInStore}">
+                            Incorrect
+                            number of units in store</p>
+                    </div>
 
-            <div class="col-12">
-                <button type="submit" class="btn btn-lg float-right save-button">Save</button>
+                    <div class="col-md-12">
+                        <br>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="image" class="form-label"> Image </label>
+                    </div>
+
+                    <div class="input-group mb-3 col-12">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="image" th:field="*{picture}"
+                                   accept="image/png, image/jpeg"/>
+                            <label class="custom-file-label" for="image">Choose file</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <br>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-lg float-right save-button">Save</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    </main>
+        </main>
     </div>
 </div>
 

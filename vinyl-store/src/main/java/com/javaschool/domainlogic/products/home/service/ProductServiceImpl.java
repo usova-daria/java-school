@@ -1,6 +1,8 @@
 package com.javaschool.domainlogic.products.home.service;
 
 import com.javaschool.dao.api.product.ProductRepository;
+import com.javaschool.dao.impl.product.projection.ProductNamePriceProjection;
+import com.javaschool.dao.impl.product.projection.ProductPriceProjection;
 import com.javaschool.domainlogic.products.common.dto.ProductDto;
 import com.javaschool.domainlogic.products.common.dto.ProductProjection;
 import com.javaschool.domainlogic.products.common.mapper.ProductDtoMapper;
@@ -13,6 +15,7 @@ import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 @Service
 @Log4j
 public class ProductServiceImpl implements ProductService {
@@ -24,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDtoMapper productMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<ProductDto> getNotDeletedProductsSortedByCreated(int resultSize) {
         List<ProductProjection> products = new ArrayList<>();
         try {
@@ -36,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ProductDto getProductById(Long id) {
         return productRepository.findProductProjectionById(id).map(p -> productMapper.toDto(p))
                 .orElseThrow(() -> new EntityNotFoundException("Product with id=" + id + "not found"));

@@ -32,7 +32,7 @@ class BSTable {
             },        // Called after deletion
             onAdd: function () {
             },           // Called when added a new row
-            advanced: {                     // Do not override advanced unless you know what youre doing
+            advanced: {                     // Do not override advanced unless you know what you're doing
                 columnLabel: 'Actions',
                 buttonHTML: `<div class="btn-group pull-right">
                 <button id="bEdit" type="button" class="btn btn-sm btn-default">

@@ -4,7 +4,7 @@
 }
 
 .awaiting {
-    color: #8dcd92;
+    color: #81b7d2;
 }
 
 .shipped {
@@ -12,7 +12,7 @@
 }
 
 .delivered {
-    color: #81b7d2;
+    color: #8dcd92;
 }
 
 b, .order-info-icon {

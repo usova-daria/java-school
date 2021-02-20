@@ -12,11 +12,9 @@ import com.javaschool.domainlogic.user.profile.mapper.UserOrderInfoMapper;
 import com.javaschool.domainlogic.user.profile.mapper.UserOrderItemMapper;
 import com.javaschool.domainlogic.user.profile.service.api.UserOrderService;
 import com.javaschool.entity.order.Order;
-import com.javaschool.entity.user.User;
 import com.javaschool.service.api.UserService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

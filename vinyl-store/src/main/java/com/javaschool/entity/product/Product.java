@@ -13,29 +13,45 @@ import java.time.LocalDate;
 @Table(name = "product")
 @NamedQueries({
         @NamedQuery(name = "Product.findAndSortBySalesVolume",
-                    query = "SELECT new " +
-                            "com.javaschool.domainlogic.admin.stats.dto.ProductData(oi.product.id, oi.product.name, sum(oi.amount)) " +
-                            "from OrderItem oi group by oi.product order by sum(oi.amount) DESC"),
-        @NamedQuery(name = "Product.findByNameContaining",
-                query = "SELECT p from Product p where lower(p.name) like lower(concat('%', :name, '%'))"),
+                query = "SELECT new " +
+                        "com.javaschool.domainlogic.admin.stats.dto.ProductData" +
+                        "(oi.product.id, oi.product.name, sum(oi.amount)) " +
+                        "from OrderItem oi group by oi.product order by sum(oi.amount) DESC"),
+
         @NamedQuery(name = "Product.findByDeletedFalse",
-                    query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
-                            " from Product p where p.deleted = false"),
+                query = "SELECT new com.javaschool.dao.impl.product.projection.ProductProjection" +
+                        "(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
+                        " from Product p where p.deleted = false"),
+
         @NamedQuery(name = "Product.findByDeletedFalseAndSortByPrice",
-                query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
+                query = "SELECT new com.javaschool.dao.impl.product.projection.ProductProjection" +
+                        "(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
                         " from Product p where p.deleted = false order by p.price ASC"),
+
         @NamedQuery(name = "Product.findByDeletedFalseAndSortByCreated",
-                    query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
-                            " from Product p where p.deleted = false order by p.created DESC"),
+                query = "SELECT new com.javaschool.dao.impl.product.projection.ProductProjection" +
+                        "(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
+                        " from Product p where p.deleted = false order by p.created DESC"),
+
         @NamedQuery(name = "Product.findById",
-                    query = "SELECT new com.javaschool.domainlogic.products.common.dto.ProductProjection(p.id, p.price, p.name, p.picture, p.unitsInStore) " +
-                            " from Product p where p.id = :id"),
+                query = "SELECT new com.javaschool.dao.impl.product.projection.ProductProjection" +
+                        "(p.id, p.price, p.name, p.picture, p.unitsInStore) " +
+                        " from Product p where p.id = :id"),
+
+        @NamedQuery(name = "Product.findByIdList",
+                query = "SELECT new com.javaschool.dao.impl.product.projection.ProductProjection" +
+                        "(p.id, p.price, p.name, p.picture, p.unitsInStore) " +
+                        " from Product p where p.id in :idList"),
+
         @NamedQuery(name = "Product.findUnitsInStoreById",
-                    query = "SELECT coalesce(p.unitsInStore, 0) from Product p where p.id = :id"),
+                query = "SELECT coalesce(p.unitsInStore, 0) from Product p where p.id = :id"),
+
         @NamedQuery(name = "Product.findMaxPrice",
                 query = "SELECT max(p.price) from Product p where p.deleted = false"),
+
         @NamedQuery(name = "Product.findMinPrice",
                 query = "SELECT min(p.price) from Product p where p.deleted = false"),
+
         @NamedQuery(name = "Product.findOrderItemProjectionByOrderId",
                     query = "SELECT new com.javaschool.dao.impl.product.projection.OrderItemProjection" +
                             "(oi.product.id, oi.product.name, oi.product.picture, oi.price, oi.amount) " +

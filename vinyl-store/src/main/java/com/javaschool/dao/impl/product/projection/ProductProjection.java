@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.products.common.dto;
+package com.javaschool.dao.impl.product.projection;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
