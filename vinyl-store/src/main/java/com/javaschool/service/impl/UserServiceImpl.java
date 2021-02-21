@@ -1,10 +1,13 @@
 package com.javaschool.service.impl;
 
 import com.javaschool.dao.api.user.UserRepository;
+import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
 import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
+import com.javaschool.entity.address.Address;
 import com.javaschool.entity.user.Role;
 import com.javaschool.entity.user.User;
 import com.javaschool.service.api.UserService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,9 +18,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Log4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -60,12 +66,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getCurrentUser() {
         String email = getEmailOfCurrentUser();
         return findUserByEmail(email);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean currentUserHasOrder(Long orderId) {
         User user;
         try {
@@ -76,4 +84,18 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.userHasOrder(user.getId(), orderId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Address> getAddressesOfCurrentUser() {
+        User user;
+        try {
+            user = getCurrentUser();
+            return user.getAddresses();
+        } catch (UserNotFoundException | PersistenceException e) {
+            log.error("An error occurred while getting user addresses", e);
+            return new ArrayList<>();
+        }
+    }
+
 }

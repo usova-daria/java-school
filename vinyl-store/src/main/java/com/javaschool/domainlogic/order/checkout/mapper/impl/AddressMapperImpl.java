@@ -11,6 +11,8 @@ import com.javaschool.entity.address.Town;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class AddressMapperImpl implements AddressMapper {

@@ -2,13 +2,17 @@ package com.javaschool.domainlogic.order.checkout.service.impl;
 
 import com.javaschool.domainlogic.order.cart.dto.Cart;
 import com.javaschool.domainlogic.order.checkout.dto.*;
+import com.javaschool.domainlogic.order.checkout.mapper.api.AddressMapper;
+import com.javaschool.domainlogic.order.checkout.mapper.api.UserAddressDtoMapper;
 import com.javaschool.domainlogic.order.checkout.service.api.*;
+import com.javaschool.entity.address.Address;
 import com.javaschool.entity.order.enumeration.PaymentMethod;
 import com.javaschool.entity.user.User;
 import com.javaschool.service.api.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +28,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     private final DeliveryService deliveryService;
     private final UserService userService;
     private final CheckoutCartService checkoutCartService;
+    private final UserAddressDtoMapper userAddressDtoMapper;
 
     @Override
     public List<TownDto> getTownsByCountryId(Integer countryId) {
@@ -46,18 +51,26 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void fillShowCheckoutPageModelMap(ModelMap modelMap, Cart cart) {
         List<CountryDto> countries = countryService.getCountries();
         List<DeliveryDto> deliveryOptions = deliveryService.getDeliveryOptions();
         PaymentMethod[] paymentOptions = PaymentMethod.values();
         CheckoutFormDto checkoutFormDto = getNewCheckoutForm(cart);
         CheckoutCart checkoutCart = checkoutCartService.getCheckoutCart(cart);
+        List<UserAddressDto> addresses = getUserAddresses();
 
         modelMap.put("countries", countries);
         modelMap.put("deliveryOptions", deliveryOptions);
         modelMap.put("paymentOptions", paymentOptions);
         modelMap.put("checkoutForm", checkoutFormDto);
         modelMap.put("cartDto", checkoutCart);
+        modelMap.put("addresses", addresses);
+    }
+
+    public List<UserAddressDto> getUserAddresses() {
+        List<Address> addresses = userService.getAddressesOfCurrentUser();
+        return userAddressDtoMapper.toDtoList(addresses);
     }
 
     @Override
