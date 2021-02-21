@@ -21,7 +21,7 @@
     </div>
 
     <!--  <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>-->
-    <!--/*@thymesVar id="cartDto" type="com.javaschool.domainlogic.products.checkout.dto.CheckoutCart"*/-->
+    <!--/*@thymesVar id="cartDto" type="com.javaschool.domainlogic.order.checkout.dto.CheckoutCart"*/-->
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -78,7 +78,7 @@
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Address</h4>
-            <!--/*@thymesVar id="checkoutForm" type="com.javaschool.domainlogic.products.checkout.dto.CheckoutFormDto"*/-->
+            <!--/*@thymesVar id="checkoutForm" type="com.javaschool.domainlogic.order.checkout.dto.CheckoutFormDto"*/-->
             <form class="needs-validation" novalidate th:object="${checkoutForm}" th:action="@{/checkout/place-order}"
                   method="post">
                 <div class="row">
@@ -143,8 +143,8 @@
                         <select class="custom-select d-block w-100" id="country" required
                                 th:field="*{address.countryId}">
                             <option value="-1">Choose country</option>
-                            <!--/*@thymesVar id="country" type="com.javaschool.domainlogic.products.checkout.dto.CountryDto"*/-->
-                            <!--/*@thymesVar id="countries" type="java.util.List<com.javaschool.domainlogic.products.checkout.dto.CountryDto>"*/-->
+                            <!--/*@thymesVar id="country" type="com.javaschool.domainlogic.order.checkout.dto.CountryDto"*/-->
+                            <!--/*@thymesVar id="countries" type="java.util.List<com.javaschool.domainlogic.order.checkout.dto.CountryDto>"*/-->
                             <option th:each="country : ${countries}"
                                     th:value="${country.id}" th:text="${country.name}">Country
                             </option>
@@ -156,8 +156,8 @@
                         <label for="town">Town*</label>
                         <select class="custom-select d-block w-100" id="town" th:field="*{address.townId}" required>
                             <option value="-1">Choose town</option>
-                            <!--/*@thymesVar id="town" type="com.javaschool.domainlogic.products.checkout.dto.TownDto"*/-->
-                            <!--/*@thymesVar id="towns" type="java.util.List<com.javaschool.domainlogic.products.checkout.dto.TownDto>"*/-->
+                            <!--/*@thymesVar id="town" type="com.javaschool.domainlogic.order.checkout.dto.TownDto"*/-->
+                            <!--/*@thymesVar id="towns" type="java.util.List<com.javaschool.domainlogic.order.checkout.dto.TownDto>"*/-->
                              <option th:each="town : ${towns}"
                                      th:value="${town.id}"
                                      th:text="${town.name}"
@@ -185,8 +185,8 @@
                 <h4 class="mb-3">Delivery options</h4>
 
                 <div class="d-block my-3 form-group">
-                    <!--/*@thymesVar id="option" type="com.javaschool.domainlogic.products.checkout.dto.DeliveryDto"*/-->
-                    <!--/*@thymesVar id="deliveryOptions" type="java.util.List<com.javaschool.domainlogic.products.checkout.dto.DeliveryDto>"*/-->
+                    <!--/*@thymesVar id="option" type="com.javaschool.domainlogic.order.checkout.dto.DeliveryDto"*/-->
+                    <!--/*@thymesVar id="deliveryOptions" type="java.util.List<com.javaschool.domainlogic.order.checkout.dto.DeliveryDto>"*/-->
                     <div class="custom-control custom-radio" th:each="option : ${deliveryOptions}">
                         <input type="radio" th:field="*{deliveryMethodId}" class="custom-control-input"
                                th:id="'delivery' + ${option.id}"
