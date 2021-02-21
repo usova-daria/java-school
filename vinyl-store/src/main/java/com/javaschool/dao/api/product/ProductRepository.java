@@ -24,6 +24,8 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
 
     int findProductUnitsInStoreById(Long id);
 
+    List<ProductUnitsInStoreProjection> findUnitsInStoreByIdList(List<Long> idList);
+
     List<OrderItemProjection> findOrderItemProjectionByOrderId(Long id);
 
     List<ProductProjection> findProductByParams(List<SearchCriteria> params, Class category,
@@ -32,5 +34,13 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
     float findMaxPrice();
 
     float findMinPrice();
+
+    List<ProductPriceProjection> findPriceByProductId(List<Long> idList);
+
+    boolean findDeletedById(Long id);
+
+    List<ProductProjection> findProductProjectionsByIdList(List<Long> idList);
+
+    List<ProductNamePriceProjection> findProductNameAndPriceByIdList(List<Long> idList);
 
 }

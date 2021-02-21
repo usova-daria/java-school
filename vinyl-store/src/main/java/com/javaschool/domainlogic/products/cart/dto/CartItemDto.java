@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CartItem {
+public class CartItemDto {
 
-    private Long productId;
-    private int quantity;
+    private ShowCartProduct product;
+    private int prevQuantity;
+    private int newQuantity;
 
 }

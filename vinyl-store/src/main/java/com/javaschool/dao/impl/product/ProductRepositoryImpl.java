@@ -63,10 +63,24 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     }
 
     @Override
+    public List<ProductProjection> findProductProjectionsByIdList(List<Long> idList) {
+       return entityManager.createNamedQuery("Product.findByIdList", ProductProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
+    }
+
+    @Override
     public int findProductUnitsInStoreById(Long id) {
         return entityManager.createNamedQuery("Product.findUnitsInStoreById", Integer.class)
                 .setParameter("id", id)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<ProductUnitsInStoreProjection> findUnitsInStoreByIdList(List<Long> idList) {
+        return entityManager.createNamedQuery("Product.findUnitsInStoreByIdList", ProductUnitsInStoreProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
     }
 
     @Override
@@ -110,5 +124,26 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     public float findMinPrice() {
         return entityManager.createNamedQuery("Product.findMinPrice", Float.class)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<ProductPriceProjection> findPriceByProductId(List<Long> idList) {
+        return entityManager.createNamedQuery("Product.findPrice", ProductPriceProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
+    }
+
+    @Override
+    public boolean findDeletedById(Long id) {
+        return entityManager.createNamedQuery("Product.findDeletedById", Boolean.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public List<ProductNamePriceProjection> findProductNameAndPriceByIdList(List<Long> idList) {
+        return entityManager.createNamedQuery("Product.findNameAndPriceByIdList", ProductNamePriceProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
     }
 }
