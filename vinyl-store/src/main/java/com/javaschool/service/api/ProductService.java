@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.products.home.service;
+package com.javaschool.service.api;
 
 import com.javaschool.dao.impl.product.projection.ProductNamePriceProjection;
 import com.javaschool.dao.impl.product.projection.ProductPriceProjection;

@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.products.home.service;
+package com.javaschool.service.impl;
 
 import com.javaschool.dao.api.product.ProductRepository;
 import com.javaschool.dao.impl.product.projection.ProductNamePriceProjection;
@@ -7,6 +7,7 @@ import com.javaschool.dao.impl.product.projection.ProductUnitsInStoreProjection;
 import com.javaschool.domainlogic.products.common.dto.ProductDto;
 import com.javaschool.dao.impl.product.projection.ProductProjection;
 import com.javaschool.domainlogic.products.common.mapper.ProductDtoMapper;
+import com.javaschool.service.api.ProductService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

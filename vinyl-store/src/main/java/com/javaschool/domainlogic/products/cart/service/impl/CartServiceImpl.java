@@ -4,7 +4,7 @@ import com.javaschool.dao.impl.product.projection.ProductPriceProjection;
 import com.javaschool.domainlogic.products.cart.dto.Cart;
 import com.javaschool.domainlogic.products.cart.dto.CartItem;
 import com.javaschool.domainlogic.products.cart.service.api.CartService;
-import com.javaschool.domainlogic.products.home.service.ProductService;
+import com.javaschool.service.api.ProductService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
