@@ -9,7 +9,11 @@ import com.javaschool.util.RecipientUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Mapper
 public interface AdminOrderInfoMapper {
@@ -25,6 +29,7 @@ public interface AdminOrderInfoMapper {
     @Mapping(target = "paymentStatus", source = "paymentDetails.status")
     @Mapping(target = "shippingCompany", source = "shippingMethod.companyName")
     @Mapping(target = "recipientContacts", source = "recipient")
+    @Mapping(target = "createdDate", source = "created")
     AdminOrderInfo toDto(Order order);
 
     /**
@@ -54,5 +59,11 @@ public interface AdminOrderInfoMapper {
      * @return order dto list
      */
     List<AdminOrderInfo> toDtoList(List<Order> orders);
+
+    default String createdToString(LocalDate created) {
+        if (created == null) return "NA";
+        return created.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(Locale.ENGLISH));
+    }
 
 }
