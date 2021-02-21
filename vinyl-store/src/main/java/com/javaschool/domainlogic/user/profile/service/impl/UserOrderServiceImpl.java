@@ -13,8 +13,8 @@ import com.javaschool.domainlogic.user.profile.mapper.UserOrderItemMapper;
 import com.javaschool.domainlogic.user.profile.service.api.UserOrderService;
 import com.javaschool.entity.order.Order;
 import com.javaschool.service.api.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +23,7 @@ import java.util.List;
 
 @Log4j
 @Service
+@AllArgsConstructor
 public class UserOrderServiceImpl implements UserOrderService {
 
     private final UserOrderInfoMapper userOrderInfoMapper;
@@ -30,19 +31,6 @@ public class UserOrderServiceImpl implements UserOrderService {
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
     private final UserService userService;
-
-    @Autowired
-    public UserOrderServiceImpl(UserOrderInfoMapper userOrderInfoMapper,
-                                UserOrderItemMapper userOrderItemMapper,
-                                ProductRepository productRepository,
-                                OrderRepository orderRepository,
-                                UserService userService) {
-        this.userOrderInfoMapper = userOrderInfoMapper;
-        this.userOrderItemMapper = userOrderItemMapper;
-        this.productRepository = productRepository;
-        this.orderRepository = orderRepository;
-        this.userService = userService;
-    }
 
     @Transactional(readOnly = true)
     public UserOrder getUserOrderByOrderId(Long id) {
