@@ -17,6 +17,6 @@ public class UserOrderItem {
     private String picture;
 
     private float price;
-    private int amount;
+    private int quantity;
 
 }

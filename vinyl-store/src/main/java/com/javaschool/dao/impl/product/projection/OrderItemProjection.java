@@ -11,6 +11,6 @@ public class OrderItemProjection {
     private String name;
     private byte[] picture;
     private float price;
-    private int amount;
+    private int quantity;
 
 }
