@@ -11,11 +11,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "record")
-@NamedQueries({
-        @NamedQuery(name = "Record.findByGenre",
-                query = "SELECT r from Record r where r.genre = :genre"),
-        @NamedQuery(name = "Record.findByGenreAndDeletedFalse",
-                query = "SELECT r from Record r where r.genre = :genre and r.deleted = false")
+@NamedQuery(name = "Record.findByIdAndDeletedFalse",
+            query = "SELECT r from Record r where r.id = :id and r.deleted = false")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "record-graph",
+                attributeNodes = {
+                        @NamedAttributeNode("musicians"),
+                        @NamedAttributeNode("genre")
+                }
+        )
 })
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -35,8 +40,7 @@ public class Record extends Product {
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE,
-                       CascadeType.PERSIST, CascadeType.REFRESH}
-    )
+                    CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "musician_has_record",
             joinColumns = @JoinColumn(name = "record_id"),
