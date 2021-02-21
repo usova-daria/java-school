@@ -2,9 +2,9 @@ package com.javaschool.domainlogic.products.checkout.dto;
 
 import com.javaschool.entity.order.enumeration.PaymentMethod;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 
 @Data
 @ToString
+@NoArgsConstructor
 public class CheckoutFormDto {
 
     @NotNull(message = "{last.name.null}")
@@ -34,8 +35,5 @@ public class CheckoutFormDto {
 
     @NotNull(message = "{delivery.method.required}")
     private Integer deliveryMethodId;
-
-    public CheckoutFormDto() {
-    }
 
 }

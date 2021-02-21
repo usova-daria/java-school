@@ -1,5 +1,11 @@
-$(document).ready(function() {
-    updateTownList();
+$( document ).ready(function() {
+    if ( $('.not-available').length ) {
+        $(".alert").prop('hidden', false);
+    }
+});
+
+$(function () {
+    $("[data-toggle='tooltip']").tooltip();
 });
 
 $("#phoneNumber").keyup(function() {

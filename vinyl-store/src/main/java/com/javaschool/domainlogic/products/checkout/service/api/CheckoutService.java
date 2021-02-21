@@ -1,28 +1,24 @@
 package com.javaschool.domainlogic.products.checkout.service.api;
 
-import com.javaschool.domainlogic.products.cart.dto.CartItem;
+import com.javaschool.domainlogic.products.cart.dto.Cart;
 import com.javaschool.domainlogic.products.checkout.dto.CheckoutFormDto;
 import com.javaschool.domainlogic.products.checkout.dto.CountryDto;
 import com.javaschool.domainlogic.products.checkout.dto.DeliveryDto;
 import com.javaschool.domainlogic.products.checkout.dto.TownDto;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface CheckoutService {
 
-    boolean cartItemIsAvailable(CartItem cartItem);
-
-    List<CountryDto> getCountries();
-
     List<TownDto> getTownsByCountryId(Integer countryId);
 
-    void updateCart(HttpSession session);
+    CheckoutFormDto getNewCheckoutForm(Cart cart);
 
-    List<DeliveryDto> getDeliveryOptions();
+    void fillShowCheckoutPageModelMap(ModelMap modelMap, Cart cart);
 
-    boolean cartIsEmpty(HttpSession session);
-
-    CheckoutFormDto getNewCheckoutForm();
+    ModelAndView checkoutErrorPage(Cart cart, CheckoutFormDto checkoutFormDto);
 
 }

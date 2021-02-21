@@ -2,6 +2,7 @@ package com.javaschool.domainlogic.products.checkout.mapper.impl;
 
 import com.javaschool.dao.api.product.ProductRepository;
 import com.javaschool.domainlogic.products.cart.dto.CartItem;
+import com.javaschool.domainlogic.products.checkout.exception.OrderItemMappingException;
 import com.javaschool.domainlogic.products.checkout.mapper.api.OrderItemMapper;
 import com.javaschool.entity.order.OrderItem;
 import com.javaschool.entity.product.Product;
@@ -19,25 +20,29 @@ public class OrderItemMapperImpl implements OrderItemMapper {
 
     @Override
     public OrderItem toEntity(CartItem cartItem) {
-        if (cartItem == null) return null;
+        if (cartItem == null) {
+            throw new OrderItemMappingException("Cart item must not be null");
+        };
 
         OrderItem orderItem = new OrderItem();
         orderItem.setAmount( cartItem.getQuantity() );
 
-        Long productId = cartItem.getProduct().getId();
+        Long productId = cartItem.getProductId();
         Product product = productRepository.findById( productId )
-                .orElseThrow(() -> new IllegalArgumentException("An error occurred while mapping cartItem with id=" +
-                        productId));
+                .orElseThrow(() -> new OrderItemMappingException("There is no product with id=" +
+                                                                    productId));
 
         orderItem.setProduct( product );
-        orderItem.setPrice( cartItem.getProduct().getPrice() );
+        orderItem.setPrice( product.getPrice() );
 
         return orderItem;
     }
 
     @Override
     public List<OrderItem> toEntityList(List<CartItem> cartItems) {
-        if (cartItems == null) return null;
+        if (cartItems == null) {
+            throw new OrderItemMappingException("Cart item list must not be null");
+        };
 
         return cartItems.stream()
                 .map(this::toEntity)

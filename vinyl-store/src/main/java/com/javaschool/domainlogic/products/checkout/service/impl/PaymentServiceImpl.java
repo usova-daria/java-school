@@ -20,9 +20,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         log.info("Order with id=" + order.getId() + " has been paid. Total: " + paymentDetails.getAmount());
         paymentDetails.setStatus(PaymentStatus.PAID);
-        order.setStatus(OrderStatus.AWAITING_SHIPMENT);
         paymentDetails.setPaymentDate(LocalDate.now());
-
     }
 
 }

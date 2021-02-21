@@ -5,27 +5,35 @@ import com.javaschool.domainlogic.products.checkout.dto.TownDto;
 import com.javaschool.domainlogic.products.checkout.mapper.api.TownMapper;
 import com.javaschool.domainlogic.products.checkout.service.api.TownService;
 import com.javaschool.entity.address.Country;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 @Service
+@AllArgsConstructor
 public class TownServiceImpl implements TownService {
 
-    @Autowired
-    private TownMapper townMapper;
-
-    @Autowired
-    private CountryRepository countryRepository;
+    private final TownMapper townMapper;
+    private final CountryRepository countryRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<TownDto> getTownByCountry(Integer countryId) {
-        return countryRepository.findById(countryId)
-                .map(Country::getTowns)
-                .map(townMapper::toDtoList)
-                .orElse(new ArrayList<>());
+        try {
+            return countryRepository.findById(countryId)
+                    .map(Country::getTowns)
+                    .map(townMapper::toDtoList)
+                    .orElse(new ArrayList<>());
+        } catch (PersistenceException e) {
+            log.error("An error occurred while getting towns by country id", e);
+            return new ArrayList<>();
+        }
     }
 
 }
