@@ -13,10 +13,15 @@ public class AddressUtil {
 
         String street = address.getStreet();
         String building = address.getBuilding();
-        String apartment = apartmentToString(address.getApartment());
+        String apartment = address.getApartment();
 
+        return addressToString(country, town, postalCode, street, building, apartment);
+    }
+
+    private static String addressToString(String country, String town, String postalCode, String street,
+                                         String building, String apartment) {
         return  String.format("%s %s %s \n%s, %s %s",
-                building, street, apartment,
+                building, street, apartmentToString(apartment),
                 town, country, postalCode);
     }
 
