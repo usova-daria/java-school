@@ -1,7 +1,7 @@
 package com.javaschool.domainlogic.products.home.controller;
 
 import com.javaschool.domainlogic.products.common.dto.ProductDto;
-import com.javaschool.domainlogic.products.home.service.ProductService;
+import com.javaschool.service.api.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

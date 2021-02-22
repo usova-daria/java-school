@@ -42,6 +42,7 @@
         <microprofile.config.version>2.0</microprofile.config.version>
         <primefaces.version>10.0.0-RC1</primefaces.version>
         <jquery.version>3.5.1</jquery.version>
+        <highcharts.version>8.2.2</highcharts.version>
     </properties>
 
     <dependencyManagement>
@@ -288,6 +289,13 @@
                 <groupId>org.webjars</groupId>
                 <artifactId>jquery</artifactId>
                 <version>${jquery.version}</version>
+            </dependency>
+
+            <!-- Charts -->
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>highcharts</artifactId>
+                <version>${highcharts.version}</version>
             </dependency>
 
         </dependencies>

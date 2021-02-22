@@ -1,7 +1,11 @@
 package com.javaschool.service.api;
 
+import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
+import com.javaschool.entity.address.Address;
 import com.javaschool.entity.user.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
@@ -14,5 +18,10 @@ public interface UserService extends UserDetailsService {
     User getCurrentUser();
 
     boolean currentUserHasOrder(Long orderId);
+
+    boolean currentUserHasAddress(Long addressId);
+
+    List<Address> getAddressesOfCurrentUser();
+
 
 }

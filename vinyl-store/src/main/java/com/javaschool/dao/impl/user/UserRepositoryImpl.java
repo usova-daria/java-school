@@ -53,4 +53,18 @@ public class UserRepositoryImpl extends AbstractRepositoryImpl<User, Long> imple
 
         return numberOfRows == 1;
     }
+
+    @Override
+    public boolean userHasAddress(Long userId, Long addressId) {
+        String countQuery = "SELECT count(*) from customer_has_address cha " +
+                "where cha.address_id = :address_id and cha.user_id = :user_id";
+
+        int numberOfRows = ((Number) entityManager.createNativeQuery(countQuery)
+                .setParameter("user_id", userId)
+                .setParameter("address_id", addressId)
+                .getSingleResult())
+                .intValue();
+
+        return numberOfRows == 1;
+    }
 }

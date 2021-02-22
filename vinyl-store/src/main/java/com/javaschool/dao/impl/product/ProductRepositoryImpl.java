@@ -2,14 +2,14 @@ package com.javaschool.dao.impl.product;
 
 import com.javaschool.dao.api.product.ProductRepository;
 import com.javaschool.dao.impl.AbstractRepositoryImpl;
-import com.javaschool.dao.impl.product.projection.OrderItemProjection;
+import com.javaschool.dao.impl.product.projection.*;
 import com.javaschool.domainlogic.admin.stats.dto.ProductData;
-import com.javaschool.domainlogic.products.common.dto.ProductProjection;
 import com.javaschool.dao.impl.product.search.ProductSearchQueryCriteriaConsumer;
 import com.javaschool.entity.product.Product;
 import com.javaschool.dao.impl.product.search.SearchCriteria;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.*;
 import java.util.List;
@@ -20,6 +20,12 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
 
     public ProductRepositoryImpl() {
         super(Product.class);
+    }
+
+    @Override
+    public void updateWithLock(Product product) {
+        entityManager.lock(product, LockModeType.OPTIMISTIC);
+        entityManager.merge(product);
     }
 
     @Override
@@ -63,10 +69,24 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     }
 
     @Override
+    public List<ProductProjection> findProductProjectionsByIdList(List<Long> idList) {
+       return entityManager.createNamedQuery("Product.findByIdList", ProductProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
+    }
+
+    @Override
     public int findProductUnitsInStoreById(Long id) {
         return entityManager.createNamedQuery("Product.findUnitsInStoreById", Integer.class)
                 .setParameter("id", id)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<ProductUnitsInStoreProjection> findUnitsInStoreByIdList(List<Long> idList) {
+        return entityManager.createNamedQuery("Product.findUnitsInStoreByIdList", ProductUnitsInStoreProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
     }
 
     @Override
@@ -110,5 +130,26 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     public float findMinPrice() {
         return entityManager.createNamedQuery("Product.findMinPrice", Float.class)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<ProductPriceProjection> findPriceByProductId(List<Long> idList) {
+        return entityManager.createNamedQuery("Product.findPrice", ProductPriceProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
+    }
+
+    @Override
+    public boolean findDeletedById(Long id) {
+        return entityManager.createNamedQuery("Product.findDeletedById", Boolean.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public List<ProductNamePriceProjection> findProductNameAndPriceByIdList(List<Long> idList) {
+        return entityManager.createNamedQuery("Product.findNameAndPriceByIdList", ProductNamePriceProjection.class)
+                .setParameter("idList", idList)
+                .getResultList();
     }
 }

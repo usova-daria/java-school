@@ -17,7 +17,7 @@ public class AdminOrderInfo {
     /**
      * Order creation date
      */
-    private LocalDate created;
+    private String createdDate;
 
     /**
      * String representation of {@link com.javaschool.entity.address.Address} object

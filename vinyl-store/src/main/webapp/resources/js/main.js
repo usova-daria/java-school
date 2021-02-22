@@ -11,14 +11,20 @@ $(document).on('click', 'a.add-to-cart', function (event) {
     return false;
 } );
 
-function addItemToCart(href, a)  {
+function addItemToCart(href, a) {
     $.ajax({
-        type : 'GET',
-        url : href,
-        success : function() {
-            changeElementStyle('element-success', a);
+        type: 'GET',
+        url: href,
+        dataType: 'json',
+        statusCode: {
+            400: function(response) {
+                changeElementStyle('element-error', a);
+            },
+            200: function(response) {
+                changeElementStyle('element-success', a);
+            }
         },
-        error : function() {
+        error: function() {
             changeElementStyle('element-error', a);
         }
     });

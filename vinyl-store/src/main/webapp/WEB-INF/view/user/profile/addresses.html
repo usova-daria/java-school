@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My orders</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/user/profile.css}"/>
+
+    <style>
+        .dropdown-item.active, .dropdown-item:focus, .bootstrap-select .btn {
+            background-color: white;
+            color: #000000;
+        }
+    </style>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: #header"></div>
+<br/>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/profile-navbar :: #profileMenu"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10" style="margin-right: 32px">
+            <div class="col-9">
+
+                <div class="row border-bottom mb-3">
+                    <div class="mb-2">
+                        <h2>My addresses</h2>
+                    </div>
+                    <div class="ml-auto mt-3">
+                        <a style="text-decoration:none; color: black"
+                           th:href="@{/profile/addresses/create}">
+                            <i class="fas fa-plus"></i>
+                            <span>New address</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="alert alert-primary col-12" role="alert" th:text="${error}" th:if="${error}"></div>
+                    <div class="alert alert-primary col-12" role="alert" th:text="${success}" th:if="${success}"></div>
+                    <div hidden id="delete-fail" class="alert alert-danger alert-dismissible fade show col-12"
+                         style="max-height:50px;" role="alert">
+                        <p id="delete-fail-p"></p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <span th:if="${addresses.size() == 0}">No addresses found</span>
+
+                    <!--/*@thymesVar id="addresses" type="java.util.List<com.javaschool.domainlogic.user.profile.dto.address.ShowAddressDto>"*/-->
+                    <div class="border border-secondary p-3 mb-3 rounded address-div col-md-12"
+                         th:if="${addresses.size() != 0}"
+                         th:each="address : ${addresses}">
+                        <input type="text" hidden th:value="${address.id}">
+                        <div class="d-flex">
+                            <div>
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                            </div>
+                            <div>
+                                <span class="parse-new-line" th:text="${address.address}"></span>
+                            </div>
+                            <div class="ml-auto mt-2">
+
+                                <a style="text-decoration:none"
+                                   th:href="@{/profile/addresses/edit/{id}(id=${address.id})}">
+                                    <i class="far fa-edit" style="color: black"></i>
+                                </a>
+
+                                <a class="remove-address" th:href="@{/profile/addresses/delete/{id}(id=${address.id})}">
+                                    <i class="fas fa-times ml-2" style="color: black"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: #footer"></div>
+
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/user/addresses.js}"></script>
+
+</body>
+</html>

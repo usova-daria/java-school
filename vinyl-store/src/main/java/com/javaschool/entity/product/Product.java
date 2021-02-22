@@ -46,6 +46,10 @@ import java.time.LocalDate;
         @NamedQuery(name = "Product.findUnitsInStoreById",
                 query = "SELECT coalesce(p.unitsInStore, 0) from Product p where p.id = :id"),
 
+        @NamedQuery(name = "Product.findUnitsInStoreByIdList",
+                query = "SELECT new com.javaschool.dao.impl.product.projection.ProductUnitsInStoreProjection" +
+                        "(p.id, coalesce(p.unitsInStore, 0)) from Product p where p.id in :idList"),
+
         @NamedQuery(name = "Product.findMaxPrice",
                 query = "SELECT max(p.price) from Product p where p.deleted = false"),
 
@@ -53,10 +57,21 @@ import java.time.LocalDate;
                 query = "SELECT min(p.price) from Product p where p.deleted = false"),
 
         @NamedQuery(name = "Product.findOrderItemProjectionByOrderId",
-                    query = "SELECT new com.javaschool.dao.impl.product.projection.OrderItemProjection" +
-                            "(oi.product.id, oi.product.name, oi.product.picture, oi.price, oi.amount) " +
-                            "from OrderItem oi " +
-                            "where oi.order.id = :order_id")
+                query = "SELECT new com.javaschool.dao.impl.product.projection.OrderItemProjection" +
+                        "(oi.product.id, oi.product.name, oi.product.picture, oi.price, oi.amount) " +
+                        "from OrderItem oi " +
+                        "where oi.order.id = :order_id"),
+
+        @NamedQuery(name = "Product.findPrice",
+                query = "SELECT new com.javaschool.dao.impl.product.projection.ProductPriceProjection" +
+                        "(p.id, p.price) from Product p where p.id in :idList"),
+
+        @NamedQuery(name = "Product.findDeletedById",
+                query = "SELECT p.deleted from Product p where p.id = :id"),
+
+        @NamedQuery(name = "Product.findNameAndPriceByIdList",
+                    query = "SELECT new com.javaschool.dao.impl.product.projection.ProductNamePriceProjection" +
+                            "(p.id, p.price, p.name) from Product p where p.id in :idList")
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
@@ -91,7 +106,7 @@ public class Product {
 
     @Column(name = "picture")
     @Lob
-    @Type(type="org.hibernate.type.ImageType")
+    @Type(type = "org.hibernate.type.ImageType")
     private byte[] picture;
 
     @Column(name = "description")
