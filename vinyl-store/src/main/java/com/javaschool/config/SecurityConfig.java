@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .ignoringAntMatchers("/admin/genre/**")
                 .ignoringAntMatchers("/admin/orders/**")
+                .ignoringAntMatchers("/profile/addresses/**")
             .and()
             .authorizeRequests()
                 .antMatchers("/").permitAll()
