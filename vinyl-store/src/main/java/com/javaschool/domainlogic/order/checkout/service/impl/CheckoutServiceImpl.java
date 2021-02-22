@@ -2,7 +2,6 @@ package com.javaschool.domainlogic.order.checkout.service.impl;
 
 import com.javaschool.domainlogic.order.cart.dto.Cart;
 import com.javaschool.domainlogic.order.checkout.dto.*;
-import com.javaschool.domainlogic.order.checkout.mapper.api.AddressMapper;
 import com.javaschool.domainlogic.order.checkout.mapper.api.UserAddressDtoMapper;
 import com.javaschool.domainlogic.order.checkout.service.api.*;
 import com.javaschool.entity.address.Address;
@@ -29,11 +28,6 @@ public class CheckoutServiceImpl implements CheckoutService {
     private final UserService userService;
     private final CheckoutCartService checkoutCartService;
     private final UserAddressDtoMapper userAddressDtoMapper;
-
-    @Override
-    public List<TownDto> getTownsByCountryId(Integer countryId) {
-        return townService.getTownByCountry(countryId);
-    }
 
     @Override
     public CheckoutFormDto getNewCheckoutForm(Cart cart) {
@@ -80,7 +74,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         List<CountryDto> countries = countryService.getCountries();
         List<DeliveryDto> deliveryOptions = deliveryService.getDeliveryOptions();
         CheckoutCart checkoutCart = checkoutCartService.getCheckoutCart(cart);
-        List<TownDto> towns = getTownsByCountryId(checkoutFormDto.getAddress().getCountryId());
+        List<TownDto> towns = townService.getTownByCountry(checkoutFormDto.getAddress().getCountryId());
 
         modelAndView.addObject("countries", countries);
         modelAndView.addObject("towns", towns);
