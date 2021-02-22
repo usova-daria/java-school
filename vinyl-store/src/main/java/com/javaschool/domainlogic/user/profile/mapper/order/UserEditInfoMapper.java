@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.mapper;
+package com.javaschool.domainlogic.user.profile.mapper.order;
 
 import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
 import com.javaschool.domainlogic.user.registration.mapper.api.BirthdayMapper;

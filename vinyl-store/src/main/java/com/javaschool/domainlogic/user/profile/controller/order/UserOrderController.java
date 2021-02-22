@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.controller;
+package com.javaschool.domainlogic.user.profile.controller.order;
 
 import com.javaschool.domainlogic.user.profile.exception.UserHasNoSuchOrder;
 import com.javaschool.domainlogic.user.profile.service.api.UserOrderService;

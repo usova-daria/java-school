@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.mapper;
+package com.javaschool.domainlogic.user.profile.mapper.order;
 
 import com.javaschool.dao.impl.product.projection.OrderItemProjection;
 import com.javaschool.domainlogic.user.profile.dto.order.UserOrderItem;

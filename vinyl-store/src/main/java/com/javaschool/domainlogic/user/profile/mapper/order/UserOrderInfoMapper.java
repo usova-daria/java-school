@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.mapper;
+package com.javaschool.domainlogic.user.profile.mapper.order;
 
 import com.javaschool.domainlogic.user.profile.dto.order.UserOrderInfo;
 import com.javaschool.entity.address.Address;

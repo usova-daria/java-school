@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.controller;
+package com.javaschool.domainlogic.user.profile.controller.password;
 
 import com.javaschool.domainlogic.user.profile.dto.password.ChangePasswordDto;
 import com.javaschool.domainlogic.user.profile.exception.ChangePasswordException;
