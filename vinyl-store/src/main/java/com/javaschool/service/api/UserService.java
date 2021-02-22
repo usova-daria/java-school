@@ -19,6 +19,8 @@ public interface UserService extends UserDetailsService {
 
     boolean currentUserHasOrder(Long orderId);
 
+    boolean currentUserHasAddress(Long addressId);
+
     List<Address> getAddressesOfCurrentUser();
 
 

@@ -15,4 +15,6 @@ public interface UserRepository extends AbstractRepository<User, Long> {
 
     boolean userHasOrder(Long userId, Long orderId);
 
+    boolean userHasAddress(Long userId, Long addressId);
+
 }

@@ -87,6 +87,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    public boolean currentUserHasAddress(Long addressId) {
+        User user;
+        try {
+            user = getCurrentUser();
+        } catch (UserNotFoundException e) {
+            return false;
+        }
+
+        return userRepository.userHasAddress(user.getId(), addressId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Address> getAddressesOfCurrentUser() {
         User user;
         try {
