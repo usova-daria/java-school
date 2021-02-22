@@ -1,7 +1,7 @@
 package com.javaschool.domainlogic.user.profile.service.impl;
 
 import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
-import com.javaschool.domainlogic.user.profile.mapper.UserEditInfoMapper;
+import com.javaschool.domainlogic.user.profile.mapper.order.UserEditInfoMapper;
 import com.javaschool.domainlogic.user.profile.service.api.UserEditInfoService;
 import com.javaschool.domainlogic.user.registration.mapper.api.BirthdayMapper;
 import com.javaschool.entity.user.User;
