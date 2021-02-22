@@ -34,7 +34,7 @@ function updateTownList() {
 function getTownByCountryId(id) {
     $.ajax({
         type: 'GET',
-        url: "/vinyl-store/checkout/towns/" + id,
+        url: "/vinyl-store/towns/" + id,
         dataType: 'json',
         success: function (towns) {
             $town = $("#town")
@@ -82,7 +82,7 @@ $("#addresses").on('change', function () {
 function getTownByCountryIdWithSelected(id, selectedId) {
     $.ajax({
         type: 'GET',
-        url: "/vinyl-store/checkout/towns/" + id,
+        url: "/vinyl-store/towns/" + id,
         dataType: 'json',
         success: function (towns) {
             $town = $("#town")

@@ -36,12 +36,6 @@ public class CheckoutController {
         return "/order/checkout";
     }
 
-    @ResponseBody
-    @GetMapping(value = "/towns/{id}", produces = "application/json")
-    public List<TownDto> getTownsByCountryId(@PathVariable("id") Integer countryId) {
-        return checkoutService.getTownsByCountryId(countryId);
-    }
-
     @PostMapping("/place-order")
     public ModelAndView placeOrder(@Valid @ModelAttribute("checkoutForm") CheckoutFormDto checkoutFormDto,
                                    BindingResult result, @ModelAttribute("cart") Cart cart) {
