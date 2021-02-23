@@ -6,9 +6,12 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+/**
+ * @author Daria Usova
+ */
 @Data
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
 public class CustomerData implements Serializable {
 
     /**

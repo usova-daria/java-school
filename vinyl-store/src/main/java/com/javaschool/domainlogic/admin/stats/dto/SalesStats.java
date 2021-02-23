@@ -8,6 +8,9 @@ import java.time.Month;
 import java.time.Year;
 import java.util.Map;
 
+/**
+ * @author Daria Usova
+ */
 @Data
 @AllArgsConstructor
 public class SalesStats implements Serializable {

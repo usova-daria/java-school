@@ -3,8 +3,8 @@ package com.javaschool.domainlogic.admin.stats.service.impl;
 import com.javaschool.dao.api.order.PaymentDetailsRepository;
 import com.javaschool.domainlogic.admin.stats.dto.SalesStats;
 import com.javaschool.domainlogic.admin.stats.service.api.SalesStatsService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -15,12 +15,15 @@ import java.time.Month;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * @author Daria Usova
+ */
 @Log4j
 @Service
+@RequiredArgsConstructor
 public class SalesStatsStatsServiceImpl implements SalesStatsService {
 
-    @Autowired
-    private PaymentDetailsRepository paymentDetailsRepository;
+    private final PaymentDetailsRepository paymentDetailsRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -78,30 +81,15 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
         }
     }
 
-    private double getWeekProfit(LocalDate date) {
-        int startOfWeek = date.getDayOfMonth() - (date.getDayOfWeek().getValue() - 1);
-        LocalDate from = date.withDayOfMonth(startOfWeek);
-        LocalDate to = from.plusDays(6);
-
-        double weekProfit;
-        try {
-            weekProfit = paymentDetailsRepository.getTotalAmountBetween(from, to);
-        } catch (PersistenceException e) {
-            log.error("An error occurred while finding week profit between " +
-                    from + "to " + to, e);
-            weekProfit = 0;
-        }
-
-        return weekProfit;
-    }
-
     @Override
+    @Transactional(readOnly = true)
     public void fillModelMap(int year, ModelMap modelMap) {
         SalesStats salesStats = getSalesStats(year);
         modelMap.addAttribute("salesStats", salesStats);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void fillModelMap(ModelMap modelMap) {
         SalesStats salesStats = getSalesStats();
         int firstPaymentYear = getFirstPaymentYear();
@@ -109,4 +97,5 @@ public class SalesStatsStatsServiceImpl implements SalesStatsService {
         modelMap.addAttribute("salesStats", salesStats);
         modelMap.addAttribute("firstPaymentYear", firstPaymentYear);
     }
+
 }
