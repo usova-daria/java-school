@@ -1,9 +1,7 @@
 package com.javaschool.domainlogic.admin.order.service.api;
 
-import com.javaschool.domainlogic.admin.order.dto.AdminOrderInfo;
 import com.javaschool.domainlogic.admin.order.dto.UpdateOrderStatusDto;
-
-import java.util.List;
+import org.springframework.ui.ModelMap;
 
 /**
  * @author Daria Usova
@@ -11,14 +9,14 @@ import java.util.List;
 public interface AdminOrderService {
 
     /**
-     * Gets order info list.
+     * Fills model map.
      *
-     * @return the order info list
+     * @param modelMap the model map
      */
-    List<AdminOrderInfo> getOrderInfoList();
+    void fillModelMap(ModelMap modelMap);
 
     /**
-     * Update order status.
+     * Updates order status.
      *
      * @param orderStatusDto the order status dto
      */

@@ -21,18 +21,17 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="col-11">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Orders</h1>
+                    <h1 class="h2" id="caption">Orders</h1>
                 </div>
-                <table class="table table-striped" id="order-table">
+                <table class="table table-striped" id="order-table" aria-describedby="caption">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Created</th>
-                        <th>Address</th>
-                        <th>Recipient</th>
-                        <th>Delivery</th>
-                                            <th>Payment method</th>
-                        <!--<th>Payment status</th>-->
+                        <th id="id">Id</th>
+                        <th id="created">Created</th>
+                        <th id="address">Address</th>
+                        <th id="recipient">Recipient</th>
+                        <th id="delivery">Delivery</th>
+                        <th>Payment method</th>
                         <th>Order status</th>
                     </tr>
                     </thead>
@@ -44,7 +43,6 @@
                         <td class="parse-new-line" th:text="${order.recipientContacts}">NA</td>
                         <td th:text="${order.shippingCompany}">NA</td>
                         <td th:text="${order.paymentMethod}">NA</td>
-                        <!--<td th:text="${order.paymentStatus}">NA</td>-->
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-outline-secondary dropdown-toggle"
