@@ -4,18 +4,21 @@ import com.javaschool.domainlogic.admin.order.dto.AdminOrderInfo;
 import com.javaschool.domainlogic.admin.order.dto.UpdateOrderStatusDto;
 import com.javaschool.domainlogic.admin.order.service.api.AdminOrderService;
 import com.javaschool.entity.order.enumeration.OrderStatus;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Daria Usova
+ */
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/orders")
 public class AdminOrderController {
 
-    @Autowired
-    private AdminOrderService adminOrderService;
+    private final AdminOrderService adminOrderService;
 
     @ModelAttribute("orders")
     public List<AdminOrderInfo> adminOrderInfoList() {

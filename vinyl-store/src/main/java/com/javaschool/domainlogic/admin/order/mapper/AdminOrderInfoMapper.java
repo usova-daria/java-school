@@ -15,6 +15,9 @@ import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author Daria Usova
+ */
 @Mapper
 public interface AdminOrderInfoMapper {
 
@@ -60,6 +63,12 @@ public interface AdminOrderInfoMapper {
      */
     List<AdminOrderInfo> toDtoList(List<Order> orders);
 
+    /**
+     * Created to string.
+     *
+     * @param created the created local date
+     * @return the string
+     */
     default String createdToString(LocalDate created) {
         if (created == null) return "NA";
         return created.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)

@@ -7,6 +7,7 @@ import com.javaschool.domainlogic.admin.order.exception.OrderStatusUpdateFailed;
 import com.javaschool.domainlogic.admin.order.mapper.AdminOrderInfoMapper;
 import com.javaschool.domainlogic.admin.order.service.api.AdminOrderService;
 import com.javaschool.entity.order.Order;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,13 @@ import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 @Log4j
+@Service
+@RequiredArgsConstructor
 public class AdminOrderServiceImpl implements AdminOrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private AdminOrderInfoMapper orderInfoMapper;
+    private final OrderRepository orderRepository;
+    private final AdminOrderInfoMapper orderInfoMapper;
 
     @Override
     @Transactional(readOnly = true)
