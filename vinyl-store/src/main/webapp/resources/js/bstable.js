@@ -27,6 +27,7 @@ class BSTable {
             onEdit: function () {
             },          // Called after edition
             onBeforeDelete: function () {
+                return true;
             },  // Called before deletion
             onDelete: function () {
             },        // Called after deletion
@@ -119,11 +120,7 @@ class BSTable {
      */
     currentlyEditingRow($row) {
         // Check if the row is currently being edited
-        if ($row.attr('data-status') == 'editing') {
-            return true;
-        } else {
-            return false;
-        }
+        return $row.attr('data-status') == 'editing';
     }
 
     // --------------------------------------------------
@@ -174,7 +171,6 @@ class BSTable {
         // Remove the row
         var $row = $(button).parents('tr');       // access the row
         this.options.onBeforeDelete($row);
-        $row.remove();
         this.options.onDelete();
     }
 
@@ -228,8 +224,8 @@ class BSTable {
             var $lastRow = this.table.find('tr:last');
             $lastRow.clone().appendTo($lastRow.parent());
             $lastRow = this.table.find('tr:last');
-            var $cols = $lastRow.find('td');  //lee campos
-            $cols.each(function () {
+            var $columns = $lastRow.find('td');  //lee campos
+            $columns.each(function () {
                 let column = this; // Inner function this (column object)
                 if ($(column).attr('name') == 'bstable-actions') {
                     // action buttons column. change nothing

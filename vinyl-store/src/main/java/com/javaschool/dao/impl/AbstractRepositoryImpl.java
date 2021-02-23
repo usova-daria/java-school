@@ -77,11 +77,12 @@ public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepositor
     /**
      * Deletes entity by its id
      * @param id must not be null
+     * @return true if the entity is deleted, false otherwise
      */
     @Override
-    public void deleteById(ID id) {
+    public boolean deleteById(ID id) {
         String deleteQuery = String.format("DELETE from %s t where t.id = %d", tClass.getSimpleName(), id);
-        entityManager.createQuery(deleteQuery).executeUpdate();
+        return entityManager.createQuery(deleteQuery).executeUpdate() == 1;
     }
 
     /**

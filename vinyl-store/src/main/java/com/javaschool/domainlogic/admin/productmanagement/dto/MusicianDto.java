@@ -4,12 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.io.Serializable;
-
+/**
+ * @author Daria Usova
+ */
 @Data
-@NoArgsConstructor
 @ToString
-public class MusicianDto implements Serializable {
+@NoArgsConstructor
+public class MusicianDto {
 
     /**
      * Musician id

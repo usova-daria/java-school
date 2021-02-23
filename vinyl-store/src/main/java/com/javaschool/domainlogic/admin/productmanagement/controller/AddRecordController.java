@@ -4,22 +4,25 @@ import com.javaschool.domainlogic.admin.productmanagement.dto.AddRecordDto;
 import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
 import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
 import com.javaschool.domainlogic.admin.productmanagement.service.api.AddRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/add/record")
 public class AddRecordController {
 
-    @Autowired
-    private AddRecordService addRecordService;
+    private final AddRecordService addRecordService;
 
     @ModelAttribute("genres")
     public List<GenreDto> genreDtoList() {

@@ -9,35 +9,34 @@ import com.javaschool.domainlogic.admin.productmanagement.service.api.AddRecordS
 import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
 import com.javaschool.domainlogic.admin.productmanagement.service.api.MusicianService;
 import com.javaschool.entity.product.Record;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
-@Service
 @Log4j
+@Service
+@RequiredArgsConstructor
 public class AddRecordServiceImpl implements AddRecordService {
 
-    @Autowired
-    private RecordRepository recordRepository;
-
-    @Autowired
-    private GenreService genreService;
-
-    @Autowired
-    private MusicianService musicianService;
-
-    @Autowired
-    private AddRecordMapper addRecordMapper;
+    private final GenreService genreService;
+    private final MusicianService musicianService;
+    private final AddRecordMapper addRecordMapper;
+    private final RecordRepository recordRepository;
 
     @Override
     @Transactional
-    public Long saveRecord(AddRecordDto recordDto) {
+    public void saveRecord(AddRecordDto recordDto) {
         Record record = addRecordMapper.toEntity(recordDto);
-        Record savedRecord = recordRepository.save(record);
-        return savedRecord.getId();
+
+        try {
+            recordRepository.save(record);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while saving a record", e);
+        }
     }
 
     @Override
@@ -49,4 +48,5 @@ public class AddRecordServiceImpl implements AddRecordService {
     public List<MusicianDto> getMusicians() {
         return musicianService.getMusicianDtoList();
     }
+
 }

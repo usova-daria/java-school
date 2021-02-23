@@ -8,6 +8,9 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
+/**
+ * @author Daria Usova
+ */
 @Mapper
 public interface MusicianMapper {
 

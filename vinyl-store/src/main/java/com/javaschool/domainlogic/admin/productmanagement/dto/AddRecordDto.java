@@ -9,14 +9,16 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.time.Year;
 import java.util.List;
 
+/**
+ * @author Daria Usova
+ */
 @Data
-@NoArgsConstructor
 @ToString
-public class AddRecordDto implements Serializable {
+@NoArgsConstructor
+public class AddRecordDto {
 
     /**
      * Record's price
@@ -60,7 +62,7 @@ public class AddRecordDto implements Serializable {
     private Year year;
 
     /**
-     * Genre
+     * Genre id
      */
     @NotNull(message = "{record.genre.null}")
     private Integer genreId;

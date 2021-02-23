@@ -9,15 +9,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "genre")
-@NamedQuery(name = "Genre.findAllOrderById",
-        query = "SELECT g FROM Genre g order by g.id"
-)
+@NamedQueries({
+        @NamedQuery(name = "Genre.findAllOrderById",
+                query = "SELECT g FROM Genre g order by g.id"),
+
+        @NamedQuery(name = "Genre.findNumberOfRecords",
+                query = "SELECT coalesce(count(r), 0) from Record r where r.genre.id = :genre_id")
+})
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @EqualsAndHashCode(of = {"id"})
-@ToString
 public class Genre {
 
     @Id
@@ -25,8 +28,8 @@ public class Genre {
     @Column(name = "genre_id")
     private Integer id;
 
-    @Column(name = "name")
     @NotNull
+    @Column(name = "name")
     @Size(min = 1, max = 45)
     private String name;
 
@@ -34,7 +37,7 @@ public class Genre {
             mappedBy = "genre",
             fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE,
-                       CascadeType.PERSIST, CascadeType.REFRESH}
+                    CascadeType.PERSIST, CascadeType.REFRESH}
     )
     @ToString.Exclude
     private List<Record> records;

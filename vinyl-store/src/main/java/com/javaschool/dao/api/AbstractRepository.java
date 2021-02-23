@@ -16,7 +16,7 @@ public interface AbstractRepository<T, ID> {
 
     void delete(T t);
 
-    void deleteById(ID id);
+    boolean deleteById(ID id);
 
     void saveAll(Collection<T> collection);
 

@@ -2,40 +2,43 @@ package com.javaschool.domainlogic.admin.productmanagement.controller;
 
 import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
 import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/genre")
 public class GenreManagementController {
 
-    @Autowired
-    private GenreService genreService;
-
-    @ModelAttribute("genres")
-    private List<GenreDto> genreDtoList() {
-        return genreService.getGenreDtoListOrderById();
-    }
+    private final GenreService genreService;
 
     @GetMapping
-    public String showGenrePage() {
+    public String showGenrePage(ModelMap modelMap) {
+        modelMap.put("genres", genreService.getGenreDtoList());
         return "/admin/genre-list";
     }
 
     @ResponseBody
-    @PostMapping(value = "/edit", consumes = "application/json", produces = "application/json")
-    public GenreDto editGenre(@RequestBody GenreDto genreDto) {
+    @PostMapping(value = "/edit", consumes = "application/json")
+    public ResponseEntity<GenreDto> editGenre(@RequestBody @Valid GenreDto genreDto,
+                                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(genreDto);
+        }
+
         return genreService.saveOrUpdate(genreDto);
     }
 
     @ResponseBody
     @PostMapping(value = "/delete/{id}")
-    public void deleteGenre(@PathVariable("id") Integer id) {
-        genreService.deleteById(id);
+    public ResponseEntity<String> deleteGenre(@PathVariable("id") Integer id) {
+        return genreService.deleteById(id);
     }
-
 
 }
