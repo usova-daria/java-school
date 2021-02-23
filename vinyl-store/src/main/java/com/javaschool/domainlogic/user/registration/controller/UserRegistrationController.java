@@ -3,7 +3,7 @@ package com.javaschool.domainlogic.user.registration.controller;
 import com.javaschool.domainlogic.user.registration.dto.UserRegistrationDto;
 import com.javaschool.domainlogic.user.registration.exception.UserRegistrationException;
 import com.javaschool.domainlogic.user.registration.service.api.UserRegistrationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,11 +14,11 @@ import javax.validation.Valid;
 import java.time.Month;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/register")
 public class UserRegistrationController {
 
-    @Autowired
-    private UserRegistrationService userRegistrationService;
+    private final UserRegistrationService userRegistrationService;
 
     @ModelAttribute("months")
     private Month[] monthList() {
@@ -49,7 +49,6 @@ public class UserRegistrationController {
     @ExceptionHandler(UserRegistrationException.class)
     public String handleUserRegistrationException(UserRegistrationException e, RedirectAttributes ra) {
         ra.addFlashAttribute("error", "An error occurred, but it's not your fault. Please try again later");
-
         return "redirect:/register";
     }
 

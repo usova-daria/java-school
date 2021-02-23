@@ -17,6 +17,9 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Daria Usova
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class SalesStatsStatsServiceImplTest {
 

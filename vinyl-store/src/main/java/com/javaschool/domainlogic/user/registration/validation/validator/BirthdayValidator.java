@@ -12,6 +12,7 @@ public class BirthdayValidator implements ConstraintValidator<ValidBirthday, Bir
 
     @Override
     public void initialize(ValidBirthday validBirthday) {
+        // Do nothing because ValidBirthday annotation doesn't have any parameters
     }
 
     @Override
@@ -23,4 +24,5 @@ public class BirthdayValidator implements ConstraintValidator<ValidBirthday, Bir
             return false;
         }
     }
+
 }

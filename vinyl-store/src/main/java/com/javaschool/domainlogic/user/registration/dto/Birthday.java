@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.Month;
 
+/**
+ * @author Daria Usova
+ */
 @Data
 @Builder
 @NoArgsConstructor
