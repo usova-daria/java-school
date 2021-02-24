@@ -1,7 +1,6 @@
 package com.javaschool.domainlogic.user.profile.service.impl.edit;
 
 import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
-import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
 import com.javaschool.domainlogic.user.profile.exception.edit.GetUserInfoException;
 import com.javaschool.domainlogic.user.profile.exception.edit.UserInfoNotUpdatedException;
 import com.javaschool.domainlogic.user.registration.dto.Birthday;
@@ -16,10 +15,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.persistence.PersistenceException;
-
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
 /**
@@ -54,15 +52,7 @@ public class UserEditInfoServiceImplTest {
     }
 
     @Test
-    public void updateUserInfo1() {
-        when(userService.getCurrentUser()).thenThrow(UserNotFoundException.class);
-
-        assertThrows(UserInfoNotUpdatedException.class, () ->
-                userEditInfoService.updateUserInfo(userEditInfoDto));
-    }
-
-    @Test
-    public void updateUserInfo2() {
+    public void updateUserInfo() {
         when(userService.getCurrentUser()).thenReturn(user);
         doThrow(PersistenceException.class).when(userService).update(user);
 
@@ -71,15 +61,7 @@ public class UserEditInfoServiceImplTest {
     }
 
     @Test
-    public void getCurrentUserEditInfoDto1() {
-        when(userService.getCurrentUser()).thenThrow(UserNotFoundException.class);
-
-        assertThrows(GetUserInfoException.class, () ->
-                userEditInfoService.getCurrentUserEditInfoDto());
-    }
-
-    @Test
-    public void getCurrentUserEditInfoDto2() {
+    public void getCurrentUserEditInfoDto() {
         when(userService.getCurrentUser()).thenThrow(PersistenceException.class);
 
         assertThrows(GetUserInfoException.class, () ->

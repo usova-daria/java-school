@@ -1,7 +1,6 @@
 package com.javaschool.domainlogic.user.profile.service.impl.edit;
 
 import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
-import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
 import com.javaschool.domainlogic.user.profile.exception.edit.GetUserInfoException;
 import com.javaschool.domainlogic.user.profile.exception.edit.UserInfoNotUpdatedException;
 import com.javaschool.domainlogic.user.profile.mapper.order.UserEditInfoMapper;
@@ -31,7 +30,7 @@ public class UserEditInfoServiceImpl implements UserEditInfoService {
     public void updateUserInfo(UserEditInfoDto userEditInfoDto) {
        try {
            tryToUpdateUserInfo(userEditInfoDto);
-       } catch (UserNotFoundException | PersistenceException e) {
+       } catch (PersistenceException e) {
            log.error("An error occurred while updating user info", e);
            throw new UserInfoNotUpdatedException();
        }
@@ -55,7 +54,7 @@ public class UserEditInfoServiceImpl implements UserEditInfoService {
         try {
             User user = userService.getCurrentUser();
             return userMapper.toDto(user);
-        } catch (UserNotFoundException | PersistenceException e) {
+        } catch (PersistenceException e) {
             log.error("An error occurred while getting current user edit info dto", e);
             throw new GetUserInfoException();
         }

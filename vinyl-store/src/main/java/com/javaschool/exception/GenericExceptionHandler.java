@@ -1,5 +1,6 @@
 package com.javaschool.exception;
 
+import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.core.Ordered;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class GenericExceptionHandler {
 
+    private static final String ERROR_PAGE = "exception/error";
+
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
@@ -26,7 +29,7 @@ public class GenericExceptionHandler {
 
     @ExceptionHandler(value = MultipartException.class)
     public ModelAndView handleFileUploadException(MultipartException mpex, HttpServletRequest request) {
-        ModelAndView modelAndVew = new ModelAndView("exception/error");
+        ModelAndView modelAndVew = new ModelAndView(ERROR_PAGE);
         modelAndVew.addObject("errorMessage", mpex.getMessage());
         return modelAndVew;
     }
@@ -36,6 +39,10 @@ public class GenericExceptionHandler {
         return "exception/404";
     }
 
+    @ExceptionHandler(value = UserNotFoundException.class)
+    public String handleUserNotFoundException() {
+        return ERROR_PAGE;
+    }
 
     @ExceptionHandler(value = Exception.class)
     public String handleException(Exception e, HttpServletRequest request) throws Exception {
@@ -44,7 +51,7 @@ public class GenericExceptionHandler {
         }
 
         log.error(e.getMessage(), e);
-        return "exception/error";
+        return ERROR_PAGE;
     }
 
 }

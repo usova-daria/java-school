@@ -1,7 +1,6 @@
 package com.javaschool.domainlogic.user.profile.controller.edit;
 
 import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
-import com.javaschool.domainlogic.user.profile.exception.edit.GetUserInfoException;
 import com.javaschool.domainlogic.user.profile.exception.edit.UserInfoNotUpdatedException;
 import com.javaschool.domainlogic.user.profile.service.api.edit.UserEditInfoService;
 import lombok.RequiredArgsConstructor;
@@ -53,11 +52,6 @@ public class UserEditInfoController {
     public String handleUserInfoNotUpdatedException(UserInfoNotUpdatedException e, RedirectAttributes ra) {
         ra.addFlashAttribute("error", "An error occurred, but it's not your fault. Please, try again later");
         return "redirect:/profile/edit";
-    }
-
-    @ExceptionHandler(GetUserInfoException.class)
-    public String handleGetUserInfoException(GetUserInfoException e) {
-        return "exception/error";
     }
 
 }
