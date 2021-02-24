@@ -1,7 +1,7 @@
 package com.javaschool.domainlogic.user.profile.service.impl;
 
 import com.javaschool.domainlogic.user.profile.dto.password.ChangePasswordDto;
-import com.javaschool.domainlogic.user.profile.exception.ChangePasswordException;
+import com.javaschool.domainlogic.user.profile.exception.password.ChangePasswordException;
 import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
 import com.javaschool.domainlogic.user.profile.service.api.ChangePasswordService;
 import com.javaschool.entity.user.User;

@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.service.impl;
+package com.javaschool.domainlogic.user.profile.service.impl.order;
 
 import com.javaschool.dao.api.order.OrderRepository;
 import com.javaschool.dao.api.product.ProductRepository;
@@ -6,11 +6,11 @@ import com.javaschool.dao.impl.product.projection.OrderItemProjection;
 import com.javaschool.domainlogic.user.profile.dto.order.UserOrder;
 import com.javaschool.domainlogic.user.profile.dto.order.UserOrderInfo;
 import com.javaschool.domainlogic.user.profile.dto.order.UserOrderItem;
-import com.javaschool.domainlogic.user.profile.exception.OrderNotFound;
-import com.javaschool.domainlogic.user.profile.exception.UserHasNoSuchOrder;
+import com.javaschool.domainlogic.user.profile.exception.order.OrderNotFound;
+import com.javaschool.domainlogic.user.profile.exception.order.UserHasNoSuchOrder;
 import com.javaschool.domainlogic.user.profile.mapper.order.UserOrderInfoMapper;
 import com.javaschool.domainlogic.user.profile.mapper.order.UserOrderItemMapper;
-import com.javaschool.domainlogic.user.profile.service.api.UserOrderService;
+import com.javaschool.domainlogic.user.profile.service.api.order.UserOrderService;
 import com.javaschool.entity.order.Order;
 import com.javaschool.service.api.UserService;
 import lombok.AllArgsConstructor;
@@ -35,18 +35,22 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Transactional(readOnly = true)
     public UserOrder getUserOrderByOrderId(Long id) {
         try {
-            if (!userService.currentUserHasOrder(id)) {
-                throw new UserHasNoSuchOrder();
-            }
-
-            UserOrderInfo orderInfo = getUserOrderInfoByOrderId(id);
-            List<UserOrderItem> items = getItemsByOrderId(id);
-
-            return new UserOrder(orderInfo, items);
+            return tryToGetUserOrderById(id);
         } catch (PersistenceException e) {
             log.error("An error occurred while getting order info by order id", e);
             return new UserOrder();
         }
+    }
+
+    private UserOrder tryToGetUserOrderById(Long id) {
+        if (!userService.currentUserHasOrder(id)) {
+            throw new UserHasNoSuchOrder();
+        }
+
+        UserOrderInfo orderInfo = getUserOrderInfoByOrderId(id);
+        List<UserOrderItem> items = getItemsByOrderId(id);
+
+        return new UserOrder(orderInfo, items);
     }
 
     private UserOrderInfo getUserOrderInfoByOrderId(Long id) {

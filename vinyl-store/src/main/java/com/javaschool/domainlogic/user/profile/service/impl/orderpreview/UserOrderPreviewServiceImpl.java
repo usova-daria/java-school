@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.service.impl;
+package com.javaschool.domainlogic.user.profile.service.impl.orderpreview;
 
 import com.javaschool.dao.api.order.OrderRepository;
 import com.javaschool.domainlogic.user.profile.dto.orderpreview.UserOrderPreview;

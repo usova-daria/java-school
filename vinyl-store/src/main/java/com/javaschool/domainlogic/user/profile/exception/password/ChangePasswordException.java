@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.exception;
+package com.javaschool.domainlogic.user.profile.exception.password;
 
 /**
  * @author Daria Usova

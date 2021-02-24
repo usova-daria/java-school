@@ -1,7 +1,7 @@
 package com.javaschool.domainlogic.user.profile.controller.password;
 
 import com.javaschool.domainlogic.user.profile.dto.password.ChangePasswordDto;
-import com.javaschool.domainlogic.user.profile.exception.ChangePasswordException;
+import com.javaschool.domainlogic.user.profile.exception.password.ChangePasswordException;
 import com.javaschool.domainlogic.user.profile.service.api.ChangePasswordService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
