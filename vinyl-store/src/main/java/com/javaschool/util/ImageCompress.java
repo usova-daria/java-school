@@ -11,6 +11,8 @@ import java.util.zip.Inflater;
 @Log4j
 public class ImageCompress {
 
+    private ImageCompress() {}
+
     public static byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);

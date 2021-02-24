@@ -2,17 +2,17 @@ package com.javaschool.domainlogic.order.checkout.service.impl;
 
 import com.javaschool.domainlogic.order.cart.dto.Cart;
 import com.javaschool.domainlogic.order.cart.service.api.UpdateCartService;
-import com.javaschool.domainlogic.order.checkout.exception.OrderNotPlacedException;
-import com.javaschool.domainlogic.order.checkout.service.api.PaymentService;
 import com.javaschool.domainlogic.order.checkout.dto.CheckoutFormDto;
 import com.javaschool.domainlogic.order.checkout.exception.NotEnoughUnitsInStoreException;
+import com.javaschool.domainlogic.order.checkout.exception.OrderNotPlacedException;
+import com.javaschool.domainlogic.order.checkout.service.api.PaymentService;
 import com.javaschool.domainlogic.order.checkout.service.api.PlaceOrderService;
 import com.javaschool.domainlogic.order.checkout.service.api.SaveOrderService;
 import com.javaschool.domainlogic.salesdisplay.jms.MessageSender;
 import com.javaschool.entity.order.Order;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.jms.UncategorizedJmsException;
+import org.springframework.jms.JmsException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +28,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
     private final MessageSender messageSender;
 
     @Override
+    @Transactional
     public void placeOrder(CheckoutFormDto checkoutFormDto, Cart cart) {
         try {
             saveOrderAndPay(checkoutFormDto, cart);
@@ -53,7 +54,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
     private void sendMessageToQueue() {
         try {
             messageSender.sendMessage();
-        } catch (UncategorizedJmsException e) {
+        } catch (JmsException e) {
             log.error("An error occurred while sending a message to the queue", e);
         }
     }

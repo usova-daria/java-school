@@ -11,10 +11,10 @@ import java.io.File;
 
 public class MvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    private final String LOCATION = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
-    private final long MAX_FILE_SIZE = 1024 * 1024 * 1; //1MB
-    private final long MAX_REQUEST_SIZE = 1024 * 1024 * 1; //1MB
-    private final int FILE_SIZE_THRESHOLD = 0;
+    private static final String LOCATION = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
+    private static final long MAX_FILE_SIZE = 1024 * 1024 * 1L; //1MB
+    private static final long MAX_REQUEST_SIZE = 1024 * 1024 * 1L; //1MB
+    private static final int FILE_SIZE_THRESHOLD = 0;
 
     protected Class<?>[] getRootConfigClasses() {
         return new Class[0];
@@ -34,10 +34,7 @@ public class MvcDispatcherServletInitializer extends AbstractAnnotationConfigDis
     }
 
     private MultipartConfigElement getMultipartConfigElement(){
-        MultipartConfigElement multipartConfigElement =
-                new MultipartConfigElement(LOCATION, MAX_FILE_SIZE, MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD);
-
-        return multipartConfigElement;
+        return new MultipartConfigElement(LOCATION, MAX_FILE_SIZE, MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD);
     }
 
     @Override

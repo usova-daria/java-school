@@ -12,16 +12,14 @@ import java.util.List;
 @Entity
 @Table(name = "record")
 @NamedQuery(name = "Record.findByIdAndDeletedFalse",
-            query = "SELECT r from Record r where r.id = :id and r.deleted = false")
-@NamedEntityGraphs({
-        @NamedEntityGraph(
-                name = "record-graph",
-                attributeNodes = {
-                        @NamedAttributeNode("musicians"),
-                        @NamedAttributeNode("genre")
-                }
-        )
-})
+        query = "SELECT r from Record r where r.id = :id and r.deleted = false")
+@NamedEntityGraph(
+        name = "record-graph",
+        attributeNodes = {
+                @NamedAttributeNode("musicians"),
+                @NamedAttributeNode("genre")
+        }
+)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

@@ -20,7 +20,7 @@ public class UpdateCartServiceImpl extends CartServiceImpl implements UpdateCart
     @Override
     public boolean itemsAreAvailable(Cart cart) {
         List<ProductUnitsInStoreProjection> notAvailableItems = getNotAvailableItems(cart);
-        return notAvailableItems.size() == 0;
+        return notAvailableItems.isEmpty();
     }
 
     @Override

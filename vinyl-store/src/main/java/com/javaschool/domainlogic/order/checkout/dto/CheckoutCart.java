@@ -11,8 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 public class CheckoutCart {
 
+    /**
+     * Cart items
+     */
     private List<CheckoutCartItem> items;
 
+    /**
+     * Total
+     */
     private double total;
 
 }

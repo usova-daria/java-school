@@ -7,6 +7,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Daria Usova
+ */
 @Data
 @ToString
 public class AddressDto {

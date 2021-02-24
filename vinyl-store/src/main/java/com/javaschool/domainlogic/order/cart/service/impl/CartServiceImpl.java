@@ -82,12 +82,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void setNewQuantity(int newQuantity, CartItem cartItem, Cart cart) {
         cartItem.setQuantity(newQuantity);
         updateTotal(cart);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void removeItemFromCart(CartItem cartItem, Cart cart) {
         if (cart == null || cartItem == null || cart.getItems() == null) {
             throw new IllegalArgumentException("Item to be removed, cart and cart items must not be null");

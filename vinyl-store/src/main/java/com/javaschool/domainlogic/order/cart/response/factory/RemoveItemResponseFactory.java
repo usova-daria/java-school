@@ -9,6 +9,8 @@ public class RemoveItemResponseFactory {
     private static final String NO_SUCH_ITEM = "There is no such item in the cart!";
     private static final String OK = "Item is removed from the cart successfully.";
 
+    private RemoveItemResponseFactory() {}
+
     public static ResponseEntity<RemoveItemResponse> getIllegalArgument() {
         RemoveItemResponse response = new RemoveItemResponse(ILLEGAL_ARGUMENT, null);
         return ResponseEntity.badRequest().body(response);

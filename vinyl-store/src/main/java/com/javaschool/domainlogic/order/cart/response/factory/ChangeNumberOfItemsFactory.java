@@ -10,6 +10,8 @@ public class ChangeNumberOfItemsFactory {
     private static final String OK = "The number of items has been changed.";
     private static final String ILLEGAL_ARGUMENT = "Illegal arguments.";
 
+    private ChangeNumberOfItemsFactory() {}
+
     public static ResponseEntity<NumberOfItemsResponse> getIllegalArgumentResponse() {
         NumberOfItemsResponse response = new NumberOfItemsResponse(ILLEGAL_ARGUMENT, 0, null);
         return ResponseEntity.badRequest().body(response);

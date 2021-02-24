@@ -52,9 +52,10 @@ $(document).on("click", "#reset", function () {
 
 function resetGenres() {
     $("input[name='genre']:checked").each(function () {
-            $(this).prop("checked", false);
-            $this = $(this);
-            $label = $('label[for="' + $this.attr('id') + '"]');
+            var $this = $(this);
+            $this.prop("checked", false);
+
+            var $label = $('label[for="' + $this.attr('id') + '"]');
             $label.removeClass("active");
         }
     );
@@ -126,8 +127,8 @@ $(document).on("change", "input[name='sort-price']", function () {
     $(".sort-selected").addClass("sort-not-selected");
     $(".sort-selected").removeClass("sort-selected");
 
-    $this = $(this);
-    $label = $('label[for="' + $this.attr('id') + '"]');
+    var $this = $(this);
+    var $label = $('label[for="' + $this.attr('id') + '"]');
     $label.addClass("sort-selected");
     $label.removeClass("sort-not-selected");
 

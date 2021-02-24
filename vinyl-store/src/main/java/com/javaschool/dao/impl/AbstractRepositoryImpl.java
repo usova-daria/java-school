@@ -5,18 +5,22 @@ import com.javaschool.dao.api.AbstractRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepository<T, ID> {
+public abstract class AbstractRepositoryImpl<T, ID extends Number> implements AbstractRepository<T, ID> {
 
     private final Class<T> tClass;
 
     @PersistenceContext
     protected EntityManager entityManager;
 
-    public AbstractRepositoryImpl(Class<T> tClass) {
+    protected AbstractRepositoryImpl(Class<T> tClass) {
         this.tClass = tClass;
     }
 
@@ -47,9 +51,13 @@ public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepositor
      */
     @Override
     public List<T> findAll() {
-        String findQueryStr = "FROM " + tClass.getSimpleName();
-        TypedQuery<T> findQuery = entityManager.createQuery(findQueryStr, tClass);
-        return findQuery.getResultList();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(tClass);
+        Root<T> root = criteriaQuery.from(tClass);
+        criteriaQuery.select(root);
+
+        TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
     }
 
     /**
@@ -81,8 +89,12 @@ public abstract class AbstractRepositoryImpl<T, ID> implements AbstractRepositor
      */
     @Override
     public boolean deleteById(ID id) {
-        String deleteQuery = String.format("DELETE from %s t where t.id = %d", tClass.getSimpleName(), id);
-        return entityManager.createQuery(deleteQuery).executeUpdate() == 1;
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaDelete<T> criteriaDelete = criteriaBuilder.createCriteriaDelete(tClass);
+        Root<T> root = criteriaDelete.from(tClass);
+        criteriaDelete.where( criteriaBuilder.equal(root.get("id"), id) );
+
+        return entityManager.createQuery(criteriaDelete).executeUpdate() == 1;
     }
 
     /**

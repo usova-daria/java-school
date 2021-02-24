@@ -59,7 +59,7 @@ public class CheckoutFormToOrderMapperImpl implements CheckoutFormToOrderMapper 
     private Recipient mapRecipient(CheckoutFormDto checkoutFormDto) {
         Recipient recipient = new Recipient();
         recipient.setName(checkoutFormDto.getFirstName() + " " + checkoutFormDto.getLastName());
-        recipient.setPhoneNumber(checkoutFormDto.getPhoneNumber().replaceAll("-", ""));
+        recipient.setPhoneNumber(checkoutFormDto.getPhoneNumber().replace("-", ""));
 
         return recipient;
     }

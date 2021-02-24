@@ -4,6 +4,8 @@ import com.javaschool.entity.address.Address;
 
 public class AddressUtil {
 
+    private AddressUtil() {}
+
     public static String addressToString(Address address) {
         if (address == null) return "NA";
 
@@ -20,7 +22,7 @@ public class AddressUtil {
 
     private static String addressToString(String country, String town, String postalCode, String street,
                                          String building, String apartment) {
-        return  String.format("%s %s %s \n%s, %s %s",
+        return  String.format("%s %s %s %n%s, %s %s",
                 building, street, apartmentToString(apartment),
                 town, country, postalCode);
     }
