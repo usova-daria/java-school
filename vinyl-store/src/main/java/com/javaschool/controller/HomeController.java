@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class DemoController {
+public class HomeController {
 
     @GetMapping("/")
     public String showIndexPage() {
@@ -19,11 +19,6 @@ public class DemoController {
     @GetMapping("/access-denied")
     public String showAccessDenied() {
         return "access-denied";
-    }
-
-    @GetMapping("/exception-check")
-    public void exceptionCheck() {
-        throw new NullPointerException();
     }
 
 }
