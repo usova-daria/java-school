@@ -1,8 +1,8 @@
 package com.javaschool.domainlogic.user.profile.controller.address;
 
 import com.javaschool.domainlogic.user.profile.dto.address.EditAddressDto;
-import com.javaschool.domainlogic.user.profile.exception.AddressUpdateFailException;
-import com.javaschool.domainlogic.user.profile.exception.UserHasNoSuchAddress;
+import com.javaschool.domainlogic.user.profile.exception.address.AddressUpdateFailException;
+import com.javaschool.domainlogic.user.profile.exception.address.UserHasNoSuchAddress;
 import com.javaschool.domainlogic.user.profile.service.api.address.EditAddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

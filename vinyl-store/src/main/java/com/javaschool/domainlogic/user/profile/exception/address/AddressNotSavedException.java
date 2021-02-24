@@ -1,4 +1,4 @@
-package com.javaschool.domainlogic.user.profile.exception;
+package com.javaschool.domainlogic.user.profile.exception.address;
 
 public class AddressNotSavedException extends RuntimeException {
 

@@ -1,7 +1,7 @@
 package com.javaschool.domainlogic.user.profile.controller.address;
 
 import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
-import com.javaschool.domainlogic.user.profile.exception.AddressNotSavedException;
+import com.javaschool.domainlogic.user.profile.exception.address.AddressNotSavedException;
 import com.javaschool.domainlogic.user.profile.service.api.address.AddNewAddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -34,6 +34,7 @@ public class AddNewAddressController {
         }
 
         addNewAddressService.saveAddress(addressDto);
+
         ra.addFlashAttribute("success", "Success!");
         return new ModelAndView("redirect:/profile/addresses");
     }

@@ -5,9 +5,11 @@ import org.springframework.http.ResponseEntity;
 
 public class DeleteAddressResponseFactory {
 
-    private static String OK = "The address has been deleted.";
-    private static String NO_SUCH_ADDRESS = "The user has no such address.";
-    private static String FAILED = "Failed to delete the address. Please try again later!";
+    private DeleteAddressResponseFactory() { }
+
+    private static final String OK = "The address has been deleted.";
+    private static final String NO_SUCH_ADDRESS = "The user has no such address.";
+    private static final String FAILED = "Failed to delete the address. Please try again later!";
 
 
     public static ResponseEntity<DeleteAddressResponse> getOk(Long addressId) {
