@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,7 +28,11 @@
                 <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
                 <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
 
-                <form th:object="${user}" th:action="@{/profile/edit}" method="post" lang="en">
+                <div th:unless="${user != null}" class="alert alert-danger" role="alert">
+                    An error occurred, but it's not your fault. Please, try again later!
+                </div>
+
+                <form th:if="${user != null}" th:object="${user}" th:action="@{/profile/edit}" method="post" lang="en">
 
                     <input type="text" class="form-control" id="email" th:field="*{email}" th:hidden="true">
 

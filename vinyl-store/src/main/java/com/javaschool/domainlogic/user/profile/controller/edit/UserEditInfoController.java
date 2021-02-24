@@ -1,10 +1,11 @@
-package com.javaschool.domainlogic.user.profile.controller.info;
+package com.javaschool.domainlogic.user.profile.controller.edit;
 
 import com.javaschool.domainlogic.user.profile.dto.edit.UserEditInfoDto;
-import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
-import com.javaschool.domainlogic.user.profile.service.api.UserEditInfoService;
+import com.javaschool.domainlogic.user.profile.exception.edit.GetUserInfoException;
+import com.javaschool.domainlogic.user.profile.exception.edit.UserInfoNotUpdatedException;
+import com.javaschool.domainlogic.user.profile.service.api.edit.UserEditInfoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,11 +17,11 @@ import java.time.Month;
 
 @Log4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/profile/edit")
 public class UserEditInfoController {
 
-    @Autowired
-    private UserEditInfoService userEditInfoService;
+    private final UserEditInfoService userEditInfoService;
 
     @ModelAttribute("months")
     private Month[] monthList() {
@@ -30,8 +31,8 @@ public class UserEditInfoController {
     @GetMapping
     public String showEditPage(ModelMap modelMap) {
         UserEditInfoDto user = userEditInfoService.getCurrentUserEditInfoDto();
-
         modelMap.addAttribute("user", user);
+
         return "/user/profile/edit";
     }
 
@@ -48,12 +49,15 @@ public class UserEditInfoController {
         return "redirect:/profile/edit";
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public String handleUserNotFoundException(UserNotFoundException e, RedirectAttributes ra) {
-        log.error("An error occurred while editing user info", e);
+    @ExceptionHandler(UserInfoNotUpdatedException.class)
+    public String handleUserInfoNotUpdatedException(UserInfoNotUpdatedException e, RedirectAttributes ra) {
         ra.addFlashAttribute("error", "An error occurred, but it's not your fault. Please, try again later");
-
         return "redirect:/profile/edit";
+    }
+
+    @ExceptionHandler(GetUserInfoException.class)
+    public String handleGetUserInfoException(GetUserInfoException e) {
+        return "exception/error";
     }
 
 }

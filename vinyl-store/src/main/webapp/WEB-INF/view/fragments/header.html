@@ -16,19 +16,19 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/cart}">
-                    <i class="fas fa-shopping-cart fa-1x"></i>
+                    <i class="fas fa-shopping-cart fa-1x" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
         <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/login-page}">
-                    <i class="fas fa-sign-in-alt fa-1x"></i> Sign in
+                    <i class="fas fa-sign-in-alt fa-1x" aria-hidden="true"></i> Sign in
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/register}">
-                    <i class="fas fa-user-plus fa-1x"></i> Sign up
+                    <i class="fas fa-user-plus fa-1x" aria-hidden="true"></i> Sign up
                 </a>
             </li>
         </ul>
@@ -36,7 +36,7 @@
         <ul class="navbar-nav" sec:authorize="hasAuthority('CUSTOMER')">
             <li>
                 <a class="nav-link" th:href="@{/profile/edit}">
-                    <i class="far fa-user-circle fa-1x"></i>
+                    <i class="far fa-user-circle fa-1x" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
@@ -52,7 +52,7 @@
         <ul class="navbar-nav" sec:authorize="isAuthenticated()">
             <li class="nav-item">
                 <a class="nav-link" href="javascript: document.logoutForm.submit()">
-                    <i class="fas fa-sign-in-alt fa-1x"></i> Sign out
+                    <i class="fas fa-sign-in-alt fa-1x" aria-hidden="true"></i> Sign out
                 </a>
 
                 <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
