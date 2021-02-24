@@ -46,10 +46,6 @@
         <highcharts.version>8.2.2</highcharts.version>
         <sonar.version>3.8.0.2131</sonar.version>
         <mockito.version>3.7.7</mockito.version>
-
-        <sonar.projectKey>usova-daria_java-school</sonar.projectKey>
-        <sonar.organization>usova-daria</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencyManagement>
