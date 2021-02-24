@@ -27,8 +27,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShopServiceImpl implements ShopService {
 
-    private static float DEFAULT_MIN_PRICE = 0;
-    private static float DEFAULT_MAX_PRICE = 10_000;
+    private static final float DEFAULT_MIN_PRICE = 0;
+    private static final float DEFAULT_MAX_PRICE = 10_000;
+
+    private static final String PRODUCTS = "products";
+    private static final String GENRES = "genres";
+    private static final String MAX_PRICE = "maxPrice";
+    private static final String MIN_PRICE = "minPrice";
+    private static final String HIGH_PRICE_FIRST = "highPriceFirst";
+    private static final String NAME_CONTAINS = "nameContains";
+    private static final String SELECTED_GENRES_ID = "selectedGenresId";
+    private static final String AVAILABLE = "available";
 
     private final ProductRepository productRepository;
     private final ProductDtoMapper productDtoMapper;
@@ -74,43 +83,46 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void fillShowAllProductsModelMap(ModelMap modelMap) {
         List<ProductDto> products = getProducts();
         List<GenreDto> genres = getGenres();
 
-        modelMap.put("products", products);
-        modelMap.put("genres", genres);
+        modelMap.put(PRODUCTS, products);
+        modelMap.put(GENRES, genres);
 
-        modelMap.put("maxPrice", getMaxPrice());
-        modelMap.put("minPrice", getMinPrice());
+        modelMap.put(MAX_PRICE, getMaxPrice());
+        modelMap.put(MIN_PRICE, getMinPrice());
 
-        modelMap.put("highPriceFirst", false);
+        modelMap.put(HIGH_PRICE_FIRST, false);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void fillSearchModelMap(ProductCriteria productCriteria, ModelMap modelMap) {
         List<ProductDto> products = getProductsByParamsAndDeletedFalse(productCriteria);
 
-        modelMap.put("products", products);
-        modelMap.put("nameContains", productCriteria.getNameContains());
-        modelMap.put("highPriceFirst", productCriteria.isHighPriceFirst());
+        modelMap.put(PRODUCTS, products);
+        modelMap.put(NAME_CONTAINS, productCriteria.getNameContains());
+        modelMap.put(HIGH_PRICE_FIRST, productCriteria.isHighPriceFirst());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void fillSearchResultsModelMap(ProductCriteria productCriteria, ModelMap modelMap) {
         List<ProductDto> products = getProductsByParamsAndDeletedFalse(productCriteria);
         List<GenreDto> genres = getGenres();
 
-        modelMap.put("products", products);
-        modelMap.put("genres", genres);
-        modelMap.put("selectedGenresId", Arrays.asList(productCriteria.getGenre()));
+        modelMap.put(PRODUCTS, products);
+        modelMap.put(GENRES, genres);
+        modelMap.put(SELECTED_GENRES_ID, Arrays.asList(productCriteria.getGenre()));
 
-        modelMap.put("nameContains", productCriteria.getNameContains());
-        modelMap.put("highPriceFirst", productCriteria.isHighPriceFirst());
-        modelMap.put("available", productCriteria.isAvailable());
+        modelMap.put(NAME_CONTAINS, productCriteria.getNameContains());
+        modelMap.put(HIGH_PRICE_FIRST, productCriteria.isHighPriceFirst());
+        modelMap.put(AVAILABLE, productCriteria.isAvailable());
 
-        modelMap.put("maxPrice", getMaxPrice());
-        modelMap.put("minPrice", getMinPrice());
+        modelMap.put(MAX_PRICE, getMaxPrice());
+        modelMap.put(MIN_PRICE, getMinPrice());
     }
 
     @Override

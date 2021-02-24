@@ -38,7 +38,7 @@ public class PasswordConstraintValidatorTest {
     }
 
     @Parameterized.Parameters
-    public static Collection<Object[]> primeNumbers() {
+    public static Collection<Object[]> passwords() {
         return Arrays.asList(new Object[][] {
                 { "123A", false },
                 { "123-Password-too-long", false },

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +30,7 @@
                 Filter by
                 <span id="reset" style="cursor: pointer;">
                     <i class="fas fa-sync fa-lg float-right"
-                       style="font-size: 1rem; color: #706d6d; margin-top: 14px;"></i>
+                       style="font-size: 1rem; color: #706d6d; margin-top: 14px;" aria-hidden="true"></i>
                 </span>
             </h3>
 
@@ -39,7 +40,7 @@
                 <div class="header py-0" role="group" id="genreHeading">
                     <a type="button" class="btn btn-link w-100 p-0" data-toggle="collapse" data-target="#genreCollapse">
                         <span class="font-weight-bold float-left">Genre </span>
-                        <i class="fa fa-angle-down float-right mt-1"></i>
+                        <i class="fa fa-angle-down float-right mt-1" aria-hidden="true"></i>
                     </a>
                 </div>
 
@@ -63,7 +64,7 @@
                 <div class="header py-0" role="group" id="priceHeading">
                     <a type="button" class="btn btn-link w-100 p-0" data-toggle="collapse" data-target="#priceCollapse">
                         <span class="font-weight-bold float-left">Price </span>
-                        <i class="fa fa-angle-down float-right mt-1"></i>
+                        <i class="fa fa-angle-down float-right mt-1" aria-hidden="true"></i>
                     </a>
                 </div>
 
