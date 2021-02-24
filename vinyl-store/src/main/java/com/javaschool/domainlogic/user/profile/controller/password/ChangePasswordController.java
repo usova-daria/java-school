@@ -3,8 +3,8 @@ package com.javaschool.domainlogic.user.profile.controller.password;
 import com.javaschool.domainlogic.user.profile.dto.password.ChangePasswordDto;
 import com.javaschool.domainlogic.user.profile.exception.ChangePasswordException;
 import com.javaschool.domainlogic.user.profile.service.api.ChangePasswordService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,14 +15,14 @@ import javax.validation.Valid;
 
 @Log4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/profile/change-password")
 public class ChangePasswordController {
 
-    @Autowired
-    private ChangePasswordService changePasswordService;
+    private final ChangePasswordService changePasswordService;
 
-    private final String CHANGE_PASSWORD_PAGE = "user/profile/change-password";
-    private final String CHANGE_PASSWORD_REDIRECT = "redirect:/profile/change-password";
+    private static final String CHANGE_PASSWORD_PAGE = "user/profile/change-password";
+    private static final String CHANGE_PASSWORD_REDIRECT = "redirect:/profile/change-password";
 
     @GetMapping
     public String showChangePasswordPage(ModelMap modelMap) {
@@ -47,7 +47,6 @@ public class ChangePasswordController {
     @ExceptionHandler(ChangePasswordException.class)
     public String handleUserNotFoundException(ChangePasswordException e, RedirectAttributes ra) {
         ra.addFlashAttribute("error", "An error occurred, but it's not your fault. Please, try again later");
-
         return CHANGE_PASSWORD_REDIRECT;
     }
 

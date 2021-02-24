@@ -11,6 +11,7 @@ public class EqualPasswordsValidator implements ConstraintValidator<EqualPasswor
 
     @Override
     public void initialize(EqualPasswords constraintAnnotation) {
+        // Do nothing because EqualPasswords annotation doesn't have any parameters
     }
 
     @Override

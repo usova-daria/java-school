@@ -5,16 +5,28 @@ import com.javaschool.domainlogic.user.profile.validation.annotation.EqualPasswo
 import com.javaschool.domainlogic.user.registration.validation.annotation.ValidPassword;
 import lombok.Data;
 
+/**
+ * @author Daria Usova
+ */
 @Data
 @EqualPasswords
 public class ChangePasswordDto {
 
+    /**
+     * Current password
+     */
     @CorrectPassword
     private String currentPassword;
 
+    /**
+     * New password
+     */
     @ValidPassword
     private String newPassword;
 
+    /**
+     * Password confirmation field
+     */
     private String confirmPassword;
 
 }

@@ -2,18 +2,19 @@ package com.javaschool.domainlogic.user.profile.validation.validator;
 
 import com.javaschool.domainlogic.user.profile.service.api.ChangePasswordService;
 import com.javaschool.domainlogic.user.profile.validation.annotation.CorrectPassword;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+@RequiredArgsConstructor
 public class CorrectPasswordValidator implements ConstraintValidator<CorrectPassword, String> {
 
-    @Autowired
-    private ChangePasswordService changePasswordService;
+    private final ChangePasswordService changePasswordService;
 
     @Override
     public void initialize(CorrectPassword constraintAnnotation) {
+        // Do nothing because CorrectPassword annotation doesn't have any parameters
     }
 
     @Override
