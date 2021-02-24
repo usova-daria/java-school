@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+/**
+ * @author Daria Usova
+ */
 @Mapper(uses = {GenreMapper.class, MusicianMapper.class,
         GenreService.class, MusicianService.class})
 public interface AddRecordMapper {
@@ -30,7 +33,7 @@ public interface AddRecordMapper {
      *
      * @param file file to be converted
      * @return byte array
-     * @throws IOException
+     * @throws IOException the io exception
      */
     default byte[] toBytes(MultipartFile file) throws IOException {
         return file == null ? null : file.getBytes();

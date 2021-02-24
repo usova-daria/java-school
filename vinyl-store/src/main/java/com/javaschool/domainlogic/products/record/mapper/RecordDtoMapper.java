@@ -8,7 +8,6 @@ import com.javaschool.util.ImageCompress;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +22,6 @@ public interface RecordDtoMapper {
         return unitsInStore > 0;
     }
 
-    // TODO: duplication of code -> see ProductDtoMapper
     default String byteArrayToString(byte[] picture) {
         if (picture == null) return null;
         byte[] decodedPicture  = ImageCompress.decompressBytes(picture);

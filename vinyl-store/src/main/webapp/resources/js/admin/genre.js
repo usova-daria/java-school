@@ -9,9 +9,10 @@ var editableTable = new BSTable("genre-table",{
     },
     onBeforeDelete: function(row) {
         var id = $(row).find('td')[0].innerText;
-        deleteGenre(id, row);
+        return deleteGenre(id, row);
     },
-    onDelete: function() { },
+    onDelete: function () {
+    },
     onAdd: function() { },
 });
 editableTable.init();
@@ -25,19 +26,27 @@ function editGenre(id, name, row) {
         type : 'POST',
         contentType : 'application/json; charset = UTF-8,',
         url : 'genre/edit',
-        data : JSON.stringify(genre),
         dataType : 'json',
-        success : function() {
-            changeElementStyle('element-success', row);
+        data : JSON.stringify(genre),
+        statusCode : {
+            200: function () {
+                changeElementStyle('element-success', row);
+            },
+            503: function () {
+                changeElementStyle('element-error', row);
+            },
+            400: function () {
+                changeElementStyle('element-error', row);
+            }
         },
         error : function() {
             changeElementStyle('element-error', row);
         },
-        complete: function(updatedGenre) {
-            var genre = JSON.parse(updatedGenre.responseText);
-            $(row).find('td')[0].innerText = genre.id;
+        complete: function(response) {
+            var updatedGenre = JSON.parse(response.responseText);
+            $(row).find('td')[0].innerText = updatedGenre.id;
             $(row).find('td')[1].innerText = $(row).index() + 1;
-            $(row).find('td')[2].innerText = genre.name;
+            $(row).find('td')[2].innerText = updatedGenre.name;
         }
     });
 }
@@ -46,11 +55,20 @@ function deleteGenre(id, row) {
     $.ajax({
         type : 'POST',
         url : 'genre/delete/' + id,
-        success : function() { },
-        error : function() {
-            changeElementStyle('element-error', row);
-            process.exit(0); // unresolved on purpose
+        statusCode: {
+            200: function () {
+                row.remove();
+                return true;
+            },
+            503: function () {
+                changeElementStyle('element-error', row);
+                return false;
+            },
+            400: function () {
+                $("#genre-error-message").text(response.responseText);
+                $("#genre-not-deleted").click();
+                return false;
+            }
         }
     });
-
 }

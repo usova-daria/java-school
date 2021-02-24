@@ -28,7 +28,6 @@
         <h2>Checkout</h2>
     </div>
 
-    <!--  <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>-->
     <!--/*@thymesVar id="cartDto" type="com.javaschool.domainlogic.order.checkout.dto.CheckoutCart"*/-->
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
@@ -66,7 +65,7 @@
                        th:if="${item.newQuantity != 0 and item.prevQuantity > item.newQuantity}"
                        th:title="${'The number of items has been changed from '
                                     + item.prevQuantity + ' to ' + item.newQuantity}">
-                        <i class="fas fa-exclamation"></i>
+                        <i class="fas fa-exclamation" aria-hidden="true"></i>
                     </a>
 
                     <a href="#" data-toggle="tooltip" data-placement="top"
@@ -74,7 +73,7 @@
                        th:if="${item.newQuantity == 0}"
                        class="not-available"
                        title="Sorry, the item is no longer available">
-                        <i class="fas fa-exclamation"></i>
+                        <i class="fas fa-exclamation" aria-hidden="true"></i>
                     </a>
 
                 </li>
@@ -204,11 +203,6 @@
                            th:errors="*{address.postalCode}">Postal Code Error</p>
                     </div>
                 </div>
-
-                <!--                    <div class="custom-control custom-checkbox">-->
-                <!--                        <input type="checkbox" class="custom-control-input" id="save-info">-->
-                <!--                        <label class="custom-control-label" for="save-info">Save this information for next time</label>-->
-                <!--                    </div>-->
                 <hr class="mb-3">
 
                 <h4 class="mb-3">Delivery options</h4>
@@ -235,15 +229,6 @@
                 <div class="d-block my-3 form-group">
                     <!--/*@thymesVar id="option" type="com.javaschool.entity.order.enumeration.PaymentMethod"*/-->
                     <!--/*@thymesVar id="paymentOptions" type="com.javaschool.entity.order.enumeration.PaymentMethod[]"*/-->
-                    <!--<div class="custom-control custom-radio"
-                         th:each="option : ${T(com.javaschool.entity.order.enumeration.PaymentMethod).values()}">
-                        <input th:id="${option}"
-                               th:field="*{paymentMethod}"
-                               th:value="${option}"
-                               type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" th:for="${option}" th:text="${option.methodName}">Payment
-                            method</label>
-                    </div>-->
 
                     <div class="custom-control custom-radio">
                         <input th:id="DEBIT_CARD"
@@ -276,8 +261,6 @@
                             Card number is required
                         </div>
                     </div>
-                    <!--                    </div>-->
-                    <!--                    <div class="row">-->
                     <div class="col-md-3 mb-3">
                         <label for="cc-expiration">Expiration</label>
                         <input type="text" class="form-control" id="cc-expiration" placeholder="00/00">

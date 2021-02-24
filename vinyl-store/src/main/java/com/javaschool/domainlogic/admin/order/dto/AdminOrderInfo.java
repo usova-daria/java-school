@@ -5,10 +5,12 @@ import com.javaschool.entity.order.enumeration.PaymentMethod;
 import com.javaschool.entity.order.enumeration.PaymentStatus;
 import lombok.Data;
 
-import java.time.LocalDate;
-
+/**
+ * @author Daria Usova
+ */
 @Data
 public class AdminOrderInfo {
+
     /**
      * Order id
      */

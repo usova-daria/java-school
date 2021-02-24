@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author Daria Usova
+ */
 @Data
 public class UpdateOrderStatusDto implements Serializable {
 

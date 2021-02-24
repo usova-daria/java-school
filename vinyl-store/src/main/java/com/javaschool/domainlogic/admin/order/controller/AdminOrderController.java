@@ -1,34 +1,25 @@
 package com.javaschool.domainlogic.admin.order.controller;
 
-import com.javaschool.domainlogic.admin.order.dto.AdminOrderInfo;
 import com.javaschool.domainlogic.admin.order.dto.UpdateOrderStatusDto;
 import com.javaschool.domainlogic.admin.order.service.api.AdminOrderService;
-import com.javaschool.entity.order.enumeration.OrderStatus;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+/**
+ * @author Daria Usova
+ */
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/orders")
 public class AdminOrderController {
 
-    @Autowired
-    private AdminOrderService adminOrderService;
-
-    @ModelAttribute("orders")
-    public List<AdminOrderInfo> adminOrderInfoList() {
-        return adminOrderService.getOrderInfoList();
-    }
-
-    @ModelAttribute("orderStatusList")
-    public OrderStatus[] orderStatusList() {
-        return OrderStatus.values();
-    }
+    private final AdminOrderService adminOrderService;
 
     @GetMapping
-    public String getOrders() {
+    public String getOrders(ModelMap modelMap) {
+        adminOrderService.fillModelMap(modelMap);
         return "/admin/orders";
     }
 

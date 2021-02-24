@@ -1,5 +1,6 @@
 package com.javaschool.dao.impl.product.search;
 
+import com.javaschool.entity.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,7 +18,7 @@ public class ProductSearchQueryCriteriaConsumer implements Consumer<SearchCriter
     private Predicate predicate;
 
     private final CriteriaBuilder builder;
-    private final Root root;
+    private final Root<? extends Product> root;
 
     @Override
     public void accept(SearchCriteria param) {
@@ -34,7 +35,7 @@ public class ProductSearchQueryCriteriaConsumer implements Consumer<SearchCriter
 
             case ":":
                 boolean likeQuery = root.get(param.getKey()).getJavaType() == String.class;
-                predicate = likeQuery ? like(param) : equal(param);
+                predicate = likeQuery ? like(param) : sqlEqual(param);
                 break;
 
             default:
@@ -71,7 +72,7 @@ public class ProductSearchQueryCriteriaConsumer implements Consumer<SearchCriter
         return builder.and(predicate, builder.like(builder.upper(path), value));
     }
 
-    private Predicate equal(SearchCriteria param) {
+    private Predicate sqlEqual(SearchCriteria param) {
         String key = param.getKey();
         Object value = param.getValue();
 

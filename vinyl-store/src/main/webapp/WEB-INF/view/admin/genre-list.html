@@ -27,17 +27,18 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="col-11">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1">
-                    <h1 class="h2">Genres</h1>
+                    <h1 class="h2" id="caption">Genres</h1>
                 </div>
-                <table class="table table-striped" id="genre-table">
+                <table class="table table-striped" id="genre-table" aria-describedby="caption">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
+                        <th id="id">Id</th>
+                        <th id="name">Name</th>
                     </tr>
                     </thead>
+                    <!--/*@thymesVar id="genres" type="java.util.List<com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto>"*/-->
                     <tr th:each="genre, iter : ${genres}">
-                        <td th:text="${genre.id}" hidden="true"> NA</td>
+                        <td th:text="${genre.id}" hidden> NA</td>
                         <td th:text="${iter.index + 1}"> NA</td>
                         <td th:text="${genre.name}">NA</td>
                     </tr>
@@ -47,6 +48,31 @@
                 <button id="new-row-button" class="btn save-button float-right">
                     New Genre
                 </button>
+
+
+                <button id="genre-not-deleted" hidden type="button" class="btn btn-primary"
+                        data-toggle="modal" data-target="#exampleModal">
+                </button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Fail</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="genre-error-message"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </main>

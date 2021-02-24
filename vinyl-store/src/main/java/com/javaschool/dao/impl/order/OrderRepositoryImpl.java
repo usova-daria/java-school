@@ -17,6 +17,9 @@ import java.util.Optional;
 @Repository
 public class OrderRepositoryImpl extends AbstractRepositoryImpl<Order, Long> implements OrderRepository {
 
+    private static final String ORDER_GRAPH = "order-graph";
+    private static final String HINT_FETCH_GRAPH = "javax.persistence.fetchgraph";
+
     public OrderRepositoryImpl() {
         super(Order.class);
     }
@@ -32,10 +35,10 @@ public class OrderRepositoryImpl extends AbstractRepositoryImpl<Order, Long> imp
 
     @Override
     public List<Order> findAll() {
-        EntityGraph entityGraph = entityManager.getEntityGraph("order-graph");
+        EntityGraph entityGraph = entityManager.getEntityGraph(ORDER_GRAPH);
 
         return entityManager.createQuery("SELECT o from Order o", Order.class)
-                .setHint("javax.persistence.fetchgraph", entityGraph)
+                .setHint(HINT_FETCH_GRAPH, entityGraph)
                 .getResultList();
     }
 
@@ -43,9 +46,9 @@ public class OrderRepositoryImpl extends AbstractRepositoryImpl<Order, Long> imp
     public Optional<Order> findByIdWithEntityGraph(Long id) {
         if (id == null) return Optional.empty();
 
-        EntityGraph entityGraph = entityManager.getEntityGraph("order-graph");
+        EntityGraph entityGraph = entityManager.getEntityGraph(ORDER_GRAPH);
         Map<String, Object> properties = new HashMap<>();
-        properties.put("javax.persistence.fetchgraph", entityGraph);
+        properties.put(HINT_FETCH_GRAPH, entityGraph);
 
         Order order = entityManager.find(Order.class, id, properties);
         return Optional.ofNullable(order);
@@ -53,16 +56,16 @@ public class OrderRepositoryImpl extends AbstractRepositoryImpl<Order, Long> imp
 
     @Override
     public List<Order> findAllSortedByIdDesc() {
-        EntityGraph entityGraph = entityManager.getEntityGraph("order-graph");
+        EntityGraph<?> entityGraph = entityManager.getEntityGraph(ORDER_GRAPH);
 
         return entityManager.createQuery("SELECT o from Order o order by o.id DESC", Order.class)
-                .setHint("javax.persistence.fetchgraph", entityGraph)
+                .setHint(HINT_FETCH_GRAPH, entityGraph)
                 .getResultList();
     }
 
     @Override
     public List<UserOrderPreviewInfo> findUserOrderPreviewInfoByUserId(Long id) {
-        return entityManager.createNamedQuery("Order.findUserOrderPreviewInfoByUserId")
+        return entityManager.createNamedQuery("Order.findUserOrderPreviewInfoByUserId", UserOrderPreviewInfo.class)
                 .setParameter("user_id", id)
                 .getResultList();
     }

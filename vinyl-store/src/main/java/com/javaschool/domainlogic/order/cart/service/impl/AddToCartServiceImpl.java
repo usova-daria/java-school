@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AddToCartServiceImpl extends CartServiceImpl implements AddToCartService {
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseEntity<NumberOfItemsResponse> addItemToCart(Long productId, Cart cart) {
         return addItemToCart(productId, 1, cart);
     }

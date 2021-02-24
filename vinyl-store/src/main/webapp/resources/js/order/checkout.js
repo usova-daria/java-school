@@ -20,7 +20,7 @@ $("#country").change(function () {
 function updateTownList() {
     var id = $("#country").val();
     if (id === "-1") {
-        $town = $("#town")
+        var $town = $("#town")
         $town.empty();
         $town.append("<option value='-1'>Choose town</option>")
         $town.selectpicker('refresh');
@@ -37,15 +37,15 @@ function getTownByCountryId(id) {
         url: "/vinyl-store/towns/" + id,
         dataType: 'json',
         success: function (towns) {
-            $town = $("#town")
+            var $town = $("#town")
             $town.html('')
             var len = towns.length;
 
             for (var i = 0; i < len; i++) {
-                var id = towns[i]['id'];
+                var townId = towns[i]['id'];
                 var name = towns[i]['name'];
 
-                $town.append("<option value='" + id + "'>" + name + "</option>");
+                $town.append("<option value='" + townId + "'>" + name + "</option>");
             }
 
             $town.selectpicker('refresh');
@@ -85,18 +85,18 @@ function getTownByCountryIdWithSelected(id, selectedId) {
         url: "/vinyl-store/towns/" + id,
         dataType: 'json',
         success: function (towns) {
-            $town = $("#town")
+            var $town = $("#town")
             $town.html('')
             var len = towns.length;
 
             for (var i = 0; i < len; i++) {
-                var id = towns[i]['id'];
+                var townId = towns[i]['id'];
                 var name = towns[i]['name'];
 
-                if (id == selectedId) {
-                    $town.append("<option selected value='" + id + "'>" + name + "</option>");
+                if (townId == selectedId) {
+                    $town.append("<option selected value='" + townId + "'>" + name + "</option>");
                 } else {
-                    $town.append("<option value='" + id + "'>" + name + "</option>");
+                    $town.append("<option value='" + townId + "'>" + name + "</option>");
                 }
             }
 

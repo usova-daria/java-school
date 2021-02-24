@@ -9,4 +9,6 @@ public interface GenreRepository extends AbstractRepository<Genre, Integer> {
 
     List<Genre> findAllOrderById();
 
+    long findNumberOfRecordByGenreId(Integer id);
+
 }

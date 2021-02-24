@@ -23,7 +23,7 @@
 
 <div id="container" class="container">
 
-    <h1> Cart </h1>
+    <h1 id="caption"> Cart </h1>
 
     <div th:if="${#lists.isEmpty(cartDto.items)}">
         <p>
@@ -41,14 +41,14 @@
                 </button>
             </div>
 
-            <table class="table" id="cart-table">
+            <table class="table" id="cart-table" aria-describedby="caption">
                 <thead>
                 <tr>
-                    <th hidden="true">Id</th>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th></th>
+                    <th id="id" hidden>Id</th>
+                    <th id="item-col">Item</th>
+                    <th id="quantity-col">Quantity</th>
+                    <th id="price-col">Price</th>
+                    <th id="delete-col"></th>
                 </tr>
                 </thead>
                 <tr th:each="item : ${cartDto.items}">
@@ -56,7 +56,7 @@
                     <td>
                         <img th:src="${'data:image/jpeg;charset=utf-8;base64,'+ item.product.picture}"
                              th:onerror="'this.src=\'' + @{/img/image-not-found.jpg} + '\';'"
-                             style="width: 75px; height: 75px;"
+                             style="width: 75px; height: 75px;" alt="product image"
                              class="rounded"/>
 
                         <span th:text="${item.product.name}" class="align-top ml-2">Product name</span>
@@ -67,7 +67,7 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button class="btn minus">
-                                        <i class="fas fa-minus"></i>
+                                        <i class="fas fa-minus" aria-hidden="true" ></i>
                                     </button>
                                 </div>
                                 <input class="quantity form-control" th:id="${'quantity-' + item.product.id}" min="1"
@@ -75,7 +75,7 @@
                                        th:value="${item.newQuantity}" type="number" style="text-align: center">
                                 <div class="input-group-append">
                                     <button class="btn plus">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus" aria-hidden="true" ></i>
                                     </button>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                th:if="${item.prevQuantity != item.newQuantity}"
                                th:title="${'The number of items has been changed from '
                                     + item.prevQuantity + ' to ' + item.newQuantity}">
-                                <i class="fas fa-exclamation"></i>
+                                <i class="fas fa-exclamation" aria-hidden="true" ></i>
                             </a>
                         </div>
                     </td>
@@ -95,7 +95,7 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button class="btn minus" disabled>
-                                        <i class="fas fa-minus"></i>
+                                        <i class="fas fa-minus" aria-hidden="true"></i>
                                     </button>
                                 </div>
                                 <input class="quantity form-control" th:id="${'quantity-' + item.product.id}" min="1"
@@ -103,7 +103,7 @@
                                        th:value="${item.newQuantity}" type="number" style="text-align: center">
                                 <div class="input-group-append">
                                     <button class="btn plus" disabled>
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus" aria-hidden="true" ></i>
                                     </button>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                             <a href="#" data-toggle="tooltip" data-placement="top"
                                class="ml-3" style="color: #731c1c"
                                title="Sorry, the item is no longer available">
-                                <i class="fas fa-exclamation"></i>
+                                <i class="fas fa-exclamation" aria-hidden="true" ></i>
                             </a>
 
                         </div>
@@ -122,11 +122,11 @@
                     <td>
                         <a th:if="${item.newQuantity > 0}" class="remove-from-cart"
                            th:href="@{/cart/remove/{id}(id=${item.product.id})}">
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-times" aria-hidden="true" ></i>
                         </a>
 
                         <a th:if="${item.newQuantity == 0}" class="not-available" href="#">
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-times" aria-hidden="true" ></i>
                         </a>
                     </td>
 
@@ -149,52 +149,6 @@
                 <a th:href="@{/login-page}">
                     <button type="button" class="float-right btn btn-lg btn-dark checkout-button">Checkout</button>
                 </a>
-                <!--<button type="button" class="float-right btn btn-lg btn-dark checkout-button"
-                        data-toggle="modal" data-target="#sign-in">
-                    Checkout
-                </button>-->
-
-                <!--<div class="modal fade" id="sign-in" tabindex="-1"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Sign in</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form th:action="@{/authenticate-user}" method="post">
-                                    <div th:if="${param.error}">
-                                        <p class="error">Invalid email or password.</p>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input id="inputEmail" type="email" name="email" class="form-control" required autofocus/>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                                        <div class="col-sm-10">
-                                            <input id="inputPassword" type="password" name="password" class="form-control" required/>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-dark">Sign in</button>
-                                    </div>
-
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>-->
-
             </div>
         </div>
 

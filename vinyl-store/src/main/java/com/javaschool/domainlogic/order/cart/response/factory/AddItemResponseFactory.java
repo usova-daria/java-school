@@ -11,6 +11,8 @@ public class AddItemResponseFactory {
     private static final String OK = "The item is added to the cart! Number of items in the cart - ";
     private static final String ILLEGAL_ARGUMENT = "Illegal arguments.";
 
+    private AddItemResponseFactory() {}
+
     public static ResponseEntity<NumberOfItemsResponse> getIllegalArgumentResponse() {
         NumberOfItemsResponse response = new NumberOfItemsResponse(ILLEGAL_ARGUMENT, 0, null);
         return ResponseEntity.badRequest().body(response);

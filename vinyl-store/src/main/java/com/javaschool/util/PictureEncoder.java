@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 public class PictureEncoder {
 
+    private PictureEncoder() {}
+
     public static String toString(byte[] picture) {
         if (picture == null) return null;
         byte[] decodedPicture  = ImageCompress.decompressBytes(picture);

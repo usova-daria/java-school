@@ -29,19 +29,18 @@
     <div class="row">
         <div th:replace="fragments/profile-navbar :: #profileMenu"></div>
 
-        <!--        <main role="main" class="col-md-9 mr-md-auto col-lg-10 ml-5">-->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 mr-4">
-            <h2 class="mb-3"> My orders </h2>
+            <h2 class="mb-3" id="caption"> My orders </h2>
 
-            <table class="table col-9">
+            <table class="table col-9" aria-describedby="caption">
                 <thead>
                 <tr>
-                    <th> #</th>
-                    <th> Order date</th>
-                    <th> Items</th>
-                    <th> Total</th>
-                    <th> Status</th>
-                    <th> Actions</th>
+                    <th id="count"> #</th>
+                    <th id="order-date"> Order date</th>
+                    <th id="items"> Items</th>
+                    <th id="total"> Total</th>
+                    <th id="status"> Status</th>
+                    <th id="actions"> Actions</th>
                 </tr>
                 </thead>
 
@@ -79,15 +78,14 @@
                     </td>
 
                     <td th:text="${order.orderInfo.total}">NA</td>
-                    <!--                    <td th:text="${order.orderInfo.orderStatus}">NA</td>-->
                     <td>
                         <div th:switch="${order.orderInfo.orderStatus}">
                             <i th:case="${T(com.javaschool.entity.order.enumeration.OrderStatus).AWAITING_SHIPMENT}"
-                               class="fas fa-circle fa-xs order-status-icon awaiting"></i>
+                               class="fas fa-circle fa-xs order-status-icon awaiting" aria-hidden="true"></i>
                             <i th:case="${T(com.javaschool.entity.order.enumeration.OrderStatus).SHIPPED}"
-                               class="fas fa-circle fa-xs order-status-icon shipped"></i>
+                               class="fas fa-circle fa-xs order-status-icon shipped" aria-hidden="true"></i>
                             <i th:case="${T(com.javaschool.entity.order.enumeration.OrderStatus).DELIVERED}"
-                               class="fas fa-circle fa-xs order-status-icon delivered"></i>
+                               class="fas fa-circle fa-xs order-status-icon delivered" aria-hidden="true"></i>
                             <span class="ml-1" th:text="${order.orderInfo.orderStatus}"
                                   style="line-height: 30px;"></span>
                         </div>
@@ -95,7 +93,7 @@
                     </td>
                     <td>
                         <a class="view-order-link" th:href="@{/profile/orders/{id}(id=${order.orderInfo.orderId})}">
-                            <i class="far fa-eye"> View order </i>
+                            <i class="far fa-eye" aria-hidden="true"> View order </i>
                         </a>
                     </td>
                 </tr>

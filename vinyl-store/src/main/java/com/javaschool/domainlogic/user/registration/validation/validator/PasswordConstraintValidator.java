@@ -6,11 +6,13 @@ import org.passay.*;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
+import java.util.List;
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
     @Override
     public void initialize(ValidPassword validPassword) {
+        // Do nothing because ValidPassword annotation doesn't have any parameters
     }
 
     @Override
@@ -27,10 +29,15 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
             return true;
         }
 
-        context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate(
-                String.join("\n", validator.getMessages(result))
-        ).addConstraintViolation();
+        setUpContext(context, validator.getMessages(result));
         return false;
     }
+
+    public void setUpContext(ConstraintValidatorContext context, List<String> messages) {
+        context.disableDefaultConstraintViolation();
+        context.buildConstraintViolationWithTemplate(
+                String.join("\n", messages)
+        ).addConstraintViolation();
+    }
+
 }

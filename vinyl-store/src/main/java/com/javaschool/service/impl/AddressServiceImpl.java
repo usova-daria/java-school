@@ -4,7 +4,7 @@ import com.javaschool.dao.api.address.AddressRepository;
 import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
 import com.javaschool.domainlogic.order.checkout.exception.AddressMappingException;
 import com.javaschool.domainlogic.order.checkout.mapper.api.AddressMapper;
-import com.javaschool.domainlogic.user.profile.exception.AddressNotSavedException;
+import com.javaschool.domainlogic.user.profile.exception.address.AddressNotSavedException;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.user.User;
 import com.javaschool.exception.AddressNotFoundException;

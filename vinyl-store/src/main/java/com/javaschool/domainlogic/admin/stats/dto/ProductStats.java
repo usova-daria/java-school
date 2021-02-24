@@ -6,6 +6,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author Daria Usova
+ */
 @Data
 @AllArgsConstructor
 public class ProductStats implements Serializable {

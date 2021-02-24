@@ -6,12 +6,30 @@ import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
 
 import java.util.List;
 
+/**
+ * @author Daria Usova
+ */
 public interface AddRecordService {
 
-    Long saveRecord(AddRecordDto recordDto);
+    /**
+     * Save record.
+     *
+     * @param recordDto the record dto
+     */
+    void saveRecord(AddRecordDto recordDto);
 
+    /**
+     * Gets genres.
+     *
+     * @return the genres
+     */
     List<GenreDto> getGenres();
 
+    /**
+     * Gets musicians.
+     *
+     * @return the musicians
+     */
     List<MusicianDto> getMusicians();
 
 }

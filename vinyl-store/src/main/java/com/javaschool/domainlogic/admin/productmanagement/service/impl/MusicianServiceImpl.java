@@ -5,26 +5,36 @@ import com.javaschool.domainlogic.admin.productmanagement.dto.MusicianDto;
 import com.javaschool.domainlogic.admin.productmanagement.mapper.MusicianMapper;
 import com.javaschool.domainlogic.admin.productmanagement.service.api.MusicianService;
 import com.javaschool.entity.product.Musician;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
+import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 @Service
+@RequiredArgsConstructor
 public class MusicianServiceImpl implements MusicianService {
 
-    @Autowired
-    private MusicianMapper musicianMapper;
-
-    @Autowired
-    private MusicianRepository musicianRepository;
+    private final MusicianMapper musicianMapper;
+    private final MusicianRepository musicianRepository;
 
     @Override
     @Transactional(readOnly = true)
     public List<MusicianDto> getMusicianDtoList() {
-        List<Musician> musicianList = musicianRepository.findAll();
-        return musicianMapper.toDtoList(musicianList);
+        List<MusicianDto> musicianDtoList = new ArrayList<>();
+
+        try {
+            List<Musician> musicianList = musicianRepository.findAll();
+            musicianDtoList = musicianMapper.toDtoList(musicianList);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while getting musicians", e);
+        }
+
+        return musicianDtoList;
     }
 
     @Override

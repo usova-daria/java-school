@@ -5,13 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+/**
+ * @author Daria Usova
+ */
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class GenreDto implements Serializable {
+public class GenreDto {
 
     /**
      * Genre id
@@ -21,6 +25,8 @@ public class GenreDto implements Serializable {
     /**
      * Genre name
      */
+    @NotNull(message = "{genre.name.null}")
+    @Size(min = 1, max = 45, message = "{genre.name.length}")
     private String name;
 
 }

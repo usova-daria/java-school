@@ -1,6 +1,5 @@
 package com.javaschool.service.api;
 
-import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.user.User;
 import org.springframework.security.core.userdetails.UserDetailsService;

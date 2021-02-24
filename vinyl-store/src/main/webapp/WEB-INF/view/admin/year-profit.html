@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 
 <div id="year-profit" class="col-11">
     <div>
@@ -8,13 +9,16 @@
         </figure>
     </div>
 
-    <table class="table table-striped">
+    <p hidden id="caption"></p>
+    <table class="table table-striped" aria-describedby="caption">
         <thead>
         <tr>
-            <th>MONTH</th>
-            <th>PROFIT</th>
+            <th id="month">MONTH</th>
+            <th id="profit">PROFIT</th>
         </tr>
         </thead>
+
+        <!--/*@thymesVar id="salesStats" type="com.javaschool.domainlogic.admin.stats.dto.SalesStats"*/-->
         <tr th:each="profit : ${salesStats.yearProfit}">
             <td th:text="${profit.key}">NA</td>
             <td th:text="${profit.value}">NA</td>
@@ -69,5 +73,3 @@
         });
     </script>
 </div>
-
-</html>

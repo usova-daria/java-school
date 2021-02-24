@@ -4,49 +4,75 @@ import com.javaschool.dao.api.product.GenreRepository;
 import com.javaschool.domainlogic.admin.productmanagement.dto.GenreDto;
 import com.javaschool.domainlogic.admin.productmanagement.exception.GenreNotFound;
 import com.javaschool.domainlogic.admin.productmanagement.mapper.GenreMapper;
-import com.javaschool.entity.product.Genre;
 import com.javaschool.domainlogic.admin.productmanagement.service.api.GenreService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.javaschool.entity.product.Genre;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.javaschool.domainlogic.admin.productmanagement.response.UpdateOrSaveGenreResponseFactory.*;
+import static com.javaschool.domainlogic.admin.productmanagement.response.DeleteGenreResponseFactory.*;
+
+@Log4j
 @Service
+@RequiredArgsConstructor
 public class GenreServiceImpl implements GenreService {
 
-    @Autowired
-    private GenreMapper genreMapper;
-
-    @Autowired
-    private GenreRepository genreRepository;
+    private final GenreMapper genreMapper;
+    private final GenreRepository genreRepository;
 
     @Override
     @Transactional(readOnly = true)
     public List<GenreDto> getGenreDtoList() {
-        List<Genre> genreList = genreRepository.findAll();
-        return genreMapper.toDtoList(genreList);
-    }
+        List<GenreDto> genreDtoList = new ArrayList<>();
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<GenreDto> getGenreDtoListOrderById() {
-        List<Genre> genreList = genreRepository.findAllOrderById();
-        return genreMapper.toDtoList(genreList);
+        try {
+            List<Genre> genreList = genreRepository.findAllOrderById();
+            genreDtoList = genreMapper.toDtoList(genreList);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while getting genre list", e);
+        }
+
+        return genreDtoList;
     }
 
     @Override
     @Transactional
-    public GenreDto saveGenre(GenreDto genreDto) {
+    public ResponseEntity<GenreDto> saveGenre(GenreDto genreDto) {
         Genre genre = genreMapper.toEntity(genreDto);
-        genre = genreRepository.save(genre);
-        return genreMapper.toDto(genre);
+
+        try {
+            genre = genreRepository.save(genre);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while saving a genre", e);
+            return getFailedToSaveOrUpdate(genreDto);
+        }
+
+        return getGenreIsSavedOrUpdated( genreMapper.toDto(genre) );
     }
 
     @Override
     @Transactional
-    public GenreDto updateGenre(GenreDto genreDto) {
+    public ResponseEntity<GenreDto> updateGenre(GenreDto genreDto) {
+        try {
+           GenreDto updated = tryToUpdateGenre(genreDto);
+           return getGenreIsSavedOrUpdated(updated);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while updating genre with id=" + genreDto.getId(), e);
+            return getFailedToSaveOrUpdate(genreDto);
+        } catch (GenreNotFound e) {
+            return getGenreNotFound();
+        }
+    }
+
+    private GenreDto tryToUpdateGenre(GenreDto genreDto) {
         Genre genre = findById(genreDto.getId());
 
         genre.setName(genreDto.getName());
@@ -62,16 +88,35 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     @Transactional
-    public GenreDto saveOrUpdate(GenreDto genreDto) {
-        Optional<Genre> genreOptional = genreRepository.findById(genreDto.getId());
-        return genreOptional.map(o -> updateGenre(genreDto))
-                     .orElseGet(() -> saveGenre(genreDto));
+    public ResponseEntity<GenreDto> saveOrUpdate(GenreDto genreDto) {
+        try {
+            Optional<Genre> genreOptional = genreRepository.findById(genreDto.getId());
+            return genreOptional.map(o -> updateGenre(genreDto))
+                    .orElseGet(() -> saveGenre(genreDto));
+        } catch (PersistenceException e) {
+            log.error("An error occurred while getting a genre by id=" + genreDto.getId(), e);
+            return getFailedToSaveOrUpdate(genreDto);
+        }
     }
 
     @Override
     @Transactional
-    public void deleteById(Integer id) {
-        genreRepository.deleteById(id);
+    public ResponseEntity<String> deleteById(Integer id) {
+        try {
+            return tryToDeleteById(id);
+        } catch (PersistenceException e) {
+            log.error("An error occurred while deleting a genre with id=" + id, e);
+            return getGenreIsNotDeleted();
+        }
+    }
+
+    private ResponseEntity<String> tryToDeleteById(Integer id) {
+        long numberOfRecords = genreRepository.findNumberOfRecordByGenreId(id);
+        if (numberOfRecords > 0) {
+            return getImpossibleToDeleteGenre(numberOfRecords);
+        }
+
+        return genreRepository.deleteById(id) ? getGenreIsDeleted() : getGenreIsNotDeleted();
     }
 
 }

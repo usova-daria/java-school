@@ -2,19 +2,17 @@ package com.javaschool.domainlogic.order.checkout.mapper.impl;
 
 import com.javaschool.dao.api.address.CountryRepository;
 import com.javaschool.dao.api.address.TownRepository;
+import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
 import com.javaschool.domainlogic.order.checkout.exception.AddressMappingException;
 import com.javaschool.domainlogic.order.checkout.mapper.api.AddressMapper;
-import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.address.Country;
 import com.javaschool.entity.address.Town;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AddressMapperImpl implements AddressMapper {
 
     private final TownRepository townRepository;

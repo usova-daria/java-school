@@ -1,13 +1,13 @@
 package com.javaschool.domainlogic.user.profile.service.impl;
 
 import com.javaschool.domainlogic.user.profile.dto.password.ChangePasswordDto;
-import com.javaschool.domainlogic.user.profile.exception.ChangePasswordException;
+import com.javaschool.domainlogic.user.profile.exception.password.ChangePasswordException;
 import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
 import com.javaschool.domainlogic.user.profile.service.api.ChangePasswordService;
 import com.javaschool.entity.user.User;
 import com.javaschool.service.api.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +16,11 @@ import javax.persistence.PersistenceException;
 
 @Log4j
 @Service
+@RequiredArgsConstructor
 public class ChangePasswordServiceImpl implements ChangePasswordService {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public boolean isCorrectPassword(String password) {
@@ -49,7 +47,8 @@ public class ChangePasswordServiceImpl implements ChangePasswordService {
     private User getCurrentUser() {
         try {
             return userService.getCurrentUser();
-        } catch (UserNotFoundException e) {
+        } catch (PersistenceException | UserNotFoundException e) {
+            log.error("An error occurred while getting current user", e);
             throw new ChangePasswordException("User not found", e);
         }
     }

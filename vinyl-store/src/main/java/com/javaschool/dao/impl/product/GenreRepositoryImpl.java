@@ -21,4 +21,11 @@ public class GenreRepositoryImpl extends AbstractRepositoryImpl<Genre, Integer> 
         return findQuery.getResultList();
     }
 
+    @Override
+    public long findNumberOfRecordByGenreId(Integer id) {
+        return entityManager.createNamedQuery("Genre.findNumberOfRecords", Long.class)
+                .setParameter("genre_id", id)
+                .getSingleResult();
+    }
+
 }

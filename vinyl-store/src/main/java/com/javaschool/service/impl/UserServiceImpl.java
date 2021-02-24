@@ -1,7 +1,6 @@
 package com.javaschool.service.impl;
 
 import com.javaschool.dao.api.user.UserRepository;
-import com.javaschool.domainlogic.order.checkout.dto.AddressDto;
 import com.javaschool.domainlogic.user.profile.exception.UserNotFoundException;
 import com.javaschool.entity.address.Address;
 import com.javaschool.entity.user.Role;
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid username or password."));
 

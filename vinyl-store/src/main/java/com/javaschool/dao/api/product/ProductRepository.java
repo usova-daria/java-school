@@ -29,7 +29,7 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
 
     List<OrderItemProjection> findOrderItemProjectionByOrderId(Long id);
 
-    List<ProductProjection> findProductByParams(List<SearchCriteria> params, Class category,
+    List<ProductProjection> findProductByParams(List<SearchCriteria> params, Class<? extends Product> category,
                                                 String orderBy, boolean desc);
 
     float findMaxPrice();

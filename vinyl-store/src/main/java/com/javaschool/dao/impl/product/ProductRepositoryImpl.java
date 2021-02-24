@@ -18,6 +18,9 @@ import java.util.Optional;
 @Repository
 public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long> implements ProductRepository {
 
+    private static final String ID_LIST = "idList";
+    private static final String ID = "id";
+
     public ProductRepositoryImpl() {
         super(Product.class);
     }
@@ -59,7 +62,7 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
         ProductProjection product;
         try {
             product = entityManager.createNamedQuery("Product.findById", ProductProjection.class)
-                    .setParameter("id", id)
+                    .setParameter(ID, id)
                     .getSingleResult();
         } catch (NoResultException e) {
             product = null;
@@ -71,21 +74,21 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     @Override
     public List<ProductProjection> findProductProjectionsByIdList(List<Long> idList) {
        return entityManager.createNamedQuery("Product.findByIdList", ProductProjection.class)
-                .setParameter("idList", idList)
+                .setParameter(ID_LIST, idList)
                 .getResultList();
     }
 
     @Override
     public int findProductUnitsInStoreById(Long id) {
         return entityManager.createNamedQuery("Product.findUnitsInStoreById", Integer.class)
-                .setParameter("id", id)
+                .setParameter(ID, id)
                 .getSingleResult();
     }
 
     @Override
     public List<ProductUnitsInStoreProjection> findUnitsInStoreByIdList(List<Long> idList) {
         return entityManager.createNamedQuery("Product.findUnitsInStoreByIdList", ProductUnitsInStoreProjection.class)
-                .setParameter("idList", idList)
+                .setParameter(ID_LIST, idList)
                 .getResultList();
     }
 
@@ -96,13 +99,13 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
                 .getResultList();
     }
 
-    public List<ProductProjection> findProductByParams(List<SearchCriteria> params, Class category,
+    public List<ProductProjection> findProductByParams(List<SearchCriteria> params, Class<? extends Product> category,
                                                        String orderBy, boolean desc) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ProductProjection> query = builder.createQuery(ProductProjection.class);
-        Root root = query.from(category);
+        Root<? extends Product> root = query.from(category);
         query.select(builder.construct(ProductProjection.class,
-                root.get("id"), root.get("price"),
+                root.get(ID), root.get("price"),
                 root.get("name"), root.get("picture"),
                 root.get("unitsInStore")));
 
@@ -135,21 +138,21 @@ public class ProductRepositoryImpl extends AbstractRepositoryImpl<Product, Long>
     @Override
     public List<ProductPriceProjection> findPriceByProductId(List<Long> idList) {
         return entityManager.createNamedQuery("Product.findPrice", ProductPriceProjection.class)
-                .setParameter("idList", idList)
+                .setParameter(ID_LIST, idList)
                 .getResultList();
     }
 
     @Override
     public boolean findDeletedById(Long id) {
         return entityManager.createNamedQuery("Product.findDeletedById", Boolean.class)
-                .setParameter("id", id)
+                .setParameter(ID, id)
                 .getSingleResult();
     }
 
     @Override
     public List<ProductNamePriceProjection> findProductNameAndPriceByIdList(List<Long> idList) {
         return entityManager.createNamedQuery("Product.findNameAndPriceByIdList", ProductNamePriceProjection.class)
-                .setParameter("idList", idList)
+                .setParameter(ID_LIST, idList)
                 .getResultList();
     }
 }

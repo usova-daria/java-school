@@ -15,6 +15,7 @@
     </modules>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.13</junit.version>
         <spring.version>5.2.4.RELEASE</spring.version>
         <javax.servlet.version>4.0.1</javax.servlet.version>
@@ -43,6 +44,8 @@
         <primefaces.version>10.0.0-RC1</primefaces.version>
         <jquery.version>3.5.1</jquery.version>
         <highcharts.version>8.2.2</highcharts.version>
+        <sonar.version>3.8.0.2131</sonar.version>
+        <mockito.version>3.7.7</mockito.version>
     </properties>
 
     <dependencyManagement>
@@ -153,7 +156,7 @@
             </dependency>
 
             <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator-annotation-processor</artifactId>
                 <version>${annotation.processor}</version>
             </dependency>
@@ -298,6 +301,14 @@
                 <version>${highcharts.version}</version>
             </dependency>
 
+            <!-- Mockito -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -308,6 +319,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar.version}</version>
                 </plugin>
 
                 <!-- @Autowired annotation for @Mapper classes -->
