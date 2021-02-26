@@ -18,8 +18,8 @@ public class BirthdayValidator implements ConstraintValidator<ValidBirthday, Bir
     @Override
     public boolean isValid(Birthday birthday, ConstraintValidatorContext constraintValidatorContext) {
         try {
-            LocalDate.of(birthday.getYear(), birthday.getMonth(), birthday.getDay());
-            return true;
+            LocalDate date = LocalDate.of(birthday.getYear(), birthday.getMonth(), birthday.getDay());
+            return date.isBefore(LocalDate.now());
         } catch (DateTimeException e) {
             return false;
         }

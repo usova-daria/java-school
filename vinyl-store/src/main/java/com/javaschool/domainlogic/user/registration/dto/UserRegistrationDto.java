@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Daria Usova
  */
@@ -22,18 +24,21 @@ public class UserRegistrationDto {
     /**
      * User first name
      */
+    @NotNull(message = "{first.name.null}")
     @Length(min = 1, max = 45, message = "{first.name.length}")
     private String firstName;
 
     /**
      * User last name
      */
+    @NotNull(message = "{last.name.null}")
     @Length(min = 1, max = 45, message = "{last.name.length}")
     private String lastName;
 
     /**
      * User email
      */
+    @NotNull(message = "{email.required}")
     @Email(message = "{email.invalid}")
     @UserEmailUnique
     private String email;

@@ -64,7 +64,7 @@ function deleteGenre(id, row) {
                 changeElementStyle('element-error', row);
                 return false;
             },
-            400: function () {
+            400: function (response) {
                 $("#genre-error-message").text(response.responseText);
                 $("#genre-not-deleted").click();
                 return false;

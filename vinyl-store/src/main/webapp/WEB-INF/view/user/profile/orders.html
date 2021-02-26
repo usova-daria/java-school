@@ -31,8 +31,11 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 mr-4">
             <h2 class="mb-3" id="caption"> My orders </h2>
+            <div th:if="${orders.isEmpty()}" class="border-top pt-2">
+                No orders found
+            </div>
 
-            <table class="table col-9" aria-describedby="caption">
+            <table class="table col-9" aria-describedby="caption" th:unless="${orders.isEmpty()}">
                 <thead>
                 <tr>
                     <th id="count"> #</th>

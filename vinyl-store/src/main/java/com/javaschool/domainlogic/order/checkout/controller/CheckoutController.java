@@ -46,7 +46,7 @@ public class CheckoutController {
         }
 
         placeOrderService.placeOrder(checkoutFormDto, cart);
-        cart = new Cart();
+        placeOrderService.sendMessageToQueue();
         return new ModelAndView("redirect:/checkout/success");
     }
 
