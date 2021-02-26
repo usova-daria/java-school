@@ -31,7 +31,7 @@ import java.time.LocalDate;
         @NamedQuery(name = "Product.findByDeletedFalseAndSortByCreated",
                 query = "SELECT new com.javaschool.dao.impl.product.projection.ProductProjection" +
                         "(p.id, p.price, p.name, p.picture, p.unitsInStore)" +
-                        " from Product p where p.deleted = false order by p.created DESC"),
+                        " from Product p where p.deleted = false order by p.id DESC"),
 
         @NamedQuery(name = "Product.findById",
                 query = "SELECT new com.javaschool.dao.impl.product.projection.ProductProjection" +

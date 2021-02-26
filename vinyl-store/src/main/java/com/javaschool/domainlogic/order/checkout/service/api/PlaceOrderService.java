@@ -16,4 +16,9 @@ public interface PlaceOrderService {
      */
     void placeOrder(CheckoutFormDto checkoutFormDto, Cart cart);
 
+    /**
+     * Sends message to queue.
+     */
+    void sendMessageToQueue();
+
 }

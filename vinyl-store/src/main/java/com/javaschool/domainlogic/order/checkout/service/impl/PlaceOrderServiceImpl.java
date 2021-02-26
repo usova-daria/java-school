@@ -42,7 +42,6 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         }
 
         updateCartService.emptyCart(cart);
-        sendMessageToQueue();
     }
 
     @Transactional
@@ -51,7 +50,8 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         paymentService.payForTheOrder(order);
     }
 
-    private void sendMessageToQueue() {
+    @Override
+    public void sendMessageToQueue() {
         try {
             messageSender.sendMessage();
         } catch (JmsException e) {

@@ -57,4 +57,10 @@ public class CheckoutFormDto {
     @NotNull(message = "{delivery.method.required}")
     private Integer deliveryMethodId;
 
+    /**
+     * Credit or debit card dto
+     */
+    @Valid
+    private CardDto cardDto;
+
 }

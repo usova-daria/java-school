@@ -68,6 +68,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ModelAndView checkoutErrorPage(Cart cart, CheckoutFormDto checkoutFormDto) {
         ModelAndView modelAndView = new ModelAndView("/order/checkout");
 
@@ -75,7 +76,9 @@ public class CheckoutServiceImpl implements CheckoutService {
         List<DeliveryDto> deliveryOptions = deliveryService.getDeliveryOptions();
         CheckoutCart checkoutCart = checkoutCartService.getCheckoutCart(cart);
         List<TownDto> towns = townService.getTownByCountry(checkoutFormDto.getAddress().getCountryId());
+        List<UserAddressDto> addresses = getUserAddresses();
 
+        modelAndView.addObject("addresses", addresses);
         modelAndView.addObject("countries", countries);
         modelAndView.addObject("towns", towns);
         modelAndView.addObject("deliveryOptions", deliveryOptions);

@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
     @Inject
     private BestProductsJsonParser bestProductsParser;
 
-    private final String GET_BEST_PRODUCTS_URI = "http://localhost:8080/vinyl-store/api/product-stats";
+    private static final String GET_BEST_PRODUCTS_URI = "http://localhost:8080/vinyl-store/api/product-stats";
 
     public BestProducts getBestProducts() {
         Client client = ClientBuilder.newClient();

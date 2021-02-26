@@ -48,7 +48,7 @@ import java.util.List;
                 "inner join customer_has_order cho on o.order_id = cho.order_id " +
                 "inner join payment_details pd on o.payment_details_id = pd.payment_details_id " +
                 "WHERE cho.user_id = :user_id " +
-                "order by created desc",
+                "order by id desc",
         resultSetMapping = "OrderInfoPreviewInfo"
 )
 @SqlResultSetMapping(

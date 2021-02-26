@@ -47,7 +47,7 @@ public class SaveOrderServiceImpl implements SaveOrderService {
         // update number of units in store
         for (OrderItem item : orderItems) {
             Product product = item.getProduct();
-            int newUnitsInStore = product.getUnitsInStore() - 1;
+            int newUnitsInStore = product.getUnitsInStore() - item.getAmount();
             product.setUnitsInStore(newUnitsInStore);
 
             productRepository.updateWithLock(product);

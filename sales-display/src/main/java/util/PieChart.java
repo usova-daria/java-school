@@ -64,7 +64,7 @@ public class PieChart {
         double otherValue = 0;
         String otherLabel = "Other";
 
-        for (int i = maxNumberOfSections; i < sortedValues.size(); i++) {
+        for (int i = maxNumberOfSections - 1; i < sortedValues.size(); i++) {
             otherValue = otherValue + sortedValues.get(i).doubleValue();
         }
 
