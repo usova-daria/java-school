@@ -56,7 +56,6 @@ public class LuhnAlgorithm {
         String trimmedString = number.trim();
         int checkDigit = generateCheckDigit(trimmedString
                 .substring(0, trimmedString.length() - 1));
-        System.out.println(checkDigit);
 
         return checkDigit == Integer.parseInt("" +
                 trimmedString.charAt(trimmedString.length() - 1));
